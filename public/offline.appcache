@@ -1,0 +1,10 @@
+CACHE MANIFEST
+# version 3
+
+CACHE:
+/bootstrap/css/bootstrap.css
+/bootstrap/img/glyphicons-halflings.png
+/vendor/angular.js
+/vendor/underscore.js
+/pickers.js
+/everything.json
