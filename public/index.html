@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" ng-app="pickers">
+<head>
+  <meta charset="utf-8">
+  <title>Pickers</title>
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.css"/>
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap-responsive.css"/>
+</head>
+<body>
+
+  <div class="navbar navbar-static-top">
+    <div class="navbar-inner">
+      <a class="brand" href="#">Pickers</a>
+      <ul class="nav">
+        <li><a href="#/songs">Songs</a></li>
+        <li><a href="#/artists">Artists</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div ng-view></div>
+
+
+  <script type="text/ng-template" id="home.html">
+    <ul class="nav nav-tabs nav-stacked">
+      <li><a href="#/songs">Songs</a></li>
+      <li><a href="#/artists">Artists</a></li>
+    </ul>
+  </script>
+
+  <script type="text/ng-template" id="artistIndex.html">
+    <ul class="nav nav-tabs nav-stacked">
+      <li ng-repeat="artist in artists">
+        <a href="#/artists/{{artist.id}}">{{artist.name}}</a>
+      </li>
+    </ul>
+  </script>
+
+  <script type="text/ng-template" id="artistDetail.html">
+    <h2>Some artist</h2>
+    <pre>{{artist}}</pre>
+  </script>
+
+  <script type="text/ng-template" id="songIndex.html">
+    <div class="well">
+      <input type="text" class="search-query" ng-model="search" placeholder="Search">
+    </div>
+    <ul class="nav nav-tabs nav-stacked">
+      <li ng-repeat="song in songs | filter:search">
+        <a href="#/songs/{{song.id}}">{{song.name}}</a>
+      </li>
+    </ul>
+  </script>
+
+  <script type="text/ng-template" id="songDetail.html">
+    <h2>{{song.name}}</h2>
+    <pre>{{song}}</pre>
+  </script>
+
+
+  <script src="/vendor/angular.js"></script>
+  <script src="/pickers.js"></script>
+</body>
+</html>
+
