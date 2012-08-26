@@ -17,6 +17,9 @@
       background: white;
       width: 1000px;
       border: 0;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      line-height: 20px;
     }
   </style>
 </head>
@@ -55,7 +58,11 @@
   <script type="text/ng-template" id="songIndex.html">
     <ul class="nav nav-tabs nav-stacked">
       <li ng-repeat="song in songs | filter:search">
-        <a href="#/songs/{{song._id}}"><i class="icon-music"></i> {{song.name}}</a>
+      <a href="#/songs/{{song._id}}">
+        <!--<i class="icon-music"></i>-->
+        <strong>{{song.name}}</strong><br />
+        {{song.artist}}
+      </a>
       </li>
     </ul>
   </script>
@@ -79,7 +86,7 @@
 
   <script type="text/ng-template" id="songDetail.html">
     <h2>{{song.name}}</h2>
-    <h3><a href="#/artists/{{song.artistId}}">{{song.artistName}}</a></h3>
+    <h3><a href="#/artists/{{song.artistId}}">{{song.artist}}</a></h3>
     <pre>{{song.lyrics}}</pre>
   </script>
 
