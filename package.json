@@ -1,12 +1,7 @@
 {
-  "name": "pickers",
+  "name": "pocketpicker",
   "version": "0.0.0",
-  "description": "ERROR: No README.md file found!",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": "",
   "author": "Steve Perkins",
   "license": "BSD",
   "dependencies": {
@@ -14,5 +9,12 @@
     "spider": "~0.1.0",
     "mongoose": "~3.0.3",
     "async": "~0.1.22"
+  },
+  "subdomain": "pocketpicker",
+  "scripts": {
+    "start": "server.js"
+  },
+  "engines": {
+    "node": "0.8.x"
   }
 }
