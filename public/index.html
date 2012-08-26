@@ -35,7 +35,7 @@
   <script type="text/ng-template" id="artistIndex.html">
     <ul class="nav nav-tabs nav-stacked">
       <li ng-repeat="artist in artists | filter:search">
-        <a href="#/artists/{{artist.id}}"><i class="icon-user"></i> {{artist.name}}</a>
+        <a href="#/artists/{{artist._id}}"><i class="icon-user"></i> {{artist.name}}</a>
       </li>
     </ul>
   </script>
@@ -43,7 +43,7 @@
   <script type="text/ng-template" id="songIndex.html">
     <ul class="nav nav-tabs nav-stacked">
       <li ng-repeat="song in songs | filter:search">
-        <a href="#/songs/{{song.id}}"><i class="icon-music"></i> {{song.name}}</a>
+        <a href="#/songs/{{song._id}}"><i class="icon-music"></i> {{song.name}}</a>
       </li>
     </ul>
   </script>
@@ -59,7 +59,7 @@
     <h3>Songs</h3>
     <ul class="nav nav-tabs nav-stacked">
       <li ng-repeat="song in songs | filter:search">
-        <a href="#/songs/{{song.id}}">{{song.name}}</a>
+        <a href="#/songs/{{song._id}}">{{song.name}}</a>
       </li>
     </ul>
   </script>
@@ -74,7 +74,6 @@
 
   <script src="/vendor/angular.js"></script>
   <script src="/vendor/underscore.js"></script>
-  <script src="/vendor/faker.js"></script>
   <script src="/pickers.js"></script>
 </body>
 </html>
