@@ -1,5 +1,5 @@
-/*globals angular:true*/
-'use strict';
+/*globals angular:true Faker:true*/
+//'use strict';
 
 
 var PICKERS = angular.module('pickers', []).
@@ -12,35 +12,60 @@ var PICKERS = angular.module('pickers', []).
     $routeProvider.otherwise({redirectTo: '/home'});
   }]);
 
-PICKERS.controller('songIndexCtrl', ['$scope', function($scope) {
-  $scope.songs = [];
-  for(var i = 0; i < 100; i++) {
-    $scope.songs.push({
+
+
+PICKERS.controller('songIndexCtrl', ['$scope', 'fixtures', function($scope, fixtures) {
+  $scope.songs = fixtures.songs;
+}]);
+
+PICKERS.controller('songDetailCtrl', ['$scope', '$routeParams', 'fixtures', function($scope, $routeParams, fixtures) {
+  $scope.song = fixtures.songs[$routeParams.songId];
+}]);
+
+PICKERS.controller('artistIndexCtrl', ['$scope', 'fixtures', function($scope, fixtures) {
+  $scope.artists = fixtures.artists;
+}]);
+
+PICKERS.controller('artistDetailCtrl', ['$scope', '$routeParams', 'fixtures', function($scope, $routeParams, fixtures) {
+  $scope.artist = fixtures.artists[$routeParams.artistId];
+  $scope.songs = _.select(fixtures.songs, function(song) {
+    return song.artistId == $routeParams.artistId;
+  });
+}]);
+
+
+
+PICKERS.factory('fixtures', function() {
+
+  var artists = [];
+  var songs = [];
+
+  for(var i = 0; i < 20; i++) {
+    artist = {
       id: i,
-      name: 'Song ' + i
-    });
+      name: Faker.Name.findName()
+    };
+    artists.push(artist);
+
+    for(var j = 0; j < 5; j++) {
+      songs.push({
+        id: j,
+        artistId: artist.id,
+        artistName: artist.name,
+        name: Faker.Company.companyName(),
+        lyrics: Faker.Lorem.paragraphs(3)
+      });
+    }
+
   }
-}]);
 
-PICKERS.controller('songDetailCtrl', ['$scope', function($scope) {
-  $scope.song = {
-    name: 'Song detail time'
+
+
+  return {
+    artists: artists,
+    songs: songs
   };
-}]);
 
-PICKERS.controller('artistIndexCtrl', ['$scope', function($scope) {
-  $scope.artists = [];
-  for(var i = 0; i < 100; i++) {
-    $scope.artists.push({
-      id: i,
-      name: 'Artist ' + i
-    });
-  }
-}]);
+});
 
-PICKERS.controller('artistDetailCtrl', ['$scope', '$routeParams', function($scope, $routeParams) {
-  $scope.artist = {
-    id: $routeParams.artistId,
-    name: "bill monroe"
-  };
-}]);
+PICKERS.run(['fixtures', function() {}]);
