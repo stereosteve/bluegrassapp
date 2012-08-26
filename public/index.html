@@ -15,50 +15,60 @@
   <style>
     pre {
       background: white;
-      width: 1000px;
+      overflow: auto;
       border: 0;
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 14px;
       line-height: 20px;
     }
+    .cell {
+      padding: 15px;
+    }
   </style>
 </head>
 <body>
 
-  <div class="navbar-fixed-top">
-    <div class="navbar-inner">
-      <div class="navbar-search">
-        <a class="btn" href="#/home"><i class="icon-home"></i></a>
-        <input type="text" class="search-query" ng-model="search" placeholder="Search">
+  <script type="text/ng-template" id="searchbar.html">
+    <div class="navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="navbar-search">
+          <a class="btn" href="#/home"><i class="icon-home"></i></a>
+          <input type="text" class="search-query" ng-model="search" placeholder="Search">
+        </div>
       </div>
     </div>
-  </div>
+    <div style="margin-top: 40px;"></div>
+  </script>
 
-  <div style="margin-top: 50px;" ng-view></div>
+  <div ng-view></div>
 
 
   <script type="text/ng-template" id="home.html">
-    <ul class="nav nav-tabs nav-stacked">
-      <li><a href="#/songs">Songs</a></li>
-      <li><a href="#/artists">Artists</a></li>
-    </ul>
+    <div class="cell">
+      <a class="btn btn-block btn-success" href="#/songs">Songs</a>
+    </div>
+    <div class="cell">
+      <a class="btn btn-block btn-primary" href="#/artists">Artists</a>
+    </div>
   </script>
 
 
   <!--index-->
 
   <script type="text/ng-template" id="artistIndex.html">
+    <div ng-include="'searchbar.html'"></div>
     <ul class="nav nav-tabs nav-stacked">
       <li ng-repeat="artist in artists | filter:search">
-        <a href="#/artists/{{artist._id}}"><i class="icon-user"></i> {{artist.name}}</a>
+        <a href="#/artists/{{artist.id}}"><i class="icon-user"></i> {{artist.name}}</a>
       </li>
     </ul>
   </script>
 
   <script type="text/ng-template" id="songIndex.html">
+    <div ng-include="'searchbar.html'"></div>
     <ul class="nav nav-tabs nav-stacked">
       <li ng-repeat="song in songs | filter:search">
-      <a href="#/songs/{{song._id}}">
+      <a href="#/songs/{{song.id}}">
         <!--<i class="icon-music"></i>-->
         <strong>{{song.name}}</strong><br />
         {{song.artist}}
@@ -78,16 +88,21 @@
     <h3>Songs</h3>
     <ul class="nav nav-tabs nav-stacked">
       <li ng-repeat="song in songs | filter:search">
-        <a href="#/songs/{{song._id}}">{{song.name}}</a>
+        <a href="#/songs/{{song.id}}">{{song.name}}</a>
       </li>
     </ul>
   </script>
 
 
   <script type="text/ng-template" id="songDetail.html">
-    <h2>{{song.name}}</h2>
-    <h3><a href="#/artists/{{song.artistId}}">{{song.artist}}</a></h3>
-    <pre>{{song.lyrics}}</pre>
+    <div class="cell">
+      <h5>{{song.name}}</h5>
+      <h6><a href="#/artists/{{song.artistId}}">{{song.artist}}</a></h6>
+      <div ng-bind-html-unsafe="song.htmlLyrics"></div>
+      <hr/>
+      <a href="#/songs">Back to Songs</a>
+      <!--<pre>{{song.lyrics}}</pre>-->
+    </div>
   </script>
 
 

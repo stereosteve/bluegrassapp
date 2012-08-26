@@ -18,6 +18,7 @@ var PICKERS = angular.module('pickers', []).
 PICKERS.controller('frameCtrl', ['$scope','db',
                          function($scope,  db) {
 
+  $scope.showSearchbar = true;
   db.success(function(data) {
     angular.extend($scope, data);
   });
@@ -32,9 +33,12 @@ PICKERS.controller('songDetailCtrl', ['$scope','$routeParams','db',
 
   db.success(function(data) {
     $scope.song = _.find(data.songs, function(song) {
-      return song._id == $routeParams.songId;
+      return song.id == $routeParams.songId;
     });
   });
+
+  $scope.goBack = function() {
+  };
 
 }]);
 
@@ -44,7 +48,7 @@ PICKERS.controller('artistDetailCtrl', ['$scope','$routeParams','db',
   db.success(function(data) {
 
     $scope.artist = _.find(data.artists, function(artist) {
-      return artist._id == $routeParams.artistId;
+      return artist.id == $routeParams.artistId;
     });
     $scope.songs = _.select(data.songs, function(song) {
       return song.artist == $scope.artist.name;
