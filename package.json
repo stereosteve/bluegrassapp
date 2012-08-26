@@ -1,6 +1,6 @@
 {
   "name": "pocketpicker",
-  "version": "0.0.0",
+  "version": "0.0.0-14",
   "main": "index.js",
   "author": "Steve Perkins",
   "license": "BSD",
@@ -12,7 +12,8 @@
   },
   "subdomain": "pocketpicker",
   "scripts": {
-    "start": "server.js"
+    "start": "server.js",
+    "etl": "node lib/etl.js"
   },
   "engines": {
     "node": "0.8.x"
