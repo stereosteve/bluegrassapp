@@ -9,19 +9,40 @@ var PICKERS = angular.module('pickers', []).
     $routeProvider.when('/songs/:songId', {templateUrl: 'songDetail.html', controller: 'songDetailCtrl'});
     $routeProvider.when('/artists', {templateUrl: 'artistIndex.html', controller: 'frameCtrl'});
     $routeProvider.when('/artists/:artistId', {templateUrl: 'artistDetail.html', controller: 'artistDetailCtrl'});
+    $routeProvider.when('/playlists', {templateUrl: 'playlistIndex.html', controller: 'playlistCtrl'});
+    $routeProvider.when('/playlists/:id', {templateUrl: 'playlistDetail.html'});
     $routeProvider.otherwise({redirectTo: '/home'});
   }]);
 
+
+
+PICKERS.controller('playlistCtrl', ['$scope','db',
+                            function($scope,  db) {
+
+  var pl = localStorage.getItem('pickerPlaylists');
+  if (pl)
+    $scope.playlists = JSON.parse(pl);
+  else
+    $scope.playlists = [];
+
+  $scope.createPlaylist = function() {
+    $scope.newPlaylist.id = $scope.playlists.length;
+    $scope.playlists.push($scope.newPlaylist);
+    $scope.newPlaylist = undefined;
+    localStorage.setItem('pickerPlaylists', JSON.stringify($scope.playlists));
+  };
+
+}]);
 
 
 
 PICKERS.controller('frameCtrl', ['$scope','db',
                          function($scope,  db) {
 
-  $scope.showSearchbar = true;
   db.success(function(data) {
     angular.extend($scope, data);
   });
+
 
 }]);
 
@@ -36,9 +57,6 @@ PICKERS.controller('songDetailCtrl', ['$scope','$routeParams','db',
       return song.id == $routeParams.songId;
     });
   });
-
-  $scope.goBack = function() {
-  };
 
 }]);
 
@@ -64,4 +82,3 @@ PICKERS.factory('db', ['$http', function($http) {
 
 
 
-//PICKERS.run(['fixtures', function() {}]);
