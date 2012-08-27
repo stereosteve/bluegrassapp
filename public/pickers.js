@@ -68,35 +68,72 @@ PICKERS.controller('pickerCtrl', ['$scope','$route','db','playlists',
   $scope.$on('$routeChangeSuccess', onRouteChange);
 
 
-  // re-filter song list (pagination, sort, search, etc)
-  $scope.$watch('songs', function(songs) {
-    if (!songs || songs.length < 1) return;
-    $scope.songList = $scope.songs;
+
+
+  // idea for a scroll top fix... not sure if it is a good one.
+  $scope.$on('$routeChangeStart', function(ev, next, current) {
+    if (current) current.$route.scrollY = window.scrollY;
+    //console.log(next, current);
+  });
+  $scope.$on('$routeChangeStart', function(ev, route) {
+    console.log(route.scrollY);
+    //setTimeout(function() {
+      //window.scrollTo(0,route.scrollY);
+    //}, 50);
   });
 
-  $scope.$watch('searchTerm', function(searchTerm) {
-    if (!searchTerm) return;
-    searchTerm = searchTerm.toLowerCase();
-    console.log("searchTermm", searchTerm);
-    $scope.songList = _.select($scope.songs, function(song) {
-      var searchIn = '' + song.name + song.artist;
-      return searchIn.toLowerCase().indexOf(searchTerm) > -1;
-    });
-  });
 
-  // compute pagination
-  $scope.setLetter = function(letter) {
-    $scope.currentLetter = letter;
-    $scope.songList = _.select($scope.songs, function(song) {
-      return song.name.charAt(0).toLowerCase() == letter;
-    });
 
-    var charCode = letter.charCodeAt(0);
-    if (letter != 'a') $scope.prevLetter = String.fromCharCode(charCode - 1);
-    if (letter != 'z') $scope.nextLetter = String.fromCharCode(charCode + 1);
-
+  // query stuffs
+  $scope.songQuery = {
+    limit: 50,
+    offset: 0,
   };
-  $scope.setLetter('a');
+
+  function refresh() {
+    var songs = $scope.songs;
+    if (!songs || songs.length < 1) return;
+
+    var query = $scope.songQuery;
+
+    // firstLetter
+    if (query.firstLetter) {
+      query.firstLetter = query.firstLetter.toLowerCase();
+      songs = _.select(songs, function(song) {
+        return song.name.charAt(0).toLowerCase() == query.firstLetter;
+      });
+    }
+
+    // searchTerm
+    if (query.searchTerm) {
+      query.searchTerm = query.searchTerm.toLowerCase();
+      songs = _.select(songs, function(song) {
+        var searchIn = [song.name, song.artist].join(' ');
+        return searchIn.toLowerCase().indexOf(query.searchTerm) > -1;
+      });
+    }
+
+    // limit + offset
+    if (songs.length < query.offset) query.offset = Math.max(0, songs.length - query.limit);
+    $scope.songList = songs.slice(query.offset, query.offset + query.limit);
+  }
+
+
+
+  // re-filter song list (pagination, sort, search, etc)
+  $scope.$watch('songs', refresh);
+  $scope.$watch('songQuery.searchTerm', refresh);
+  $scope.$watch('songQuery.offset', refresh);
+
+  $scope.nextPage = function() {
+    $scope.songQuery.offset += $scope.songQuery.limit;
+    window.scroll(0,0);
+  };
+  $scope.prevPage = function() {
+    $scope.songQuery.offset -= $scope.songQuery.limit;
+    window.scroll(0,0);
+  };
+
 
 }]);
 

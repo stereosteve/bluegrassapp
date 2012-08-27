@@ -34,23 +34,25 @@
 
   <!--search bar-->
   <div ng-show="showSearch">
-    <div class="navbar-fixed-top">
-      <div class="navbar-inner">
-        <form class="navbar-search pull-left">
-          <a class="btn" ng-show="prevLetter" ng-click="setLetter(prevLetter)">&larr; {{prevLetter}}</a>
-          <input type="text" class="input-medium search-query" ng-model="searchTerm" placeholder="Search">
-          <a class="btn" ng-show="nextLetter" ng-click="setLetter(nextLetter)">{{nextLetter}} &rarr;</a>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner" style="padding: 0 10px;">
+        <form class="navbar-form">
+          <input type="text" class="input-medium" ng-model="songQuery.searchTerm" placeholder="Search">
+          <div class="btn-groupp pull-right">
+            <button class="btn" ng-show="songQuery.offset > 0" ng-click="prevPage()">&laquo;</button>
+            <button class="btn" ng-click="nextPage()">&raquo;</button>
+          </div>
         </form>
       </div>
     </div>
-    <div style="margin-top: 60px;"></div>
+    <div style="margin-top: 40px;"></div>
   </div>
 
   <!--ng-view-->
   <div ng-view></div>
 
   <!--bottom nav-->
-  <div style="margin-top: 60px;"></div>
+  <div style="margin-top: 40px;"></div>
   <div class="navbar navbar-fixed-bottom navbar-inverse">
     <div class="navbar-inner">
       <ul class="nav">
