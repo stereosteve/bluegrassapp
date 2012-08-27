@@ -16,7 +16,10 @@ npm run etl
 
 Start server:
 ```
-npm start
+node server.js
 ```
 
+## TODO
 
+* pickerCtrl should have one getSongs method which will apply all the query criteria (including limit + offset)
+* ability to add song to playlist

@@ -28,11 +28,29 @@
     }
   </style>
 </head>
-<body>
+<body class="viewport" ng-controller="pickerCtrl">
 
-  <div class="viewport" ng-view></div>
 
-  <div style="margin-top: 40px;"></div>
+
+  <!--search bar-->
+  <div ng-show="showSearch">
+    <div class="navbar-fixed-top">
+      <div class="navbar-inner">
+        <form class="navbar-search pull-left">
+          <a class="btn" ng-show="prevLetter" ng-click="setLetter(prevLetter)">&larr; {{prevLetter}}</a>
+          <input type="text" class="input-medium search-query" ng-model="searchTerm" placeholder="Search">
+          <a class="btn" ng-show="nextLetter" ng-click="setLetter(nextLetter)">{{nextLetter}} &rarr;</a>
+        </form>
+      </div>
+    </div>
+    <div style="margin-top: 60px;"></div>
+  </div>
+
+  <!--ng-view-->
+  <div ng-view></div>
+
+  <!--bottom nav-->
+  <div style="margin-top: 60px;"></div>
   <div class="navbar navbar-fixed-bottom navbar-inverse">
     <div class="navbar-inner">
       <ul class="nav">
@@ -44,6 +62,13 @@
     </div>
   </div>
 
+
+
+
+
+
+
+  <!--home-->
   <script type="text/ng-template" id="home.html">
     <div class="cell">
       <a class="btn btn-block" href="#/songs">Songs</a>
@@ -53,71 +78,12 @@
   </script>
 
 
-  <!--index-->
-
-  <script type="text/ng-template" id="artistIndex.html">
-
-    <div class="navbar-fixed-top">
-      <div class="navbar-inner">
-        <form class="navbar-search pull-left">
-          <input type="text" class="search-query" ng-model="searchTerm" placeholder="Search">
-        </form>
-      </div>
-    </div>
-    <div style="margin-top: 40px;"></div>
-
-    <ul class="nav nav-tabs nav-stacked">
-      <li ng-repeat="artist in artists | filter:searchTerm">
-      <a href="#/artists/{{artist.id}}"><i class="icon-user"></i> {{artist.name}} {{searchTerm}}</a>
-      </li>
-    </ul>
-
-  </script>
-
-
-
-  <!--playlist index-->
-
-  <script type="text/ng-template" id="playlistIndex.html">
-    <h5>Playlists</h5>
-
-    <ul class="nav nav-tabs nav-stacked">
-      <li ng-repeat="pl in playlists">
-      <a href="#/playlists/{{pl.id}}">
-        <strong>{{pl.name}}</strong>
-      </a>
-      </li>
-    </ul>
-
-    <form class="well" ng-show="newPlaylist" ng-submit="createPlaylist()">
-      <h6>New Playlist</h6>
-      <input class="input-xxlarge" required type="text" ng-model="newPlaylist.name" />
-    </form>
-    <button class="btn btn-block" ng-click="newPlaylist = {}">New Playlist</button>
-
-  </script>
-
-  <!--playlist detail-->
-  <script type="text/ng-template" id="playlistDetail.html">
-    <h5>Playlist Detail</h5>
-  </script>
 
 
   <!--song index-->
-
   <script type="text/ng-template" id="songIndex.html">
-
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="navbar-search">
-          <input type="text" class="search-query" ng-model="searchTerm" placeholder="Search">
-        </div>
-      </div>
-    </div>
-    <div style="margin-top: 40px;"></div>
-
     <ul class="nav nav-tabs nav-stacked">
-      <li ng-repeat="song in songs | filter:searchTerm">
+      <li ng-repeat="song in songList">
       <a href="#/songs/{{song.id}}">
         <!--<i class="icon-music"></i>-->
         <strong>{{song.name}}</strong><br />
@@ -125,13 +91,46 @@
       </a>
       </li>
     </ul>
+  </script>
 
+  <!--song detail-->
+  <script type="text/ng-template" id="songDetail.html">
+    <div class="cell">
+      <h5>{{song.name}}</h5>
+      <h6><a href="#/artists/{{song.artistId}}">{{song.artist}}</a></h6>
+      <div ng-bind-html-unsafe="song.htmlLyrics"></div>
+      <hr />
+      <div ng-show="playlistPicker">
+        <p>Add to playlists</p>
+        <div ng-repeat="playlist in playlists">
+          <label class="checkbox">
+            <input type="checkbox"> {{playlist.name}}
+          </label>
+        </div>
+        <a>New Playlist</a>
 
+        <hr />
+      </div>
+      <a class="btn btn-block" ng-click="playlistPicker = true"><i class="icon-list"></i> Add to playlist</a>
+    </div>
   </script>
 
 
-  <!--artist detail-->
 
+
+
+
+
+  <!--artist index-->
+  <script type="text/ng-template" id="artistIndex.html">
+    <ul class="nav nav-tabs nav-stacked">
+      <li ng-repeat="artist in artists | limitTo: 20">
+      <a href="#/artists/{{artist.id}}"><i class="icon-user"></i> {{artist.name}} {{searchTerm}}</a>
+      </li>
+    </ul>
+  </script>
+
+  <!--artist detail-->
   <script type="text/ng-template" id="artistDetail.html">
     <h5>{{artist.name}}</h5>
     <ul class="nav nav-tabs nav-stacked">
@@ -139,35 +138,34 @@
         <a href="#/songs/{{song.id}}">{{song.name}}</a>
       </li>
     </ul>
-
-    <div style="margin-top: 40px;"></div>
-    <div class="navbar navbar-fixed-bottom">
-      <div class="navbar-inner">
-        <div class="navbar-search">
-          <a class="btn" href="#/artists"><i class="icon-user"></i></a>
-          <a class="btn" href="#/songs"><i class="icon-music"></i></a>
-        </div>
-      </div>
-    </div>
   </script>
 
 
-  <!--song detail-->
 
-  <script type="text/ng-template" id="songDetail.html">
+  <!--playlist index-->
+  <script type="text/ng-template" id="playlistIndex.html">
     <div class="cell">
-      <h5>{{song.name}}</h5>
-      <h6><a href="#/artists/{{song.artistId}}">{{song.artist}}</a></h6>
-      <div ng-bind-html-unsafe="song.htmlLyrics"></div>
-
-      <hr />
-      <a class="btn btn-block" ng-click="addToPlaylist(song)"><i class="icon-list"></i> Add to playlist</a>
-
+      <h5>Playlists</h5>
+      <ul class="nav nav-tabs nav-stacked">
+        <li ng-repeat="pl in playlists">
+        <a href="#/playlists/{{pl.id}}">
+          <strong>{{pl.name}}</strong>
+        </a>
+        </li>
+      </ul>
+      <form class="form-inline" ng-show="newPlaylist" ng-submit="createPlaylist()">
+        <input class="input-medium" required type="text" ng-model="newPlaylist.name" />
+        <button class="btn btn-success">ok</button>
+      </form>
+      <button class="btn btn-block" ng-click="newPlaylist = {}">New Playlist</button>
     </div>
   </script>
 
-
-
+  <!--playlist detail-->
+  <script type="text/ng-template" id="playlistDetail.html">
+    <h5>Playlist Detail</h5>
+    <p>PL songs here</p>
+  </script>
 
 
 
