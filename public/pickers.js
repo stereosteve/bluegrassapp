@@ -68,22 +68,6 @@ PICKERS.controller('pickerCtrl', ['$scope','$route','db','playlists',
   $scope.$on('$routeChangeSuccess', onRouteChange);
 
 
-
-
-  // idea for a scroll top fix... not sure if it is a good one.
-  $scope.$on('$routeChangeStart', function(ev, next, current) {
-    if (current) current.$route.scrollY = window.scrollY;
-    //console.log(next, current);
-  });
-  $scope.$on('$routeChangeStart', function(ev, route) {
-    console.log(route.scrollY);
-    //setTimeout(function() {
-      //window.scrollTo(0,route.scrollY);
-    //}, 50);
-  });
-
-
-
   // query stuffs
   $scope.songQuery = {
     limit: 50,
