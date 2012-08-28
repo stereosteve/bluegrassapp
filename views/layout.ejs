@@ -26,10 +26,10 @@
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner" style="padding: 0 10px;">
         <form class="navbar-form">
-          <input type="text" class="input-medium" ng-model="songQuery.searchTerm" placeholder="Search">
+          <input type="text" class="input-medium" ng-model="searchTerm" placeholder="Search">
           <div class="btn-groupp pull-right">
-            <button class="btn" ng-show="songQuery.offset > 0" ng-click="prevPage()">&laquo;</button>
-            <button class="btn" ng-click="nextPage()">&raquo;</button>
+            <button class="btn" ng-show="letter != 'a'" ng-click="prevPage()">&laquo;</button>
+            <button class="btn" ng-show="letter != 'z'" ng-click="nextPage()">&raquo;</button>
           </div>
         </form>
       </div>

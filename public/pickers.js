@@ -51,8 +51,8 @@ PICKERS.factory('playlists', function() {
 //
 // Controllers
 //
-PICKERS.controller('pickerCtrl', ['$scope','$route','db','playlists',
-                          function($scope,  $route,  db,  playlists) {
+PICKERS.controller('pickerCtrl', ['$scope','$routeParams','db','playlists',
+                          function($scope,  $routeParams,  db,  playlists) {
   // load data
   db.success(function(data) {
     angular.extend($scope, data);
@@ -68,57 +68,21 @@ PICKERS.controller('pickerCtrl', ['$scope','$route','db','playlists',
   };
   $scope.$on('$routeChangeSuccess', onRouteChange);
 
-
-  // query stuffs
-  $scope.songQuery = {
-    limit: 50,
-    offset: 0,
+  $scope.letter = $routeParams.letter || 'a';
+  $scope.firstLetter = function(obj) {
+    if ($scope.searchTerm) return true;
+    return obj.name.charAt(0).toLowerCase() == $scope.letter;
   };
-
-  function refresh() {
-    var songs = $scope.songs;
-    if (!songs || songs.length < 1) return;
-
-    var query = $scope.songQuery;
-
-    // firstLetter
-    if (query.firstLetter) {
-      query.firstLetter = query.firstLetter.toLowerCase();
-      songs = _.select(songs, function(song) {
-        return song.name.charAt(0).toLowerCase() == query.firstLetter;
-      });
-    }
-
-    // searchTerm
-    if (query.searchTerm) {
-      query.searchTerm = query.searchTerm.toLowerCase();
-      songs = _.select(songs, function(song) {
-        var searchIn = [song.name, song.artist].join(' ');
-        return searchIn.toLowerCase().indexOf(query.searchTerm) > -1;
-      });
-    }
-
-    // limit + offset
-    if (songs.length < query.offset) query.offset = Math.max(0, songs.length - query.limit);
-    $scope.songList = songs.slice(query.offset, query.offset + query.limit);
-  }
-
-
-
-  // re-filter song list (pagination, sort, search, etc)
-  $scope.$watch('songs', refresh);
-  $scope.$watch('songQuery.searchTerm', refresh);
-  $scope.$watch('songQuery.offset', refresh);
 
   $scope.nextPage = function() {
-    $scope.songQuery.offset += $scope.songQuery.limit;
-    window.scroll(0,0);
-  };
-  $scope.prevPage = function() {
-    $scope.songQuery.offset -= $scope.songQuery.limit;
-    window.scroll(0,0);
+    $scope.letter = String.fromCharCode($scope.letter.charCodeAt(0) + 1);
+    window.scrollTo(0,0);
   };
 
+  $scope.prevPage = function() {
+    $scope.letter = String.fromCharCode($scope.letter.charCodeAt(0) - 1);
+    window.scrollTo(0,0);
+  };
 
 }]);
 

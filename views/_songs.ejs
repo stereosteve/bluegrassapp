@@ -1,12 +1,8 @@
 <%- startview('songs/index') %>
 
   <ul class="nav nav-tabs nav-stacked">
-    <li ng-repeat="song in songList">
-    <a href="#/songs/{{song.id}}">
-      <!--<i class="icon-music"></i>-->
-      <strong>{{song.name}}</strong><br />
-      {{song.artist}}
-    </a>
+    <li ng-repeat="song in songs | orderBy: name | filter: searchTerm | filter: firstLetter">
+    <a href="#/songs/{{song.id}}"> <strong>{{song.name}}</strong> <br /> {{song.artist}} </a>
     </li>
   </ul>
 
