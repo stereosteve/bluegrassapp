@@ -10,7 +10,7 @@ var PICKERS = angular.module('pickers', []).
     $routeProvider.when('/home', {templateUrl: 'home.html'});
 
     $routeProvider.when('/songs', {templateUrl: 'songs/index.html', showSearch: true});
-    $routeProvider.when('/songs/:songId', {templateUrl: 'songs/show.html', controller: 'songDetailCtrl'});
+    $routeProvider.when('/songs/:songId', {templateUrl: 'songs/show.html', controller: 'songDetailCtrl', noChrome: true});
 
     $routeProvider.when('/artists', {templateUrl: 'artists/index.html', showSearch: true});
     $routeProvider.when('/artists/:artistId', {templateUrl: 'artists/show.html', controller: 'artistDetailCtrl'});
@@ -64,6 +64,7 @@ PICKERS.controller('pickerCtrl', ['$scope','$route','db','playlists',
   // listen to route change
   var onRouteChange = function(ev, route) {
     $scope.showSearch = route.showSearch;
+    $scope.noChrome = route.noChrome;
   };
   $scope.$on('$routeChangeSuccess', onRouteChange);
 
