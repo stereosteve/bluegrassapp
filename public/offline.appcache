@@ -4,6 +4,7 @@ CACHE MANIFEST
 CACHE:
 /bootstrap/css/bootstrap.css
 /bootstrap/img/glyphicons-halflings.png
+/bootstrap/img/glyphicons-halflings-white.png
 /vendor/angular.js
 /vendor/underscore.js
 /pickers.js

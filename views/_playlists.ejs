@@ -4,7 +4,10 @@
 
     <ul class="nav nav-tabs nav-stacked">
       <li ng-repeat="pl in playlists">
-        <a href="#/playlists/{{pl.id}}"><strong>{{pl.name}}</strong></a>
+        <a href="#/playlists/{{pl.id}}">
+          <strong>{{pl.name}}</strong>
+          <span ng-show="pl.songs.length" class="pull-right">{{pl.songs.length}}</span>
+        </a>
       </li>
     </ul>
 
@@ -18,8 +21,16 @@
 
 
 <%- startview('playlists/show') %>
-    <h5>Playlist Detail</h5>
-    <p>PL songs here</p>
+    <div class="cell">
+      <h5>{{playlist.name}}</h5>
+
+      <ul class="nav nav-tabs nav-stacked">
+        <li ng-repeat="song in playlist.songs">
+        <a href="#/songs/{{song.id}}"> <strong>{{song.name}}</strong> <br /> {{song.artist}} </a>
+        </li>
+      </ul>
+
+    </div>
 <%- endview %>
 
 

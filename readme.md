@@ -21,17 +21,10 @@ node server.js
 
 ## TODO
 
-* pickerCtrl should have a `songQuery` and a `artistQuery` as well as `getSongs()` and `getArtists()`:
+* ADD TO PLAYLIST allready
+* Need a template for Song List - code currently copy pasted in Song Index, Artist Detail and Playlist Detail
 
-```
-songQuery: {
-  limit: 50,
-  offset: 150,
-  searchTerm: 'a'
-}
-```
+* might want to limit filter search results to `song.name` and `artist.name`
+* might want to separate controllers for song and artist?  but this woud make things wetter (ie not DRY)
 
-* use ejs for views - conditionally include the appcache for production.
 * build a simple crud web app - separate from mobile client.
-
-* ability to add song to playlist

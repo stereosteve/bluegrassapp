@@ -7,6 +7,9 @@
 //
 var PICKERS = angular.module('pickers', []).
   config(['$routeProvider', function($routeProvider) {
+
+    $routeProvider.reloadOnSearch = true;
+
     $routeProvider.when('/home', {templateUrl: 'home.html'});
 
     $routeProvider.when('/songs', {templateUrl: 'songs/index.html', showSearch: true});
@@ -16,7 +19,7 @@ var PICKERS = angular.module('pickers', []).
     $routeProvider.when('/artists/:artistId', {templateUrl: 'artists/show.html', controller: 'artistDetailCtrl'});
 
     $routeProvider.when('/playlists', {templateUrl: 'playlists/index.html', controller: 'playlistCtrl'});
-    $routeProvider.when('/playlists/:id', {templateUrl: 'playlists/show.html'});
+    $routeProvider.when('/playlists/:id', {templateUrl: 'playlists/show.html', controller: 'playlistDetailCtrl'});
 
     $routeProvider.otherwise({redirectTo: '/home'});
   }]);
@@ -38,9 +41,21 @@ PICKERS.factory('playlists', function() {
   if (json)
     playlists = JSON.parse(json);
 
+  playlists.forEach(function(pl) {
+    pl.addSong = function(song) {
+      if (!pl.songs) pl.songs = [];
+      pl.songs.push(song);
+      playlists.save();
+    };
+  });
+
   playlists.add = function(pl) {
     playlists.push(pl);
+    playlists.save();
+  };
+  playlists.save = function() {
     localStorage.setItem('pickerPlaylists', JSON.stringify(playlists));
+    console.log("saved", playlists);
   };
   return playlists;
 });
@@ -51,8 +66,8 @@ PICKERS.factory('playlists', function() {
 //
 // Controllers
 //
-PICKERS.controller('pickerCtrl', ['$scope','$routeParams','db','playlists',
-                          function($scope,  $routeParams,  db,  playlists) {
+PICKERS.controller('pickerCtrl', ['$scope','$routeParams','$location','db','playlists',
+                          function($scope,  $routeParams,  $location,  db,  playlists) {
   // load data
   db.success(function(data) {
     angular.extend($scope, data);
@@ -65,28 +80,27 @@ PICKERS.controller('pickerCtrl', ['$scope','$routeParams','db','playlists',
   var onRouteChange = function(ev, route) {
     $scope.showSearch = route.showSearch;
     $scope.noChrome = route.noChrome;
+    $scope.letter = $routeParams.letter || 'a';
   };
   $scope.$on('$routeChangeSuccess', onRouteChange);
 
-  $scope.letter = $routeParams.letter || 'a';
+
   $scope.firstLetter = function(obj) {
     if ($scope.searchTerm) return true;
     return obj.name.charAt(0).toLowerCase() == $scope.letter;
   };
 
   $scope.nextPage = function() {
-    $scope.letter = String.fromCharCode($scope.letter.charCodeAt(0) + 1);
-    window.scrollTo(0,0);
+    var letter = String.fromCharCode($scope.letter.charCodeAt(0) + 1);
+    $location.search('letter', letter);
   };
 
   $scope.prevPage = function() {
-    $scope.letter = String.fromCharCode($scope.letter.charCodeAt(0) - 1);
-    window.scrollTo(0,0);
+    var letter = String.fromCharCode($scope.letter.charCodeAt(0) - 1);
+    $location.search('letter', letter);
   };
 
 }]);
-
-
 
 
 PICKERS.controller('playlistCtrl', ['$scope','db','playlists',
@@ -100,6 +114,11 @@ PICKERS.controller('playlistCtrl', ['$scope','db','playlists',
   };
 }]);
 
+PICKERS.controller('playlistDetailCtrl', ['$scope','$routeParams','playlists',
+                                  function($scope,  $routeParams,  playlists) {
+  $scope.playlist = playlists[$routeParams.id];
+}]);
+
 
 
 
@@ -111,6 +130,11 @@ PICKERS.controller('songDetailCtrl', ['$scope','$routeParams','db',
       return song.id == $routeParams.songId;
     });
   });
+
+  $scope.addSongToPlaylist = function(song, playlist) {
+    playlist.addSong(song);
+    console.log("add song", song, playlist);
+  };
 
 }]);
 

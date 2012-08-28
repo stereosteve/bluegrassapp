@@ -1,6 +1,6 @@
 <%- startview('artists/index') %>
     <ul class="nav nav-tabs nav-stacked">
-      <li ng-repeat="artist in artists | orderBy: 'name' | filter: searchTerm | filter: firstLetter">
+      <li ng-repeat="artist in artists | orderBy: 'name' | filter: searchTerm | filter: firstLetter | limitTo: 500">
       <a href="#/artists/{{artist.id}}"><i class="icon-user"></i> {{artist.name}}</a>
       </li>
     </ul>

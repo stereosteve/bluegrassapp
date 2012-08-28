@@ -1,7 +1,7 @@
 <%- startview('songs/index') %>
 
   <ul class="nav nav-tabs nav-stacked">
-    <li ng-repeat="song in songs | orderBy: name | filter: searchTerm | filter: firstLetter">
+    <li ng-repeat="song in songs | orderBy: name | filter: searchTerm | filter: firstLetter | limitTo: 500">
     <a href="#/songs/{{song.id}}"> <strong>{{song.name}}</strong> <br /> {{song.artist}} </a>
     </li>
   </ul>
@@ -19,15 +19,16 @@
     <div ng-show="playlistPicker">
       <p>Add to playlists</p>
       <div ng-repeat="playlist in playlists">
-        <label class="checkbox">
-          <input type="checkbox"> {{playlist.name}}
-        </label>
+
+        <button class="btn btn-block" ng-click="addSongToPlaylist(song, playlist)">{{playlist.name}}</button>
+
       </div>
       <a>New Playlist</a>
 
       <hr />
     </div>
     <a class="btn btn-block" ng-click="playlistPicker = true"><i class="icon-list"></i> Add to playlist</a>
+    <a class="btn btn-block" onclick="history.go(-1)"><i class="icon-back"></i> Back</a>
   </div>
 
 <%- endview -%>
