@@ -1,0 +1,38 @@
+<%- startview('songs/index') %>
+
+  <ul class="nav nav-tabs nav-stacked">
+    <li ng-repeat="song in songList">
+    <a href="#/songs/{{song.id}}">
+      <!--<i class="icon-music"></i>-->
+      <strong>{{song.name}}</strong><br />
+      {{song.artist}}
+    </a>
+    </li>
+  </ul>
+
+<%- endview -%>
+
+
+<%- startview('songs/show') %>
+
+  <div class="cell">
+    <h5>{{song.name}}</h5>
+    <h6><a href="#/artists/{{song.artistId}}">{{song.artist}}</a></h6>
+    <div ng-bind-html-unsafe="song.htmlLyrics"></div>
+    <hr />
+    <div ng-show="playlistPicker">
+      <p>Add to playlists</p>
+      <div ng-repeat="playlist in playlists">
+        <label class="checkbox">
+          <input type="checkbox"> {{playlist.name}}
+        </label>
+      </div>
+      <a>New Playlist</a>
+
+      <hr />
+    </div>
+    <a class="btn btn-block" ng-click="playlistPicker = true"><i class="icon-list"></i> Add to playlist</a>
+  </div>
+
+<%- endview -%>
+

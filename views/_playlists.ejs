@@ -1,0 +1,26 @@
+<%- startview('playlists/index') %>
+  <div class="cell">
+    <h5>Playlists</h5>
+
+    <ul class="nav nav-tabs nav-stacked">
+      <li ng-repeat="pl in playlists">
+        <a href="#/playlists/{{pl.id}}"><strong>{{pl.name}}</strong></a>
+      </li>
+    </ul>
+
+    <form class="form-inline" ng-show="newPlaylist" ng-submit="createPlaylist()">
+      <input class="input-medium" required type="text" ng-model="newPlaylist.name" />
+      <button class="btn btn-success">ok</button>
+    </form>
+    <button class="btn btn-block" ng-click="newPlaylist = {}">New Playlist</button>
+  </div>
+<%- endview %>
+
+
+<%- startview('playlists/show') %>
+    <h5>Playlist Detail</h5>
+    <p>PL songs here</p>
+<%- endview %>
+
+
+

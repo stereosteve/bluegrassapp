@@ -1,0 +1,19 @@
+<%- startview('artists/index') %>
+    <ul class="nav nav-tabs nav-stacked">
+      <li ng-repeat="artist in artists | limitTo: 20">
+      <a href="#/artists/{{artist.id}}"><i class="icon-user"></i> {{artist.name}} {{searchTerm}}</a>
+      </li>
+    </ul>
+<%- endview %>
+
+
+
+
+<%- startview('artists/show') %>
+    <h5>{{artist.name}}</h5>
+    <ul class="nav nav-tabs nav-stacked">
+      <li ng-repeat="song in songs | filter:searchTerm">
+        <a href="#/songs/{{song.id}}">{{song.name}}</a>
+      </li>
+    </ul>
+<%- endview %>

@@ -9,7 +9,8 @@
     "spider": "~0.1.0",
     "mongoose": "~3.0.3",
     "async": "~0.1.22",
-    "slugs": "~0.1.2"
+    "slugs": "~0.1.2",
+    "ejs": "~0.8.2"
   },
   "subdomain": "pocketpicker",
   "scripts": {

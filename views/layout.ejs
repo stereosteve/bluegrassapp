@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" ng-app="pickers" <%- manifestTag %>>
+<head>
+  <meta charset="utf-8">
+  <title>Pickers</title>
+  <meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <link rel="apple-touch-icon" href="/img/iphone_icon.png" />
+  <link rel="apple-touch-startup-image" href="/img/iphone_splash.png" />
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.css"/>
+  <style>
+    .cell {
+      padding: 15px;
+    }
+    .viewport {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body class="viewport" ng-controller="pickerCtrl">
+
+  <!--search bar-->
+  <div ng-show="showSearch">
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner" style="padding: 0 10px;">
+        <form class="navbar-form">
+          <input type="text" class="input-medium" ng-model="songQuery.searchTerm" placeholder="Search">
+          <div class="btn-groupp pull-right">
+            <button class="btn" ng-show="songQuery.offset > 0" ng-click="prevPage()">&laquo;</button>
+            <button class="btn" ng-click="nextPage()">&raquo;</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div style="margin-top: 40px;"></div>
+  </div>
+
+  <!--ng-view-->
+  <div ng-view></div>
+
+  <!--bottom nav-->
+  <div style="margin-top: 40px;"></div>
+  <div class="navbar navbar-fixed-bottom navbar-inverse">
+    <div class="navbar-inner">
+      <ul class="nav">
+        <li><a href="#">Home</a></li>
+        <li><a href="#/artists">Artists</a></li>
+        <li><a href="#/songs">Songs</a></li>
+        <li><a href="#/playlists">Playlists</a></li>
+      </ul>
+    </div>
+  </div>
+
+
+  <% include _welcome %>
+  <% include _songs %>
+  <% include _artists %>
+  <% include _playlists %>
+
+  <script src="/vendor/angular.js"></script>
+  <script src="/vendor/underscore.js"></script>
+  <script src="/pickers.js"></script>
+</body>
+</html>
+

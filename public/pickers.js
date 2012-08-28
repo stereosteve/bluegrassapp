@@ -9,14 +9,14 @@ var PICKERS = angular.module('pickers', []).
   config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/home', {templateUrl: 'home.html'});
 
-    $routeProvider.when('/songs', {templateUrl: 'songIndex.html', showSearch: true});
-    $routeProvider.when('/songs/:songId', {templateUrl: 'songDetail.html', controller: 'songDetailCtrl'});
+    $routeProvider.when('/songs', {templateUrl: 'songs/index.html', showSearch: true});
+    $routeProvider.when('/songs/:songId', {templateUrl: 'songs/show.html', controller: 'songDetailCtrl'});
 
-    $routeProvider.when('/artists', {templateUrl: 'artistIndex.html', showSearch: true});
-    $routeProvider.when('/artists/:artistId', {templateUrl: 'artistDetail.html', controller: 'artistDetailCtrl'});
+    $routeProvider.when('/artists', {templateUrl: 'artists/index.html', showSearch: true});
+    $routeProvider.when('/artists/:artistId', {templateUrl: 'artists/show.html', controller: 'artistDetailCtrl'});
 
-    $routeProvider.when('/playlists', {templateUrl: 'playlistIndex.html', controller: 'playlistCtrl'});
-    $routeProvider.when('/playlists/:id', {templateUrl: 'playlistDetail.html'});
+    $routeProvider.when('/playlists', {templateUrl: 'playlists/index.html', controller: 'playlistCtrl'});
+    $routeProvider.when('/playlists/:id', {templateUrl: 'playlists/show.html'});
 
     $routeProvider.otherwise({redirectTo: '/home'});
   }]);
