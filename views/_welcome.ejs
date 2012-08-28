@@ -1,9 +1,13 @@
 <%- startview('home') %>
 
+<pre>
+rendered: <%= new Date().toString() %>
+songs: {{songs.length}}
+artists: {{artists.length}}
+</pre>
+
   <div class="cell">
-    <a class="btn btn-block" href="#/songs">Songs</a>
-    <a class="btn btn-block" href="#/artists">Artists</a>
-    <a class="btn btn-block" href="#/playlists">Playlists</a>
+    <a class="btn btn-block" href="/?nocache=<%= new Date().valueOf() %>">Reload</a>
   </div>
 
 <%- endview %>

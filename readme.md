@@ -21,7 +21,12 @@ node server.js
 
 ## TODO
 
-* ADD TO PLAYLIST allready
+* app status visibility
+  - online / offline status
+  - Stats: song count, artist count, playlist count
+  - button to hard refresh
+  - show version from manifest file on homepage
+
 * Need a template for Song List - code currently copy pasted in Song Index, Artist Detail and Playlist Detail
 
 * might want to limit filter search results to `song.name` and `artist.name`
