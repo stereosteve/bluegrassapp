@@ -7,5 +7,5 @@ CACHE:
 /bootstrap/img/glyphicons-halflings-white.png
 /vendor/angular.js
 /vendor/underscore.js
-/pickers.js
+/pickbook.js
 /everything.json

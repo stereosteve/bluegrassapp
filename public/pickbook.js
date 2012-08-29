@@ -5,7 +5,7 @@
 //
 // Routes
 //
-var PICKERS = angular.module('pickers', []).
+var PB = angular.module('pickbook', []).
   config(['$routeProvider', function($routeProvider) {
 
     $routeProvider.reloadOnSearch = true;
@@ -30,12 +30,12 @@ var PICKERS = angular.module('pickers', []).
 //
 // Services
 //
-PICKERS.factory('db', ['$http', function($http) {
+PB.factory('db', ['$http', function($http) {
   return $http.get('/everything.json', {cache: true});
 }]);
 
 
-PICKERS.factory('playlists', function() {
+PB.factory('playlists', function() {
   var playlists = [];
   var json = localStorage.getItem('pickerPlaylists');
   if (json)
@@ -66,8 +66,8 @@ PICKERS.factory('playlists', function() {
 //
 // Controllers
 //
-PICKERS.controller('pickerCtrl', ['$scope','$routeParams','$location','db','playlists',
-                          function($scope,  $routeParams,  $location,  db,  playlists) {
+PB.controller('mainCtrl', ['$scope','$routeParams','$location','db','playlists',
+                   function($scope,  $routeParams,  $location,  db,  playlists) {
   // load data
   db.success(function(data) {
     angular.extend($scope, data);
@@ -103,7 +103,7 @@ PICKERS.controller('pickerCtrl', ['$scope','$routeParams','$location','db','play
 }]);
 
 
-PICKERS.controller('playlistCtrl', ['$scope','db','playlists',
+PB.controller('playlistCtrl', ['$scope','db','playlists',
                             function($scope,  db,  playlists) {
 
   $scope.createPlaylist = function() {
@@ -114,7 +114,7 @@ PICKERS.controller('playlistCtrl', ['$scope','db','playlists',
   };
 }]);
 
-PICKERS.controller('playlistDetailCtrl', ['$scope','$routeParams','playlists',
+PB.controller('playlistDetailCtrl', ['$scope','$routeParams','playlists',
                                   function($scope,  $routeParams,  playlists) {
   $scope.playlist = playlists[$routeParams.id];
 }]);
@@ -122,7 +122,7 @@ PICKERS.controller('playlistDetailCtrl', ['$scope','$routeParams','playlists',
 
 
 
-PICKERS.controller('songDetailCtrl', ['$scope','$routeParams','db',
+PB.controller('songDetailCtrl', ['$scope','$routeParams','db',
                               function($scope,  $routeParams,  db) {
 
   db.success(function(data) {
@@ -139,7 +139,7 @@ PICKERS.controller('songDetailCtrl', ['$scope','$routeParams','db',
 }]);
 
 
-PICKERS.controller('artistDetailCtrl', ['$scope','$routeParams','db',
+PB.controller('artistDetailCtrl', ['$scope','$routeParams','db',
                               function($scope,  $routeParams,  db) {
   db.success(function(data) {
 

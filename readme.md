@@ -1,4 +1,4 @@
-# pocketpicker
+# pickbook
 
 Mobile app for bluegrass lyrics.
 
@@ -27,12 +27,14 @@ node server.js
 
 ## TODO
 
+* favicon, splash screen, apple icons
+
 * app status visibility
   - online / offline status
-  - Stats: song count, artist count, playlist count
-  - button to hard refresh
-  - show version from manifest file on homepage
+  - current URL - download date - jitsu deploy version - manifest version - etc etc etc
   - javascript debug output from appcache stuffs
+
+* Indicate to the user that content is loading.
 
 * Need a template for Song List - code currently copy pasted in Song Index, Artist Detail and Playlist Detail
 

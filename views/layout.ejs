@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="en" ng-app="pickers" <%- manifestTag %>>
+<html lang="en" ng-app="pickbook" <%- manifestTag %>>
 <head>
   <meta charset="utf-8">
-  <title>Pickers</title>
+  <title>pickbook</title>
   <meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -19,7 +19,7 @@
     }
   </style>
 </head>
-<body class="viewport" ng-controller="pickerCtrl">
+<body class="viewport" ng-controller="mainCtrl">
 
   <!--search bar-->
   <div ng-show="showSearch">
@@ -61,7 +61,7 @@
 
   <script src="/vendor/angular.js"></script>
   <script src="/vendor/underscore.js"></script>
-  <script src="/pickers.js"></script>
+  <script src="/pickbook.js"></script>
 </body>
 </html>
 

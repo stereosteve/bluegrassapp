@@ -1,6 +1,6 @@
 {
-  "name": "pocketpicker",
-  "version": "0.0.0-23",
+  "name": "pickbook",
+  "version": "0.0.0-24",
   "main": "index.js",
   "author": "Steve Perkins",
   "license": "BSD",
@@ -12,7 +12,7 @@
     "slugs": "~0.1.2",
     "ejs": "~0.8.2"
   },
-  "subdomain": "pocketpicker",
+  "subdomain": "pickbook",
   "scripts": {
     "start": "node server.js",
     "etl": "node lib/etl.js"
