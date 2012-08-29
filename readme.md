@@ -4,8 +4,14 @@ Mobile app for bluegrass lyrics.
 
 ## setup
 
+Requires:
+
+* Node.js
+* MongoDB
+
 Install dependencies:
 ```
+npm install recess -g
 npm install
 ```
 
@@ -26,6 +32,7 @@ node server.js
   - Stats: song count, artist count, playlist count
   - button to hard refresh
   - show version from manifest file on homepage
+  - javascript debug output from appcache stuffs
 
 * Need a template for Song List - code currently copy pasted in Song Index, Artist Detail and Playlist Detail
 
