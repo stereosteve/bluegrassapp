@@ -1,7 +1,11 @@
 <%- startview('songs/index') %>
 
+  <div class="alert" ng-show="searchTerm && searchTerm.length < 3">
+    <strong>Please type at least 3 letters to search</strong><br />
+  </div>
+
   <ul class="nav nav-tabs nav-stacked">
-    <li ng-repeat="song in songs | orderBy: name | filter: searchTerm | filter: firstLetter | limitTo: 500">
+    <li ng-repeat="song in songs | orderBy: name | filter: songSearch | filter: firstLetter | limitTo: 500">
     <a href="#/songs/{{song.id}}"> <strong>{{song.name}}</strong> <br /> {{song.artist}} </a>
     </li>
   </ul>
@@ -19,9 +23,7 @@
     <div ng-show="playlistPicker">
       <p>Add to playlists</p>
       <div ng-repeat="playlist in playlists">
-
         <button class="btn btn-block" ng-click="addSongToPlaylist(song, playlist)">{{playlist.name}}</button>
-
       </div>
       <a>New Playlist</a>
 

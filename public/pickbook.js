@@ -31,7 +31,13 @@ var PB = angular.module('pickbook', []).
 // Services
 //
 PB.factory('db', ['$http', function($http) {
-  return $http.get('/everything.json', {cache: true});
+  return $http.get('/everything.json', {cache: true}).then(function(resp) {
+    var data = resp.data;
+    data.songs.forEach(function(song) {
+      song.haystack = [song.name, song.artist].join(' ').toLowerCase();
+    });
+    return data;
+  });
 }]);
 
 
@@ -69,7 +75,7 @@ PB.factory('playlists', function() {
 PB.controller('mainCtrl', ['$scope','$routeParams','$location','db','playlists',
                    function($scope,  $routeParams,  $location,  db,  playlists) {
   // load data
-  db.success(function(data) {
+  db.then(function(data) {
     angular.extend($scope, data);
   });
 
@@ -84,6 +90,17 @@ PB.controller('mainCtrl', ['$scope','$routeParams','$location','db','playlists',
   };
   $scope.$on('$routeChangeSuccess', onRouteChange);
 
+
+  $scope.$watch('searchTerm', function(searchTerm) {
+    if (!searchTerm) return;
+    $scope.searchTerm = searchTerm.toLowerCase();
+  });
+  $scope.songSearch = function(obj, i) {
+    if (!$scope.searchTerm) return true;
+    if ($scope.searchTerm.length < 3) return false;
+    //console.log(obj, i);
+    return obj.haystack.indexOf($scope.searchTerm) > -1;
+  };
 
   $scope.firstLetter = function(obj) {
     if ($scope.searchTerm) return true;
@@ -125,7 +142,7 @@ PB.controller('playlistDetailCtrl', ['$scope','$routeParams','playlists',
 PB.controller('songDetailCtrl', ['$scope','$routeParams','db',
                          function($scope,  $routeParams,  db) {
 
-  db.success(function(data) {
+  db.then(function(data) {
     $scope.song = _.find(data.songs, function(song) {
       return song.id == $routeParams.songId;
     });
@@ -144,7 +161,7 @@ PB.controller('songDetailCtrl', ['$scope','$routeParams','db',
 
 PB.controller('artistDetailCtrl', ['$scope','$routeParams','db',
                               function($scope,  $routeParams,  db) {
-  db.success(function(data) {
+  db.then(function(data) {
 
     $scope.artist = _.find(data.artists, function(artist) {
       return artist.id == $routeParams.artistId;
