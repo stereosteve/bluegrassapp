@@ -123,12 +123,15 @@ PB.controller('playlistDetailCtrl', ['$scope','$routeParams','playlists',
 
 
 PB.controller('songDetailCtrl', ['$scope','$routeParams','db',
-                              function($scope,  $routeParams,  db) {
+                         function($scope,  $routeParams,  db) {
 
   db.success(function(data) {
     $scope.song = _.find(data.songs, function(song) {
       return song.id == $routeParams.songId;
     });
+    if ($scope.song && $scope.song.lyrics) {
+      $scope.htmlLyrics = '<p>' + $scope.song.lyrics.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br />') + '</p>';
+    }
   });
 
   $scope.addSongToPlaylist = function(song, playlist) {

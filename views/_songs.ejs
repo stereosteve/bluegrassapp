@@ -14,7 +14,7 @@
   <div class="cell">
     <h5>{{song.name}}</h5>
     <h6><a href="#/artists/{{song.artistId}}">{{song.artist}}</a></h6>
-    <div ng-bind-html-unsafe="song.htmlLyrics"></div>
+    <div ng-bind-html-unsafe="htmlLyrics"></div>
     <hr />
     <div ng-show="playlistPicker">
       <p>Add to playlists</p>

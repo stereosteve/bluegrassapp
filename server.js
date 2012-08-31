@@ -28,13 +28,9 @@ app.get('/everything.json', function(req, resp) {
 
   var respond = function(err, found) {
     if (err) throw err;
-    var songs = found[1];
-    songs.forEach(function(song) {
-      song.htmlLyrics = '<p>' + song.lyrics.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br />') + '</p>';
-    });
     resp.json({
       artists: found[0],
-      songs: songs
+      songs: found[1]
     });
   };
 
