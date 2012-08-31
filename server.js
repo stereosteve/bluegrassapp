@@ -3,6 +3,7 @@ var app = express();
 var models = require('./lib/models');
 var async = require('async');
 
+var info = require('./package.json');
 
 app.configure(function() {
   app.use(express.static(__dirname + '/public'));
@@ -20,7 +21,7 @@ app.configure('production', function() {
 });
 
 app.get('/', function(req, resp) {
-  resp.render('layout');
+  resp.render('layout', {version: info.version});
 });
 
 
