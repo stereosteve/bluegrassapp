@@ -1,0 +1,11 @@
+CACHE MANIFEST
+# version 1346909731
+
+CACHE:
+/vendor/angular.js
+/vendor/underscore.js
+/compiled/pickbook.js
+/compiled/pickbook.css
+/img/glyphicons-halflings.png
+/img/glyphicons-halflings-white.png
+/everything.json

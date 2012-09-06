@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en" ng-app="pickbook" >
+<head>
+  <meta charset="utf-8">
+  <title>pickbook</title>
+  <meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <link rel="apple-touch-icon" href="/img/iphone_icon.png" />
+  <link rel="apple-touch-startup-image" href="/img/iphone_splash.png" />
+  <link rel="stylesheet" href="/compiled/pickbook.css"/>
+  <style>
+    .cell {
+      padding: 15px;
+    }
+    .viewport {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body class="viewport" ng-controller="mainCtrl">
+
+  <!--search bar-->
+  <div ng-show="showSearch">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner" style="padding: 0 10px;">
+        <div class="btn-group pull-right">
+          <button class="btn btn-inverse" ng-show="letter != 'a'" ng-click="prevPage()">{{prevLetter | uppercase}}</button>
+          <button class="btn btn-inverse disabled">{{letter | uppercase}}</button>
+          <button class="btn btn-inverse" ng-show="letter != 'z'" ng-click="nextPage()">{{nextLetter | uppercase}}</button>
+        </div>
+        <form class="navbar-search">
+          <input type="text" class="input-medium search-query" ng-model="searchTerm" placeholder="Search">
+        </form>
+      </div>
+    </div>
+    <div style="margin-top: 40px;"></div>
+  </div>
+
+  <!--ng-view-->
+  <div ng-view></div>
+
+  <!--bottom nav-->
+  <div style="margin-top: 40px;"></div>
+  <div class="navbar navbar-inverse navbar-fixed-bottom" ng-hide="noChrome_ignored">
+    <div class="navbar-inner">
+      <ul class="nav">
+        <li><a href="#"><i class="icon-home icon-white"></i></a></li>
+        <li><a href="#/songs">Songs</a></li>
+        <li><a href="#/playlists">Playlists</a></li>
+      </ul>
+    </div>
+  </div>
+
+
+  <script type="text/ng-template" id="home.html">
+
+<pre>
+rendered: Thu Sep 06 2012 01:35:32 GMT-0400 (EDT)
+songs: {{songs.length}}
+dogg
+version: 0.0.0-32
+</pre>
+
+  <div class="cell">
+    <a class="btn btn-block" href="/">Refresh 1</a>
+    <a class="btn btn-block" href="/?nocache=1346909732484">Refresh 2</a>
+  </div>
+
+</script>
+
+
+  <script type="text/ng-template" id="songs/index.html">
+
+  <div class="alert" ng-show="searchTerm && searchTerm.length < 3">
+    <strong>Please type at least 3 letters to search</strong><br />
+  </div>
+
+  <ul class="nav nav-tabs nav-stacked">
+    <li ng-repeat="song in songs | orderBy: name | filter: songSearch | filter: firstLetter | limitTo: 500">
+    <a href="#/songs/{{song.id}}"> <strong>{{song.name}}</strong> <br /> {{song.artist}} &nbsp;</a>
+    </li>
+  </ul>
+
+</script>
+
+<script type="text/ng-template" id="songs/show.html">
+
+  <div class="cell">
+    <h5>{{song.name}}</h5>
+    <h6><a href="#/artists/{{song.artistId}}">{{song.artist}}</a></h6>
+    <div ng-bind-html-unsafe="htmlLyrics"></div>
+    <hr />
+    <div ng-show="playlistPicker">
+      <p>Add to playlists</p>
+      <div ng-repeat="playlist in playlists">
+        <button class="btn btn-block" ng-click="addSongToPlaylist(song, playlist)">{{playlist.name}}</button>
+      </div>
+      <a>New Playlist</a>
+
+      <hr />
+    </div>
+    <a class="btn btn-block" ng-click="playlistPicker = true"><i class="icon-list"></i> Add to playlist</a>
+  </div>
+
+</script>
+
+  <script type="text/ng-template" id="artists/index.html">
+    <ul class="nav nav-tabs nav-stacked">
+      <li ng-repeat="artist in artists | orderBy: 'name' | filter: searchTerm | filter: firstLetter | limitTo: 500">
+      <a href="#/artists/{{artist.id}}"><i class="icon-user"></i> {{artist.name}}</a>
+      </li>
+    </ul>
+</script>
+
+
+
+
+<script type="text/ng-template" id="artists/show.html">
+    <h5>{{artist.name}}</h5>
+    <ul class="nav nav-tabs nav-stacked">
+      <li ng-repeat="song in songs">
+        <a href="#/songs/{{song.id}}">{{song.name}}</a>
+      </li>
+    </ul>
+</script>
+
+  <script type="text/ng-template" id="playlists/index.html">
+  <div class="cell">
+    <h5>Playlists</h5>
+
+    <ul class="nav nav-tabs nav-stacked">
+      <li ng-repeat="pl in playlists">
+        <a href="#/playlists/{{pl.id}}">
+          <strong>{{pl.name}}</strong>
+          <span ng-show="pl.songs.length" class="pull-right">{{pl.songs.length}}</span>
+        </a>
+      </li>
+    </ul>
+
+    <form class="form-inline" ng-show="newPlaylist" ng-submit="createPlaylist()">
+      <input class="input-medium" required type="text" ng-model="newPlaylist.name" />
+      <button class="btn btn-success">ok</button>
+    </form>
+    <button class="btn btn-block" ng-click="newPlaylist = {}">New Playlist</button>
+  </div>
+</script>
+
+
+<script type="text/ng-template" id="playlists/show.html">
+    <div class="cell">
+      <h5>{{playlist.name}}</h5>
+
+      <ul class="nav nav-tabs nav-stacked">
+        <li ng-repeat="song in playlist.songs">
+        <a href="#/songs/{{song.id}}"> <strong>{{song.name}}</strong> <br /> {{song.artist}} </a>
+        </li>
+      </ul>
+
+    </div>
+</script>
+
+
+
+
+
+  <script src="/vendor/angular.js"></script>
+  <script src="/vendor/underscore.js"></script>
+  <script src="/compiled/pickbook.js"></script>
+</body>
+</html>
+
