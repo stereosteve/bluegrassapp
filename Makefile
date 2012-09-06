@@ -1,15 +1,21 @@
 APPCACHE=./public/offline.appcache
-BOOTSTRAP_LESS = ./public/bootstrap/less/bootstrap.less
-BOOTSTRAP_RESPONSIVE_LESS = ./public/bootstrap/less/responsive.less
+BOOTSTRAP_LESS=./less/bootstrap.less
 
-all: bump less
+all: bump clean lessc js
 
 bump:
 	sed 's/# version [0-9]*/# version '`date +%s`'/g' ${APPCACHE} > tmpfile; mv tmpfile ${APPCACHE}
 
-less:
-	rm -f public/bootstrap/css/*.css
-	recess --compile ${BOOTSTRAP_LESS} > public/bootstrap/css/bootstrap.css
+clean:
+	rm -rf public/compiled
+
+lessc:
+	mkdir -p public/compiled
+	lessc ${BOOTSTRAP_LESS} public/compiled/pickbook.css
+
+js:
+	mkdir -p public/compiled
+	cat app/routes.js app/services.js app/controllers.js > public/compiled/pickbook.js
 
 slowless:
 	recess --compress ${BOOTSTRAP_LESS} > public/bootstrap/css/bootstrap.min.css

@@ -1,0 +1,7 @@
+0.0.1
+=====
+
+* Red navbars
+* Remove artists
+* Display bottom nav at all times
+

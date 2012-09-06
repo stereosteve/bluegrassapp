@@ -6,7 +6,7 @@
 
   <ul class="nav nav-tabs nav-stacked">
     <li ng-repeat="song in songs | orderBy: name | filter: songSearch | filter: firstLetter | limitTo: 500">
-    <a href="#/songs/{{song.id}}"> <strong>{{song.name}}</strong> <br /> {{song.artist}} </a>
+    <a href="#/songs/{{song.id}}"> <strong>{{song.name}}</strong> <br /> {{song.artist}} &nbsp;</a>
     </li>
   </ul>
 
@@ -30,7 +30,6 @@
       <hr />
     </div>
     <a class="btn btn-block" ng-click="playlistPicker = true"><i class="icon-list"></i> Add to playlist</a>
-    <a class="btn btn-block" onclick="history.go(-1)"><i class="icon-back"></i> Back</a>
   </div>
 
 <%- endview -%>
