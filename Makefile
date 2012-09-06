@@ -21,6 +21,16 @@ ejs:
 	node ejs2html.js
 
 
+deploy:
+	APPCACHE=true make
+	echo "DEPLOY"
+	rm -rf ../gh-pages-pickbook/*
+	cp -r public/* ../gh-pages-pickbook/
+	cd ../gh-pages-pickbook && git add -A && git commit -m "deploy" && git push origin gh-pages
+	make
+
+
+
 slowless:
 	recess --compress ${BOOTSTRAP_LESS} > public/bootstrap/css/bootstrap.min.css
 	recess --compile ${BOOTSTRAP_RESPONSIVE_LESS} > public/bootstrap/css/bootstrap-responsive.css

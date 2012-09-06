@@ -5,13 +5,11 @@ var ejs = require('ejs')
 var srcFile = __dirname + '/views/layout.ejs';
 var destFile = __dirname + '/public/index.html';
 
-/*
-  manifestTag: '',
-  manifestTag: 'manifest="/offline.appcache"',
-*/
+var manifestTag = '';
+if (process.env.APPCACHE) manifestTag = 'manifest="/offline.appcache"';
 
 var ctx = {
-  manifestTag: '',
+  manifestTag: manifestTag,
   startview: function(name) {
     return '<script type="text/ng-template" id="' + name + '.html">';
   },
