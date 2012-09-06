@@ -11,11 +11,11 @@ Requires:
 
 Install dependencies:
 ```
-npm install recess -g
+npm install less -g
 npm install
 ```
 
-Import songs (you will have to `ctrl + c` this for now):
+Import songs
 ```
 npm run etl
 ```
@@ -23,6 +23,13 @@ npm run etl
 Start server:
 ```
 node server.js
+```
+
+
+Watch setup:
+```
+gem install watchr
+watchr watch.rb
 ```
 
 ## TODO

@@ -36,5 +36,3 @@ var PB = angular.module('pickbook', []).
     $routeProvider.otherwise({redirectTo: '/home'});
   }]);
 
-
-
