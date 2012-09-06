@@ -13,6 +13,9 @@
     "ejs": "~0.8.2"
   },
   "subdomain": "pickbook",
+  "domains": [
+    "api.pickbook.net"
+  ],
   "scripts": {
     "start": "node server.js",
     "etl": "node lib/etl.js"

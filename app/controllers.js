@@ -38,9 +38,7 @@ PB.controller('mainCtrl', ['$scope','$routeParams','$location','db','playlists',
     if (!letter) return;
     $location.search('letter', letter);
     $scope.prevLetter = String.fromCharCode($scope.letter.charCodeAt(0) - 1);
-    if ($scope.letter == 'a') $scope.prevLetter = 'z';
     $scope.nextLetter = String.fromCharCode($scope.letter.charCodeAt(0) + 1);
-    if ($scope.letter == 'z') $scope.prevLetter = 'a';
   });
 
   $scope.prevPage = function() {

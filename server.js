@@ -20,9 +20,9 @@ app.configure('production', function() {
   app.locals.manifestTag = 'manifest="/offline.appcache"';
 });
 
-app.get('/', function(req, resp) {
-  resp.render('layout', {version: info.version});
-});
+//app.get('/', function(req, resp) {
+  //resp.render('layout', {version: info.version});
+//});
 
 
 app.get('/everything.json', function(req, resp) {

@@ -1,7 +1,7 @@
 APPCACHE=./public/offline.appcache
 BOOTSTRAP_LESS=./less/bootstrap.less
 
-all: bump clean lessc js
+all: bump clean lessc js ejs
 
 bump:
 	sed 's/# version [0-9]*/# version '`date +%s`'/g' ${APPCACHE} > tmpfile; mv tmpfile ${APPCACHE}
@@ -16,6 +16,10 @@ lessc:
 js:
 	mkdir -p public/compiled
 	cat app/routes.js app/services.js app/controllers.js > public/compiled/pickbook.js
+
+ejs:
+	node ejs2html.js
+
 
 slowless:
 	recess --compress ${BOOTSTRAP_LESS} > public/bootstrap/css/bootstrap.min.css
