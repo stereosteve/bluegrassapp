@@ -1,11 +1,11 @@
 CACHE MANIFEST
-# version 1346903820
+# version 1346906695
 
 CACHE:
-/bootstrap/css/bootstrap.css
-/bootstrap/img/glyphicons-halflings.png
-/bootstrap/img/glyphicons-halflings-white.png
 /vendor/angular.js
 /vendor/underscore.js
-/pickbook.js
+/compiled/pickbook.js
+/compiled/pickbook.css
+/img/glyphicons-halflings.png
+/img/glyphicons-halflings-white.png
 /everything.json
