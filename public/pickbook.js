@@ -10,16 +10,29 @@ var PB = angular.module('pickbook', []).
 
     $routeProvider.reloadOnSearch = true;
 
-    $routeProvider.when('/home', {templateUrl: 'home.html'});
+    $routeProvider.when('/home', {
+      templateUrl: 'home.html'
+    });
 
-    $routeProvider.when('/songs', {templateUrl: 'songs/index.html', showSearch: true});
-    $routeProvider.when('/songs/:songId', {templateUrl: 'songs/show.html', controller: 'songDetailCtrl', noChrome: true});
+    $routeProvider.when('/songs', {
+      templateUrl: 'songs/index.html',
+      //controller: 'songListCtrl',
+      showSearch: true
+    });
+    $routeProvider.when('/songs/:songId', {
+      templateUrl: 'songs/show.html',
+      controller: 'songDetailCtrl',
+      noChrome: true
+    });
 
-    $routeProvider.when('/artists', {templateUrl: 'artists/index.html', showSearch: true});
-    $routeProvider.when('/artists/:artistId', {templateUrl: 'artists/show.html', controller: 'artistDetailCtrl'});
-
-    $routeProvider.when('/playlists', {templateUrl: 'playlists/index.html', controller: 'playlistCtrl'});
-    $routeProvider.when('/playlists/:id', {templateUrl: 'playlists/show.html', controller: 'playlistDetailCtrl'});
+    $routeProvider.when('/playlists', {
+      templateUrl: 'playlists/index.html',
+      controller: 'playlistCtrl'
+    });
+    $routeProvider.when('/playlists/:id', {
+      templateUrl: 'playlists/show.html',
+      controller: 'playlistDetailCtrl'
+    });
 
     $routeProvider.otherwise({redirectTo: '/home'});
   }]);
@@ -86,7 +99,6 @@ PB.controller('mainCtrl', ['$scope','$routeParams','$location','db','playlists',
   var onRouteChange = function(ev, route) {
     $scope.showSearch = route.showSearch;
     $scope.noChrome = route.noChrome;
-    $scope.letter = $routeParams.letter || 'a';
   };
   $scope.$on('$routeChangeSuccess', onRouteChange);
 
@@ -98,24 +110,34 @@ PB.controller('mainCtrl', ['$scope','$routeParams','$location','db','playlists',
   $scope.songSearch = function(obj, i) {
     if (!$scope.searchTerm) return true;
     if ($scope.searchTerm.length < 3) return false;
-    //console.log(obj, i);
     return obj.haystack.indexOf($scope.searchTerm) > -1;
   };
+
+
 
   $scope.firstLetter = function(obj) {
     if ($scope.searchTerm) return true;
     return obj.name.charAt(0).toLowerCase() == $scope.letter;
   };
 
-  $scope.nextPage = function() {
-    var letter = String.fromCharCode($scope.letter.charCodeAt(0) + 1);
+  $scope.$watch('letter', function(letter) {
+    if (!letter) return;
     $location.search('letter', letter);
-  };
+    $scope.prevLetter = String.fromCharCode($scope.letter.charCodeAt(0) - 1);
+    if ($scope.letter == 'a') $scope.prevLetter = 'z';
+    $scope.nextLetter = String.fromCharCode($scope.letter.charCodeAt(0) + 1);
+    if ($scope.letter == 'z') $scope.prevLetter = 'a';
+  });
 
   $scope.prevPage = function() {
-    var letter = String.fromCharCode($scope.letter.charCodeAt(0) - 1);
-    $location.search('letter', letter);
+    $scope.letter = $scope.prevLetter;
   };
+
+  $scope.nextPage = function() {
+    $scope.letter = $scope.nextLetter;
+  };
+
+  $scope.letter = $routeParams.letter || 'a';
 
 }]);
 
@@ -137,8 +159,6 @@ PB.controller('playlistDetailCtrl', ['$scope','$routeParams','playlists',
 }]);
 
 
-
-
 PB.controller('songDetailCtrl', ['$scope','$routeParams','db',
                          function($scope,  $routeParams,  db) {
 
@@ -157,23 +177,5 @@ PB.controller('songDetailCtrl', ['$scope','$routeParams','db',
   };
 
 }]);
-
-
-PB.controller('artistDetailCtrl', ['$scope','$routeParams','db',
-                              function($scope,  $routeParams,  db) {
-  db.then(function(data) {
-
-    $scope.artist = _.find(data.artists, function(artist) {
-      return artist.id == $routeParams.artistId;
-    });
-    $scope.songs = _.select(data.songs, function(song) {
-      return song.artist == $scope.artist.name;
-    });
-
-  });
-}]);
-
-
-
 
 

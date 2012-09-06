@@ -27,21 +27,13 @@ app.get('/', function(req, resp) {
 
 app.get('/everything.json', function(req, resp) {
 
-  var respond = function(err, found) {
+  models.Song.find(function(err, songs) {
     if (err) throw err;
-    resp.json({
-      artists: found[0],
-      songs: found[1]
-    });
-  };
-
-  async.parallel([
-    models.Artist.find.bind(models.Artist),
-    models.Song.find.bind(models.Song)
-  ], respond);
+    resp.json({songs: songs});
+  });
 
 });
 
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 3333;
 app.listen(port);
 console.log('Listening on port', port);
