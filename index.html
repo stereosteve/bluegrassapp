@@ -1,14 +1,19 @@
 <!doctype html>
 <html lang="en" ng-app="pickbook" manifest="/offline.appcache">
 <head>
+
   <meta charset="utf-8">
   <title>pickbook</title>
+
   <meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <link rel="apple-touch-icon" href="img/iphone_icon.png" />
   <link rel="apple-touch-startup-image" href="img/iphone_splash.png" />
+
   <link rel="stylesheet" href="compiled/pickbook.css"/>
+  <link rel="stylesheet" href="vendor/add2home.css"/>
+
 </head>
 <body class="viewport" ng-controller="mainCtrl">
 
@@ -49,14 +54,14 @@
   <script type="text/ng-template" id="home.html">
 
 <pre>
-rendered: Wed Sep 12 2012 09:46:22 GMT-0400 (EDT)
+rendered: Wed Sep 12 2012 10:11:00 GMT-0400 (EDT)
 songs: {{songs.length}}
 version: 0.0.0-32
 </pre>
 
   <div class="cell">
     <a class="btn btn-block" href="/">Refresh 1</a>
-    <a class="btn btn-block" href="/?nocache=1347457582575">Refresh 2</a>
+    <a class="btn btn-block" href="/?nocache=1347459060881">Refresh 2</a>
   </div>
 
 </script>
@@ -157,6 +162,7 @@ version: 0.0.0-32
 
   <script src="vendor/angular.js"></script>
   <script src="vendor/underscore.js"></script>
+  <script src="vendor/add2home.js"></script>
   <script src="compiled/pickbook.js"></script>
 </body>
 </html>
