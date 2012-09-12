@@ -2,7 +2,7 @@ var ejs = require('ejs')
   , fs = require('fs')
   , info = require('./package.json');
 
-var srcFile = __dirname + '/views/layout.ejs';
+var srcFile = __dirname + '/app/views/layout.ejs';
 var destFile = __dirname + '/public/index.html';
 
 var manifestTag = '';

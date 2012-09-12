@@ -1,5 +1,5 @@
 APPCACHE=./public/offline.appcache
-BOOTSTRAP_LESS=./less/bootstrap.less
+BOOTSTRAP_LESS=./app/styles/bootstrap.less
 
 all: bump clean lessc js ejs
 
@@ -15,7 +15,7 @@ lessc:
 
 js:
 	mkdir -p public/compiled
-	cat app/routes.js app/services.js app/controllers.js > public/compiled/pickbook.js
+	cat app/scripts/routes.js app/scripts/services.js app/scripts/controllers.js > public/compiled/pickbook.js
 
 ejs:
 	node ejs2html.js
