@@ -8,8 +8,6 @@
 var PB = angular.module('pickbook', []).
   config(['$routeProvider', function($routeProvider) {
 
-    $routeProvider.reloadOnSearch = true;
-
     $routeProvider.when('/home', {
       templateUrl: 'home.html'
     });
@@ -17,6 +15,7 @@ var PB = angular.module('pickbook', []).
     $routeProvider.when('/songs', {
       templateUrl: 'songs/index.html',
       controller: 'songListCtrl',
+      reloadOnSearch: false,
     });
 
     $routeProvider.when('/songs/:songId', {

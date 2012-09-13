@@ -1,15 +1,13 @@
 <%- startview('favs') %>
-    <div class="cell">
-      <h5>Favorites</h5>
-      {{songIds}}
+<div class="favs">
 
-      <ul class="nav nav-tabs nav-stacked">
-        <li ng-repeat="song in favSongs">
-        <a href="#/songs/{{song.id}}"> <strong>{{song.name}}</strong> <br /> {{song.artist}} </a>
-        </li>
-      </ul>
+  <ul class="nav nav-tabs nav-stacked">
+    <li ng-repeat="song in favSongs">
+    <a href="#/songs/{{song.id}}"> <strong>{{song.name}}</strong> <br /> {{song.artist}} </a>
+    </li>
+  </ul>
 
-    </div>
+</div>
 <%- endview %>
 
 
