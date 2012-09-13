@@ -4794,9 +4794,10 @@ a.badge:hover {
   }
 }
 .cell {
-  padding: 15px;
+  padding: 20px;
 }
-.viewport {
-  max-width: 700px;
-  margin: 0 auto;
+.banner {
+  background: #580f0f;
+  color: white;
+  padding: 20px;
 }
