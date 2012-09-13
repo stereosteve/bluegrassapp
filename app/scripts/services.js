@@ -14,30 +14,46 @@ PB.factory('db', ['$http', function($http) {
 }]);
 
 
-PB.factory('playlists', function() {
-  var playlists = [];
-  var json = localStorage.getItem('pickerPlaylists');
-  if (json) playlists = JSON.parse(json);
 
-  var wrapPlaylist = function(pl) {
-    pl.addSong = function(song) {
-      if (!pl.songs) pl.songs = [];
-      pl.songs.push(song);
-      playlists.save();
-    };
-  };
-  playlists.forEach(wrapPlaylist);
+PB.factory('favs', function() {
+  var _favs = [];
 
-  playlists.add = function(pl) {
-    wrapPlaylist(pl);
-    playlists.push(pl);
-    playlists.save();
-  };
-  playlists.save = function() {
-    localStorage.setItem('pickerPlaylists', JSON.stringify(playlists));
-    console.log("saved", playlists);
-  };
-  return playlists;
+  var load = function() {
+    var json = localStorage.getItem('_favs');
+    if (json) _favs = JSON.parse(json);
+  }
+  load();
+
+  var save = function() {
+    localStorage.setItem('_favs', JSON.stringify(_favs));
+  }
+
+  return {
+
+    list: function() {
+      return _favs;
+    },
+
+    contains: function(songId) {
+      return _favs.indexOf(songId) > -1;
+    },
+
+    add: function(songId) {
+      _favs.push(songId);
+      save();
+    },
+
+    remove: function(songId) {
+      var index = _favs.indexOf(songId);
+      if (index > -1) {
+        _favs.splice(index, 1);
+        save();
+      }
+    },
+
+  }
+
+
 });
 
 

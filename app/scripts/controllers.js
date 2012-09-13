@@ -3,8 +3,8 @@
  * Songs
  */
 
-PB.controller('songListCtrl', ['$scope','$routeParams','$location','db','playlists',
-                       function($scope,  $routeParams,  $location,  db,  playlists) {
+PB.controller('songListCtrl', ['$scope','$routeParams','$location','db','favs',
+                       function($scope,  $routeParams,  $location,  db,  favs) {
   // load data
   db.then(function(data) {
     angular.extend($scope, data);
@@ -43,8 +43,8 @@ PB.controller('songListCtrl', ['$scope','$routeParams','$location','db','playlis
 }]);
 
 
-PB.controller('songDetailCtrl', ['$scope','$routeParams','db',
-                         function($scope,  $routeParams,  db) {
+PB.controller('songDetailCtrl', ['$scope','$routeParams','db','favs',
+                         function($scope,  $routeParams,  db , favs) {
 
   db.then(function(data) {
     $scope.song = _.find(data.songs, function(song) {
@@ -55,10 +55,7 @@ PB.controller('songDetailCtrl', ['$scope','$routeParams','db',
     }
   });
 
-  $scope.addSongToPlaylist = function(song, playlist) {
-    playlist.addSong(song);
-    console.log("add song", song, playlist);
-  };
+  $scope.favs = favs;
 
 }]);
 
@@ -67,12 +64,16 @@ PB.controller('songDetailCtrl', ['$scope','$routeParams','db',
  * Playlists
  */
 
-PB.controller('favsCtrl', ['$scope','db','playlists',
-                   function($scope,  db,  playlists) {
+PB.controller('favsCtrl', ['$scope','db','favs',
+                   function($scope,  db,  favs) {
 
   // load data
   db.then(function(data) {
-    $scope.favs = data.songs.slice(0,4);
+    var songIds = favs.list();
+    $scope.songIds = songIds;
+    $scope.favSongs = _.select(data.songs, function(song) {
+      return songIds.indexOf(song.id) > -1;
+    });
   });
 
 }]);
