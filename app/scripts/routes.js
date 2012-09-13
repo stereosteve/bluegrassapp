@@ -33,6 +33,10 @@ var PB = angular.module('pickbook', []).
       controller: 'playlistDetailCtrl'
     });
 
+    $routeProvider.when('/about', {
+      templateUrl: 'about.html',
+    });
+
     $routeProvider.otherwise({redirectTo: '/home'});
   }]);
 

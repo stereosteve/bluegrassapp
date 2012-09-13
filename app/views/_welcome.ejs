@@ -1,21 +1,22 @@
 <%- startview('home') %>
+<div class="home">
 
-<pre>
-rendered: <%= new Date().toString() %>
-songs: {{songs.length}}
-version: <%= version %>
-</pre>
-
-  <div class="cell">
-    <a class="btn btn-block" href="/">Refresh 1</a>
-    <a class="btn btn-block" href="/?nocache=<%= new Date().valueOf() %>">Refresh 2</a>
+  <div class="visible-desktop">
+    Web Homescreen
   </div>
 
-<%- endview %>
+  <div class="visible-phone">
+    Phone Homescreen
+  </div>
 
+  <div>rendered: <%= new Date().toString() %></div>
+  <div>songs: {{songs.length}}</div>
 
-<%- startview('settings') %>
-<div>
-  <h1>This is settings</h1>
 </div>
+
 <%- endview %>
+
+
+
+
+

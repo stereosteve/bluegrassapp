@@ -1,0 +1,36 @@
+<%- startview('topbar') %>
+  <div ng-show="showSearch">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner" style="padding: 0 10px;">
+        <div class="btn-group pull-right">
+          <button class="btn btn-inverse" ng-show="letter != 'a'" ng-click="prevPage()">{{prevLetter | uppercase}}</button>
+          <button class="btn btn-inverse disabled">{{letter | uppercase}}</button>
+          <button class="btn btn-inverse" ng-show="letter != 'z'" ng-click="nextPage()">{{nextLetter | uppercase}}</button>
+        </div>
+        <form class="navbar-search">
+          <input type="text" class="input-small search-query" ng-model="searchTerm" placeholder="Search">
+        </form>
+      </div>
+    </div>
+    <div style="margin-top: 40px;"></div>
+  </div>
+<%- endview %>
+
+
+
+
+<%- startview('bottombar') %>
+  <div style="margin-top: 40px;"></div>
+  <div class="navbar navbar-inverse navbar-fixed-bottom" ng-hide="noChrome_ignored">
+    <div class="navbar-inner">
+      <ul class="nav">
+        <li><a onclick="history.go(-1)"><i class="icon-step-backward icon-white"></i></a></li>
+        <li><a href="#"><i class="icon-home icon-white"></i></a></li>
+        <li><a href="#/songs"><i class="icon-list icon-white"></i></a></li>
+        <li><a href="#/playlists"><i class="icon-star icon-white"></i></a></li>
+        <li><a href="#/settings"><i class="icon-wrench icon-white"></i></a></li>
+        <li><a href="#/about"><i class="icon-info-sign icon-white"></i></a></li>
+      </ul>
+    </div>
+  </div>
+<%- endview %>
