@@ -1,5 +1,20 @@
 <%- startview('songs/index') %>
 
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner" style="padding: 0 10px;">
+      <div class="btn-group pull-right">
+        <button class="btn btn-inverse" ng-show="letter != 'a'" ng-click="prevPage()">{{prevLetter | uppercase}}</button>
+        <button class="btn btn-inverse disabled">{{letter | uppercase}}</button>
+        <button class="btn btn-inverse" ng-show="letter != 'z'" ng-click="nextPage()">{{nextLetter | uppercase}}</button>
+      </div>
+      <form class="navbar-search">
+        <input type="text" class="input-small search-query" ng-model="searchTerm" placeholder="Search">
+      </form>
+    </div>
+  </div>
+  <div style="margin-top: 40px;"></div>
+
+
   <div class="alert" ng-show="searchTerm && searchTerm.length < 3">
     <strong>Please type at least 3 letters to search</strong><br />
   </div>

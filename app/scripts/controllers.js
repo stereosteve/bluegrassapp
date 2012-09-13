@@ -1,21 +1,14 @@
 
-PB.controller('mainCtrl', ['$scope','$routeParams','$location','db','playlists',
-                   function($scope,  $routeParams,  $location,  db,  playlists) {
+/**
+ * Songs
+ */
+
+PB.controller('songListCtrl', ['$scope','$routeParams','$location','db','playlists',
+                       function($scope,  $routeParams,  $location,  db,  playlists) {
   // load data
   db.then(function(data) {
     angular.extend($scope, data);
   });
-
-  // load playlists
-  $scope.playlists = playlists;
-
-  // listen to route change
-  var onRouteChange = function(ev, route) {
-    $scope.showSearch = route.showSearch;
-    $scope.noChrome = route.noChrome;
-  };
-  $scope.$on('$routeChangeSuccess', onRouteChange);
-
 
   // Song Search
   $scope.$watch('searchTerm', function(searchTerm) {
@@ -27,7 +20,6 @@ PB.controller('mainCtrl', ['$scope','$routeParams','$location','db','playlists',
     if ($scope.searchTerm.length < 3) return false;
     return obj.haystack.indexOf($scope.searchTerm) > -1;
   };
-
 
   // Letter pages
   $scope.firstLetter = function(obj) {
@@ -48,32 +40,6 @@ PB.controller('mainCtrl', ['$scope','$routeParams','$location','db','playlists',
   };
   $scope.letter = $routeParams.letter || 'a';
 
-
-
-
-  // modals
-  $scope.toggleSettings = function() {
-    if ($scope.modalView) delete $scope.modalView
-    else $scope.modalView = 'settings.html'
-  };
-
-}]);
-
-
-PB.controller('playlistCtrl', ['$scope','db','playlists',
-                            function($scope,  db,  playlists) {
-
-  $scope.createPlaylist = function() {
-    var newPlaylist = $scope.newPlaylist;
-    newPlaylist.id = playlists.length;
-    playlists.add(newPlaylist);
-    $scope.newPlaylist = undefined;
-  };
-}]);
-
-PB.controller('playlistDetailCtrl', ['$scope','$routeParams','playlists',
-                                  function($scope,  $routeParams,  playlists) {
-  $scope.playlist = playlists[$routeParams.id];
 }]);
 
 
@@ -94,6 +60,27 @@ PB.controller('songDetailCtrl', ['$scope','$routeParams','db',
     console.log("add song", song, playlist);
   };
 
+}]);
+
+
+/**
+ * Playlists
+ */
+
+PB.controller('playlistCtrl', ['$scope','db','playlists',
+                            function($scope,  db,  playlists) {
+
+  $scope.createPlaylist = function() {
+    var newPlaylist = $scope.newPlaylist;
+    newPlaylist.id = playlists.length;
+    playlists.add(newPlaylist);
+    $scope.newPlaylist = undefined;
+  };
+}]);
+
+PB.controller('playlistDetailCtrl', ['$scope','$routeParams','playlists',
+                                  function($scope,  $routeParams,  playlists) {
+  $scope.playlist = playlists[$routeParams.id];
 }]);
 
 

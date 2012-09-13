@@ -16,12 +16,11 @@ var PB = angular.module('pickbook', []).
 
     $routeProvider.when('/songs', {
       templateUrl: 'songs/index.html',
-      showSearch: true
+      controller: 'songListCtrl',
     });
     $routeProvider.when('/songs/:songId', {
       templateUrl: 'songs/show.html',
       controller: 'songDetailCtrl',
-      noChrome: true
     });
 
     $routeProvider.when('/playlists', {
@@ -35,6 +34,10 @@ var PB = angular.module('pickbook', []).
 
     $routeProvider.when('/about', {
       templateUrl: 'about.html',
+    });
+
+    $routeProvider.when('/settings', {
+      templateUrl: 'settings.html',
     });
 
     $routeProvider.otherwise({redirectTo: '/home'});
