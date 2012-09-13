@@ -17,7 +17,7 @@ js:
 	mkdir -p public/compiled
 	cat app/scripts/routes.js app/scripts/services.js app/scripts/controllers.js > public/compiled/pickbook.js
 
-ejs:
+ejs: bump
 	node ejs2html.js
 
 
