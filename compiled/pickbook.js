@@ -8,8 +8,6 @@
 var PB = angular.module('pickbook', []).
   config(['$routeProvider', function($routeProvider) {
 
-    $routeProvider.reloadOnSearch = true;
-
     $routeProvider.when('/home', {
       templateUrl: 'home.html'
     });
@@ -17,6 +15,7 @@ var PB = angular.module('pickbook', []).
     $routeProvider.when('/songs', {
       templateUrl: 'songs/index.html',
       controller: 'songListCtrl',
+      reloadOnSearch: false,
     });
 
     $routeProvider.when('/songs/:songId', {
@@ -116,12 +115,14 @@ PB.controller('songListCtrl', ['$scope','$routeParams','$location','db','favs',
   $scope.$watch('searchTerm', function(searchTerm) {
     if (!searchTerm) return;
     $scope.searchTerm = searchTerm.toLowerCase();
+    $location.search('searchTerm', $scope.searchTerm);
   });
   $scope.songSearch = function(obj, i) {
     if (!$scope.searchTerm) return true;
     if ($scope.searchTerm.length < 3) return false;
     return obj.haystack.indexOf($scope.searchTerm) > -1;
   };
+  $scope.searchTerm = $routeParams.searchTerm;
 
   // Letter pages
   $scope.firstLetter = function(obj) {
