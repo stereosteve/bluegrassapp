@@ -13,7 +13,7 @@ npm install
 
 Run server + watch and recompile assets:
 ```
-foreman start
+make dev
 ```
 
 ## Deploy
