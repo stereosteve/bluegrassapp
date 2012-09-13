@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# version 1347459060
+# version 1347545729
 
 CACHE:
 /vendor/angular.js
@@ -9,3 +9,7 @@ CACHE:
 /img/glyphicons-halflings.png
 /img/glyphicons-halflings-white.png
 /everything.json
+
+NETWORK:
+/vendor/add2home.js
+/vendor/add2home.css

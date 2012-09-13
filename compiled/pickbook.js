@@ -99,6 +99,7 @@ PB.controller('mainCtrl', ['$scope','$routeParams','$location','db','playlists',
   $scope.$on('$routeChangeSuccess', onRouteChange);
 
 
+  // Song Search
   $scope.$watch('searchTerm', function(searchTerm) {
     if (!searchTerm) return;
     $scope.searchTerm = searchTerm.toLowerCase();
@@ -110,28 +111,33 @@ PB.controller('mainCtrl', ['$scope','$routeParams','$location','db','playlists',
   };
 
 
-
+  // Letter pages
   $scope.firstLetter = function(obj) {
     if ($scope.searchTerm) return true;
     return obj.name.charAt(0).toLowerCase() == $scope.letter;
   };
-
   $scope.$watch('letter', function(letter) {
     if (!letter) return;
     $location.search('letter', letter);
     $scope.prevLetter = String.fromCharCode($scope.letter.charCodeAt(0) - 1);
     $scope.nextLetter = String.fromCharCode($scope.letter.charCodeAt(0) + 1);
   });
-
   $scope.prevPage = function() {
     $scope.letter = $scope.prevLetter;
   };
-
   $scope.nextPage = function() {
     $scope.letter = $scope.nextLetter;
   };
-
   $scope.letter = $routeParams.letter || 'a';
+
+
+
+
+  // modals
+  $scope.toggleSettings = function() {
+    if ($scope.modalView) delete $scope.modalView
+    else $scope.modalView = 'settings.html'
+  };
 
 }]);
 
