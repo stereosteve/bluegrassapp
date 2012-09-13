@@ -2,35 +2,29 @@
 
 Mobile app for bluegrass lyrics.
 
-## setup
-
-Requires:
-
-* Node.js
-* MongoDB
+## Setup
 
 Install dependencies:
 ```
+sudo gem install foreman watchr
 npm install less -g
 npm install
 ```
 
-Import songs
+Run server + watch and recompile assets:
 ```
-npm run etl
-```
-
-Start server:
-```
-node server.js
+foreman start
 ```
 
+## Deploy
 
-Watch setup:
+Deploy is done to github pages - similar to Bootstrap.
+Checkout the gh-pages branch **adjacent** to this src dir:
 ```
-gem install watchr
-watchr watch.rb
+git clone -b gh-pages git@github.com:stereosteve/pickbook.git gh-pages-pickbook
 ```
 
-## TODO
-
+Then, to deploy:
+```
+make deploy
+```

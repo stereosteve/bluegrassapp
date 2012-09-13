@@ -17,7 +17,7 @@ js:
 	mkdir -p public/compiled
 	cat app/scripts/routes.js app/scripts/services.js app/scripts/controllers.js > public/compiled/pickbook.js
 
-ejs: bump
+ejs:
 	node ejs2html.js
 
 
@@ -30,8 +30,3 @@ deploy:
 	make
 
 
-
-slowless:
-	recess --compress ${BOOTSTRAP_LESS} > public/bootstrap/css/bootstrap.min.css
-	recess --compile ${BOOTSTRAP_RESPONSIVE_LESS} > public/bootstrap/css/bootstrap-responsive.css
-	recess --compress ${BOOTSTRAP_RESPONSIVE_LESS} > public/bootstrap/css/bootstrap-responsive.min.css
