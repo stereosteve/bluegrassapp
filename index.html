@@ -15,68 +15,69 @@
   <link rel="stylesheet" href="vendor/add2home.css"/>
 
 </head>
-<body class="viewport" ng-controller="mainCtrl">
-
-  <!--search bar-->
-  <div ng-show="showSearch">
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner" style="padding: 0 10px;">
-        <div class="btn-group pull-right">
-          <button class="btn btn-inverse" ng-show="letter != 'a'" ng-click="prevPage()">{{prevLetter | uppercase}}</button>
-          <button class="btn btn-inverse disabled">{{letter | uppercase}}</button>
-          <button class="btn btn-inverse" ng-show="letter != 'z'" ng-click="nextPage()">{{nextLetter | uppercase}}</button>
-        </div>
-        <form class="navbar-search">
-          <input type="text" class="input-small search-query" ng-model="searchTerm" placeholder="Search">
-        </form>
-      </div>
-    </div>
-    <div style="margin-top: 40px;"></div>
-  </div>
+<body class="viewport">
 
 
-  <!--ng-view and modalView-->
-  <div ng-include="modalView"></div>
   <div ng-view ng-hide="modalView"></div>
+  <div ng-include="'bottombar.html'"></div>
 
-  <!--bottom nav-->
+
+
+  <script type="text/ng-template" id="bottombar.html">
   <div style="margin-top: 40px;"></div>
   <div class="navbar navbar-inverse navbar-fixed-bottom" ng-hide="noChrome_ignored">
     <div class="navbar-inner">
       <ul class="nav">
         <li><a onclick="history.go(-1)"><i class="icon-step-backward icon-white"></i></a></li>
         <li><a href="#"><i class="icon-home icon-white"></i></a></li>
-        <li><a href="#/songs"><i class="icon-music icon-white"></i></a></li>
-        <li><a href="#/playlists"><i class="icon-list icon-white"></i></a></li>
-        <li><a ng-click="toggleSettings()"><i class="icon-wrench icon-white"></i></a></li>
+        <li><a href="#/songs"><i class="icon-list icon-white"></i></a></li>
+        <li><a href="#/favs"><i class="icon-star icon-white"></i></a></li>
+        <li><a href="#/settings"><i class="icon-wrench icon-white"></i></a></li>
+        <li><a href="#/about"><i class="icon-info-sign icon-white"></i></a></li>
       </ul>
     </div>
   </div>
-
+</script>
 
   <script type="text/ng-template" id="home.html">
+<div class="home">
 
-<pre>
-rendered: Thu Sep 13 2012 10:15:30 GMT-0400 (EDT)
-songs: {{songs.length}}
-version: 0.0.0-32
-</pre>
-
-  <div class="cell">
-    <a class="btn btn-block" href="/">Refresh 1</a>
-    <a class="btn btn-block" href="/?nocache=1347545730274">Refresh 2</a>
+  <div class="visible-desktop">
+    Web Homescreen
   </div>
 
-</script>
+  <div class="visible-phone">
+    Phone Homescreen
+  </div>
 
+  <div>rendered: Thu Sep 13 2012 13:07:28 GMT-0400 (EDT)</div>
+  <div>songs: {{songs.length}}</div>
 
-<script type="text/ng-template" id="settings.html">
-<div>
-  <h1>This is settings</h1>
 </div>
+
 </script>
+
+
+
+
+
 
   <script type="text/ng-template" id="songs/index.html">
+
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner" style="padding: 0 10px;">
+      <div class="btn-group pull-right">
+        <button class="btn btn-inverse" ng-show="letter != 'a'" ng-click="prevPage()">{{prevLetter | uppercase}}</button>
+        <button class="btn btn-inverse disabled">{{letter | uppercase}}</button>
+        <button class="btn btn-inverse" ng-show="letter != 'z'" ng-click="nextPage()">{{nextLetter | uppercase}}</button>
+      </div>
+      <form class="navbar-search">
+        <input type="text" class="input-small search-query" ng-model="searchTerm" placeholder="Search">
+      </form>
+    </div>
+  </div>
+  <div style="margin-top: 40px;"></div>
+
 
   <div class="alert" ng-show="searchTerm && searchTerm.length < 3">
     <strong>Please type at least 3 letters to search</strong><br />
@@ -97,67 +98,19 @@ version: 0.0.0-32
     <h6><a href="#/artists/{{song.artistId}}">{{song.artist}}</a></h6>
     <div ng-bind-html-unsafe="htmlLyrics"></div>
     <hr />
-    <div ng-show="playlistPicker">
-      <p>Add to playlists</p>
-      <div ng-repeat="playlist in playlists">
-        <button class="btn btn-block" ng-click="addSongToPlaylist(song, playlist)">{{playlist.name}}</button>
-      </div>
-
-      <hr />
-    </div>
-    <a class="btn btn-block" ng-click="playlistPicker = true"><i class="icon-list"></i> Add to playlist</a>
+    <a ng-hide="favs.contains(song.id)" class="btn btn-primary" ng-click="favs.add(song.id)"><i class="icon-star icon-white"></i> Star</a>
+    <a ng-show="favs.contains(song.id)" class="btn" ng-click="favs.remove(song.id)"><i class="icon-star-empty"></i> Unstar</a>
   </div>
 
 </script>
 
-  <script type="text/ng-template" id="artists/index.html">
-    <ul class="nav nav-tabs nav-stacked">
-      <li ng-repeat="artist in artists | orderBy: 'name' | filter: searchTerm | filter: firstLetter | limitTo: 500">
-      <a href="#/artists/{{artist.id}}"><i class="icon-user"></i> {{artist.name}}</a>
-      </li>
-    </ul>
-</script>
-
-
-
-
-<script type="text/ng-template" id="artists/show.html">
-    <h5>{{artist.name}}</h5>
-    <ul class="nav nav-tabs nav-stacked">
-      <li ng-repeat="song in songs">
-        <a href="#/songs/{{song.id}}">{{song.name}}</a>
-      </li>
-    </ul>
-</script>
-
-  <script type="text/ng-template" id="playlists/index.html">
-  <div class="cell">
-    <h5>Playlists</h5>
-
-    <ul class="nav nav-tabs nav-stacked">
-      <li ng-repeat="pl in playlists">
-        <a href="#/playlists/{{pl.id}}">
-          <strong>{{pl.name}}</strong>
-          <span ng-show="pl.songs.length" class="pull-right">{{pl.songs.length}}</span>
-        </a>
-      </li>
-    </ul>
-
-    <form class="form-inline" ng-show="newPlaylist" ng-submit="createPlaylist()">
-      <input class="input-medium" required type="text" ng-model="newPlaylist.name" />
-      <button class="btn btn-success">ok</button>
-    </form>
-    <button class="btn btn-block" ng-click="newPlaylist = {}">New Playlist</button>
-  </div>
-</script>
-
-
-<script type="text/ng-template" id="playlists/show.html">
+  <script type="text/ng-template" id="favs.html">
     <div class="cell">
-      <h5>{{playlist.name}}</h5>
+      <h5>Favorites</h5>
+      {{songIds}}
 
       <ul class="nav nav-tabs nav-stacked">
-        <li ng-repeat="song in playlist.songs">
+        <li ng-repeat="song in favSongs">
         <a href="#/songs/{{song.id}}"> <strong>{{song.name}}</strong> <br /> {{song.artist}} </a>
         </li>
       </ul>
@@ -166,6 +119,28 @@ version: 0.0.0-32
 </script>
 
 
+
+
+  <script type="text/ng-template" id="about.html">
+<div class="about cell">
+  <h1>About</h1>
+  <ul>
+    <li><strong>John Kael</strong> - maintainer of BluegrassLyrics.com</li>
+    <li><strong>Steve Perkins</strong> - developer of mobile site</li>
+  </ul>
+</div>
+</script>
+
+  <script type="text/ng-template" id="settings.html">
+<div class="settings cell">
+  <h1>Settings</h1>
+  <ul>
+    <li>Font face: serif / sans-serif</li>
+    <li>Font size</li>
+    <li>Invert colors: light / dark</li>
+  </ul>
+</div>
+</script>
 
 
 

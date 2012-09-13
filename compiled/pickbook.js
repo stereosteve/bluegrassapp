@@ -16,21 +16,25 @@ var PB = angular.module('pickbook', []).
 
     $routeProvider.when('/songs', {
       templateUrl: 'songs/index.html',
-      showSearch: true
+      controller: 'songListCtrl',
     });
+
     $routeProvider.when('/songs/:songId', {
       templateUrl: 'songs/show.html',
       controller: 'songDetailCtrl',
-      noChrome: true
     });
 
-    $routeProvider.when('/playlists', {
-      templateUrl: 'playlists/index.html',
-      controller: 'playlistCtrl'
+    $routeProvider.when('/favs', {
+      templateUrl: 'favs.html',
+      controller: 'favsCtrl'
     });
-    $routeProvider.when('/playlists/:id', {
-      templateUrl: 'playlists/show.html',
-      controller: 'playlistDetailCtrl'
+
+    $routeProvider.when('/about', {
+      templateUrl: 'about.html',
+    });
+
+    $routeProvider.when('/settings', {
+      templateUrl: 'settings.html',
     });
 
     $routeProvider.otherwise({redirectTo: '/home'});
@@ -52,52 +56,61 @@ PB.factory('db', ['$http', function($http) {
 }]);
 
 
-PB.factory('playlists', function() {
-  var playlists = [];
-  var json = localStorage.getItem('pickerPlaylists');
-  if (json) playlists = JSON.parse(json);
 
-  var wrapPlaylist = function(pl) {
-    pl.addSong = function(song) {
-      if (!pl.songs) pl.songs = [];
-      pl.songs.push(song);
-      playlists.save();
-    };
-  };
-  playlists.forEach(wrapPlaylist);
+PB.factory('favs', function() {
+  var _favs = [];
 
-  playlists.add = function(pl) {
-    wrapPlaylist(pl);
-    playlists.push(pl);
-    playlists.save();
-  };
-  playlists.save = function() {
-    localStorage.setItem('pickerPlaylists', JSON.stringify(playlists));
-    console.log("saved", playlists);
-  };
-  return playlists;
+  var load = function() {
+    var json = localStorage.getItem('_favs');
+    if (json) _favs = JSON.parse(json);
+  }
+  load();
+
+  var save = function() {
+    localStorage.setItem('_favs', JSON.stringify(_favs));
+  }
+
+  return {
+
+    list: function() {
+      return _favs;
+    },
+
+    contains: function(songId) {
+      return _favs.indexOf(songId) > -1;
+    },
+
+    add: function(songId) {
+      _favs.push(songId);
+      save();
+    },
+
+    remove: function(songId) {
+      var index = _favs.indexOf(songId);
+      if (index > -1) {
+        _favs.splice(index, 1);
+        save();
+      }
+    },
+
+  }
+
+
 });
 
 
 
 
-PB.controller('mainCtrl', ['$scope','$routeParams','$location','db','playlists',
-                   function($scope,  $routeParams,  $location,  db,  playlists) {
+/**
+ * Songs
+ */
+
+PB.controller('songListCtrl', ['$scope','$routeParams','$location','db','favs',
+                       function($scope,  $routeParams,  $location,  db,  favs) {
   // load data
   db.then(function(data) {
     angular.extend($scope, data);
   });
-
-  // load playlists
-  $scope.playlists = playlists;
-
-  // listen to route change
-  var onRouteChange = function(ev, route) {
-    $scope.showSearch = route.showSearch;
-    $scope.noChrome = route.noChrome;
-  };
-  $scope.$on('$routeChangeSuccess', onRouteChange);
-
 
   // Song Search
   $scope.$watch('searchTerm', function(searchTerm) {
@@ -109,7 +122,6 @@ PB.controller('mainCtrl', ['$scope','$routeParams','$location','db','playlists',
     if ($scope.searchTerm.length < 3) return false;
     return obj.haystack.indexOf($scope.searchTerm) > -1;
   };
-
 
   // Letter pages
   $scope.firstLetter = function(obj) {
@@ -130,37 +142,11 @@ PB.controller('mainCtrl', ['$scope','$routeParams','$location','db','playlists',
   };
   $scope.letter = $routeParams.letter || 'a';
 
-
-
-
-  // modals
-  $scope.toggleSettings = function() {
-    if ($scope.modalView) delete $scope.modalView
-    else $scope.modalView = 'settings.html'
-  };
-
 }]);
 
 
-PB.controller('playlistCtrl', ['$scope','db','playlists',
-                            function($scope,  db,  playlists) {
-
-  $scope.createPlaylist = function() {
-    var newPlaylist = $scope.newPlaylist;
-    newPlaylist.id = playlists.length;
-    playlists.add(newPlaylist);
-    $scope.newPlaylist = undefined;
-  };
-}]);
-
-PB.controller('playlistDetailCtrl', ['$scope','$routeParams','playlists',
-                                  function($scope,  $routeParams,  playlists) {
-  $scope.playlist = playlists[$routeParams.id];
-}]);
-
-
-PB.controller('songDetailCtrl', ['$scope','$routeParams','db',
-                         function($scope,  $routeParams,  db) {
+PB.controller('songDetailCtrl', ['$scope','$routeParams','db','favs',
+                         function($scope,  $routeParams,  db , favs) {
 
   db.then(function(data) {
     $scope.song = _.find(data.songs, function(song) {
@@ -171,10 +157,26 @@ PB.controller('songDetailCtrl', ['$scope','$routeParams','db',
     }
   });
 
-  $scope.addSongToPlaylist = function(song, playlist) {
-    playlist.addSong(song);
-    console.log("add song", song, playlist);
-  };
+  $scope.favs = favs;
+
+}]);
+
+
+/**
+ * Playlists
+ */
+
+PB.controller('favsCtrl', ['$scope','db','favs',
+                   function($scope,  db,  favs) {
+
+  // load data
+  db.then(function(data) {
+    var songIds = favs.list();
+    $scope.songIds = songIds;
+    $scope.favSongs = _.select(data.songs, function(song) {
+      return songIds.indexOf(song.id) > -1;
+    });
+  });
 
 }]);
 
