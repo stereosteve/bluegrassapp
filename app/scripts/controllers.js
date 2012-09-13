@@ -67,20 +67,14 @@ PB.controller('songDetailCtrl', ['$scope','$routeParams','db',
  * Playlists
  */
 
-PB.controller('playlistCtrl', ['$scope','db','playlists',
-                            function($scope,  db,  playlists) {
+PB.controller('favsCtrl', ['$scope','db','playlists',
+                   function($scope,  db,  playlists) {
 
-  $scope.createPlaylist = function() {
-    var newPlaylist = $scope.newPlaylist;
-    newPlaylist.id = playlists.length;
-    playlists.add(newPlaylist);
-    $scope.newPlaylist = undefined;
-  };
-}]);
+  // load data
+  db.then(function(data) {
+    $scope.favs = data.songs.slice(0,4);
+  });
 
-PB.controller('playlistDetailCtrl', ['$scope','$routeParams','playlists',
-                                  function($scope,  $routeParams,  playlists) {
-  $scope.playlist = playlists[$routeParams.id];
 }]);
 
 

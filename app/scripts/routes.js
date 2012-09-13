@@ -18,18 +18,15 @@ var PB = angular.module('pickbook', []).
       templateUrl: 'songs/index.html',
       controller: 'songListCtrl',
     });
+
     $routeProvider.when('/songs/:songId', {
       templateUrl: 'songs/show.html',
       controller: 'songDetailCtrl',
     });
 
-    $routeProvider.when('/playlists', {
-      templateUrl: 'playlists/index.html',
-      controller: 'playlistCtrl'
-    });
-    $routeProvider.when('/playlists/:id', {
-      templateUrl: 'playlists/show.html',
-      controller: 'playlistDetailCtrl'
+    $routeProvider.when('/favs', {
+      templateUrl: 'favs.html',
+      controller: 'favsCtrl'
     });
 
     $routeProvider.when('/about', {
