@@ -6,7 +6,7 @@ var srcFile = __dirname + '/app/views/layout.ejs';
 var destFile = __dirname + '/public/index.html';
 
 var manifestTag = '';
-if (process.env.APPCACHE) manifestTag = 'manifest="/offline.appcache"';
+if (process.env.APPCACHE || true) manifestTag = 'manifest="/offline.appcache"';
 
 var ctx = {
   manifestTag: manifestTag,
