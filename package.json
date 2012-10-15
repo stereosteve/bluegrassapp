@@ -1,21 +1,12 @@
 {
   "name": "pickbook",
   "version": "0.0.0-32",
-  "main": "index.js",
   "author": "Steve Perkins",
   "license": "BSD",
   "dependencies": {
     "express": "~3.0.0rc3",
     "async": "~0.1.22",
     "ejs": "~0.8.2"
-  },
-  "subdomain": "pickbook",
-  "domains": [
-    "api.pickbook.net"
-  ],
-  "scripts": {
-    "start": "node server.js",
-    "etl": "node lib/etl.js"
   },
   "engines": {
     "node": "0.8.x"

@@ -15,13 +15,10 @@
   <link rel="stylesheet" href="vendor/add2home.css"/>
 
 </head>
-<body class="viewport">
+<body id="hammer">
 
-
-  <div ng-view ng-hide="modalView"></div>
+  <div ng-view></div>
   <div ng-include="'bottombar.html'"></div>
-
-
 
   <% include _navbars %>
   <% include _welcome %>
@@ -31,6 +28,7 @@
   <% include _settings %>
 
 
+  <script src="vendor/hammer.js"></script>
   <script src="vendor/angular.js"></script>
   <script src="vendor/underscore.js"></script>
   <script src="vendor/add2home.js"></script>

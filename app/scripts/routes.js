@@ -39,3 +39,6 @@ var PB = angular.module('pickbook', []).
     $routeProvider.otherwise({redirectTo: '/home'});
   }]);
 
+
+PB.run(['hammer', function(hammer) {
+}])
