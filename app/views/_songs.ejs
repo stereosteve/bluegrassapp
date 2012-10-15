@@ -19,9 +19,9 @@
     <strong>Please type at least 3 letters to search</strong><br />
   </div>
 
-  <ul class="nav nav-tabs nav-stacked">
+  <ul class="songs">
     <li ng-repeat="song in songs | orderBy: name | filter: songSearch | filter: firstLetter | limitTo: 500">
-    <a href="#/songs/{{song.id}}"> <strong>{{song.name}}</strong> <br /> {{song.artist}} &nbsp;</a>
+      <a href="#/songs/{{song.id}}"> <strong>{{song.name}}</strong> <br /> {{song.artist}} &nbsp;</a>
     </li>
   </ul>
 

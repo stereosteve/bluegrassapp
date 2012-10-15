@@ -40,5 +40,5 @@ var PB = angular.module('pickbook', []).
   }]);
 
 
-PB.run(['hammer', function(hammer) {
+PB.run([function() {
 }])

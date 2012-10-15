@@ -57,18 +57,3 @@ PB.factory('favs', function() {
 });
 
 
-PB.factory('hammer', ['$location', function($location) {
-  var el = document.getElementById('hammer')
-  var hammer = new Hammer(el)
-
-  hammer.ondoubletap = function(ev) {
-    alert('hammer: doubletap')
-  }
-  hammer.onhold = function(ev) {
-    alert('hammer: holding')
-  }
-
-  return hammer;
-}]);
-
-

@@ -11,16 +11,18 @@
   <link rel="apple-touch-icon" href="img/iphone_icon.png" />
   <link rel="apple-touch-startup-image" href="img/iphone_splash.png" />
 
-  <link rel="stylesheet" href="compiled/pickbook.css"/>
+  <link rel="stylesheet" href="style.css"/>
   <link rel="stylesheet" href="vendor/add2home.css"/>
 
 </head>
-<body id="hammer">
+<body>
+
+  <div id="topbar">
+    <a href='#/home'>Home</a> <a href='#/songs'>Songs</a>
+  </div>
 
   <div ng-view></div>
-  <div ng-include="'bottombar.html'"></div>
 
-  <% include _navbars %>
   <% include _welcome %>
   <% include _songs %>
   <% include _favs %>
@@ -28,7 +30,7 @@
   <% include _settings %>
 
 
-  <script src="vendor/hammer.js"></script>
+  <!--<script src="vendor/hammer.js"></script>-->
   <script src="vendor/angular.js"></script>
   <script src="vendor/underscore.js"></script>
   <script src="vendor/add2home.js"></script>

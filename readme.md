@@ -28,3 +28,11 @@ Then, to deploy:
 ```
 make deploy
 ```
+
+## TODO
+
+* ditch bootstrap
+* write data to localstorage
+* include version / hashsum in asset URLs & offline cache
+
+* fixed position stuff: http://stackoverflow.com/questions/743123/fixed-positioning-in-mobile-safari
