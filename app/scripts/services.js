@@ -3,14 +3,23 @@
 //
 
 
-PB.factory('db', ['$http', function($http) {
-  return $http.get('/everything.json', {cache: true}).then(function(resp) {
-    var data = resp.data;
-    data.songs.forEach(function(song) {
-      song.haystack = [song.name, song.artist].join(' ').toLowerCase();
+PB.factory('db', ['$http', '$q', function($http, $q) {
+  var deferred = $q.defer()
+  var data = localStorage.getItem('pickbook-data')
+
+
+  if (data) {
+    data = JSON.parse(data)
+    deferred.resolve(data)
+  }
+  else {
+    $http.get('/everything.json', {cache: true}).then(function(resp) {
+      localStorage.setItem('pickbook-data', JSON.stringify(resp.data))
+      deferred.resolve(resp.data)
     });
-    return data;
-  });
+  }
+
+  return deferred.promise;
 }]);
 
 
