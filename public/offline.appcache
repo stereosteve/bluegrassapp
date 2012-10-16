@@ -1,14 +1,19 @@
 CACHE MANIFEST
-# version 1350357753
+# version 1350361121
 
 CACHE:
+
 /vendor/angular.js
 /vendor/underscore.js
 /compiled/pickbook.js
-/compiled/pickbook.css
 /style.css
-/img/glyphicons-halflings.png
-/img/glyphicons-halflings-white.png
+
+/font-awesome/css/font-awesome.css
+/font-awesome/font/fontawesome-webfont.eot
+/font-awesome/font/fontawesome-webfont.svg
+/font-awesome/font/fontawesome-webfont.ttf
+/font-awesome/font/fontawesome-webfont.woff
+
 /img/logo.png
 /everything.json
 
