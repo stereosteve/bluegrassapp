@@ -1,23 +1,5 @@
 <%- startview('songs/index') %>
-
-  <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner" style="padding: 0 10px;">
-      <div class="btn-group pull-right">
-        <button class="btn btn-inverse" ng-show="letter != 'a'" ng-click="prevPage()">{{prevLetter | uppercase}}</button>
-        <button class="btn btn-inverse disabled">{{letter | uppercase}}</button>
-        <button class="btn btn-inverse" ng-show="letter != 'z'" ng-click="nextPage()">{{nextLetter | uppercase}}</button>
-      </div>
-      <form class="navbar-search">
-        <input type="text" class="input-small search-query" ng-model="searchTerm" placeholder="Search">
-      </form>
-    </div>
-  </div>
-  <div style="margin-top: 40px;"></div>
-
-
-  <div class="alert" ng-show="searchTerm && searchTerm.length < 3">
-    <strong>Please type at least 3 letters to search</strong><br />
-  </div>
+  <div ng-include="'navbar.html'"></div>
 
   <ul class="songs">
     <li ng-repeat="song in songs | orderBy: name | filter: songSearch | filter: firstLetter | limitTo: 500">
@@ -29,11 +11,13 @@
 
 
 <%- startview('songs/show') %>
+  <div ng-include="'navbar.html'"></div>
 
   <div class="cell">
-    <h5>{{song.name}}</h5>
-    <h6><a href="#/artists/{{song.artistId}}">{{song.artist}}</a></h6>
-    <div ng-bind-html-unsafe="htmlLyrics"></div>
+    <h3>{{song.name}}</h3>
+    <h4>{{song.artist}}</h4>
+    <hr />
+    <article ng-bind-html-unsafe="htmlLyrics"></article>
     <hr />
     <a ng-hide="favs.contains(song.id)" class="btn btn-primary" ng-click="favs.add(song.id)"><i class="icon-star icon-white"></i> Star</a>
     <a ng-show="favs.contains(song.id)" class="btn" ng-click="favs.remove(song.id)"><i class="icon-star-empty"></i> Unstar</a>

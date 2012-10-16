@@ -2,6 +2,18 @@
 // Services
 //
 
+PB.directive('pbBody', ['$rootScope', function($rootScope) {
+  return {
+    link: function postLink(scope, el, attrs) {
+      $rootScope.$on('$routeChangeSuccess', function(ev, route, three) {
+        if (route.$route.templateUrl === 'home.html')
+          el.addClass('home')
+        else
+          el.removeClass('home')
+      })
+    }
+  };
+}]);
 
 PB.factory('db', ['$http', '$q', function($http, $q) {
   var deferred = $q.defer()

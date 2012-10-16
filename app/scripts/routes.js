@@ -9,7 +9,7 @@ var PB = angular.module('pickbook', []).
   config(['$routeProvider', function($routeProvider) {
 
     $routeProvider.when('/home', {
-      templateUrl: 'home.html'
+      templateUrl: 'home.html',
     });
 
     $routeProvider.when('/songs', {

@@ -1,15 +1,13 @@
-<%- startview('bottombar') %>
-  <div style="margin-top: 40px;"></div>
-  <div class="navbar navbar-inverse navbar-fixed-bottom" ng-hide="noChrome_ignored">
-    <div class="navbar-inner">
-      <ul class="nav">
-        <li><a onclick="history.go(-1)"><i class="icon-step-backward icon-white"></i></a></li>
-        <li><a href="#"><i class="icon-home icon-white"></i></a></li>
-        <li><a href="#/songs"><i class="icon-list icon-white"></i></a></li>
-        <li><a href="#/favs"><i class="icon-star icon-white"></i></a></li>
-        <li><a href="#/settings"><i class="icon-wrench icon-white"></i></a></li>
-        <li><a href="#/about"><i class="icon-info-sign icon-white"></i></a></li>
-      </ul>
+<%- startview('navbar') %>
+
+  <div id="topbar">
+    <div class="right">
+      <a ng-click="prevPage()">&laquo;</a>
+      <a ng-click="nextPage()">&raquo;</a>
     </div>
+    <a href='#/home'>Home</a>
   </div>
+
+  <div style="margin-top: 50px;"></div>
+
 <%- endview %>

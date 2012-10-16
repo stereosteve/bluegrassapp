@@ -15,22 +15,18 @@
   <link rel="stylesheet" href="vendor/add2home.css"/>
 
 </head>
-<body>
-
-  <div id="topbar">
-    <a href='#/home'>Home</a> <a href='#/songs'>Songs</a>
-  </div>
+<body pb-body>
 
   <div ng-view></div>
 
   <% include _welcome %>
+  <% include _navbars %>
   <% include _songs %>
   <% include _favs %>
   <% include _about %>
   <% include _settings %>
 
 
-  <!--<script src="vendor/hammer.js"></script>-->
   <script src="vendor/angular.js"></script>
   <script src="vendor/underscore.js"></script>
   <script src="vendor/add2home.js"></script>

@@ -1,5 +1,8 @@
 <%- startview('favs') %>
-<div class="favs">
+
+<div ng-include="'navbar.html'"></div>
+<div class="favs cell">
+  <h2>Favs</h2>
 
   <ul class="nav nav-tabs nav-stacked">
     <li ng-repeat="song in favSongs">
@@ -8,6 +11,7 @@
   </ul>
 
 </div>
+
 <%- endview %>
 
 

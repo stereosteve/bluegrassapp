@@ -36,9 +36,11 @@ PB.controller('songListCtrl', ['$scope','$routeParams','$location','db','favs',
   });
   $scope.prevPage = function() {
     $scope.letter = $scope.prevLetter;
+    window.scrollTo(0, 1);
   };
   $scope.nextPage = function() {
     $scope.letter = $scope.nextLetter;
+    window.scrollTo(0, 1);
   };
   $scope.letter = $routeParams.letter || 'a';
 
