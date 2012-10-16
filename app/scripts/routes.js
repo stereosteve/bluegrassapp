@@ -40,5 +40,5 @@ var PB = angular.module('pickbook', []).
   }]);
 
 
-PB.run([function() {
+PB.run(['globals', function(globals) {
 }])

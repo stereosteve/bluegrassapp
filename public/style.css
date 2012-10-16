@@ -186,10 +186,23 @@ html, body {
 
 body.home {
   background: #580f0f;
+  background: #3D3E42;
+}
+hr {
+  border: 0;
+  height: 10px;
 }
 
 .right {
   float: right;
+}
+
+.search {
+  background: #ccc;
+  padding: 10px;
+  margin-top: -8px;
+}
+.search input {
 }
 
 .cell {
@@ -200,18 +213,27 @@ body.home {
   top: 0;
   left: 0;
   width: 100%;
-  background: #580f0f;
+  background: #3D3E42;
 }
 #topbar a, #topbar a:visited {
   display: inline-block;
-  padding: 15px;
+  padding: 12px;
   color: white;
-  font-weight: bold;
   text-decoration: none;
+}
+
+#leftmenu {
+  position: fixed;
+  top: 45px;
+  left: 0;
+  width: 200px;
+  height: 100%;
+  background: #3D3E42;
 }
 
 .banner {
   background: #580f0f;
+  background: #3D3E42;
   color: white;
 }
 .banner img {

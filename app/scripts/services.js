@@ -15,6 +15,15 @@ PB.directive('pbBody', ['$rootScope', function($rootScope) {
   };
 }]);
 
+PB.factory('globals', ['$rootScope', function($rootScope) {
+  $rootScope.toggleMenu = function() {
+    $rootScope.showMenu = !$rootScope.showMenu
+  };
+  $rootScope.$on('$routeChangeSuccess', function() {
+    $rootScope.showMenu = false
+  });
+}]);
+
 PB.factory('db', ['$http', '$q', function($http, $q) {
   var deferred = $q.defer()
   var data = localStorage.getItem('pickbook-data')
