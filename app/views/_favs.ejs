@@ -1,14 +1,18 @@
 <%- startview('favs') %>
 
 <div ng-include="'navbar.html'"></div>
-<div class="favs cell">
-  <h2>Favs</h2>
+<div class="favs">
 
-  <ul class="nav nav-tabs nav-stacked">
+  <ul class="songs">
     <li ng-repeat="song in favSongs">
     <a href="#/songs/{{song.id}}"> <strong>{{song.name}}</strong> <br /> {{song.artist}} </a>
     </li>
   </ul>
+
+  <div class="cell" ng-hide="favSongs">
+    <strong>You have no favorites.</strong><br>
+    You can add a favorite by clicking the "star" button at the bottom of any song page.
+  </div>
 
 </div>
 
