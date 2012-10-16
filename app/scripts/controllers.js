@@ -19,7 +19,7 @@ PB.controller('songListCtrl', ['$scope','$routeParams','$location','db','favs',
   $scope.songSearch = function(obj, i) {
     if (!$scope.searchTerm) return true;
     if ($scope.searchTerm.length < 3) return false;
-    return obj.haystack.indexOf($scope.searchTerm) > -1;
+    return obj.name.indexOf($scope.searchTerm) > -1;
   };
   $scope.searchTerm = $routeParams.searchTerm;
 

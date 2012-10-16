@@ -1,6 +1,16 @@
 <%- startview('songs/index') %>
   <div ng-include="'navbar.html'"></div>
 
+  <div class="search">
+    <input ng-model="searchTerm" placeholder="Search"></div>
+  </div>
+
+  <div ng-show="searchTerm.length > 0 && searchTerm.length < 3">
+    <strong>Keep typing</strong><br>
+    You must type 3 letters to see results
+  </div>
+
+
   <ul class="songs">
     <li ng-repeat="song in songs | orderBy: name | filter: songSearch | filter: firstLetter | limitTo: 500">
       <a href="#/songs/{{song.id}}"> <strong>{{song.name}}</strong> <br /> {{song.artist}} &nbsp;</a>
@@ -8,6 +18,8 @@
   </ul>
 
 <%- endview -%>
+
+
 
 
 <%- startview('songs/show') %>
