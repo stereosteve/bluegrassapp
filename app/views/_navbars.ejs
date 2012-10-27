@@ -1,10 +1,11 @@
 <%- startview('navbar') %>
 
   <div id="topbar">
-    <div class="right">
-      <a ng-click="prevPage()"><i class="icon-arrow-left"></i></a>
-      <a ng-click="nextPage()"><i class="icon-arrow-right"></i></a>
+    <div class="right" ng-show="showArrows">
+      <a ng-click="prevPage()"><i class="icon-chevron-left"></i></a>
+      <a ng-click="nextPage()"><i class="icon-chevron-right"></i></a>
     </div>
+    <a onclick="history.go(-1)"><i class="icon-arrow-left"></i></a>
     <a ng-click="toggleMenu()"><i class="icon-reorder"></i></a>
   </div>
 

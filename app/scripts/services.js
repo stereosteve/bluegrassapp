@@ -19,8 +19,9 @@ PB.factory('globals', ['$rootScope', function($rootScope) {
   $rootScope.toggleMenu = function() {
     $rootScope.showMenu = !$rootScope.showMenu
   };
-  $rootScope.$on('$routeChangeSuccess', function() {
+  $rootScope.$on('$routeChangeSuccess', function(scope, current) {
     $rootScope.showMenu = false
+    $rootScope.showArrows = current.$route.showArrows
   });
 }]);
 

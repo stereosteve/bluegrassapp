@@ -16,6 +16,7 @@ var PB = angular.module('pickbook', []).
       templateUrl: 'songs/index.html',
       controller: 'songListCtrl',
       reloadOnSearch: false,
+      showArrows: true
     });
 
     $routeProvider.when('/songs/:songId', {
