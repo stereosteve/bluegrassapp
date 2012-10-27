@@ -20,5 +20,4 @@ function makeWatcher(path, cmd, args) {
   return watcher
 }
 
-makeWatcher('app/scripts', 'make', ['js'])
-makeWatcher('app/views', 'make', ['ejs'])
+makeWatcher('app', 'make', ['build'])
