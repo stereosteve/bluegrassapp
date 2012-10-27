@@ -2,19 +2,14 @@
 
 Mobile app for bluegrass lyrics.
 
-## Setup
+## Development
 
-Install dependencies:
 ```
-sudo gem install foreman watchr
-npm install less -g
 npm install
+npm run watch
+npm start
 ```
 
-Run server + watch and recompile assets:
-```
-make dev
-```
 
 ## Deploy
 
@@ -29,10 +24,3 @@ Then, to deploy:
 make deploy
 ```
 
-## TODO
-
-* ditch bootstrap
-* write data to localstorage
-* include version / hashsum in asset URLs & offline cache
-
-* fixed position stuff: http://stackoverflow.com/questions/743123/fixed-positioning-in-mobile-safari
