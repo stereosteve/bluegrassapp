@@ -8,18 +8,6 @@ PB.controller('rootCtrl', ['$scope','$window','db','favs',
 
 
 
-
-  // load data
-
-  $scope.mode = 'loading'
-
-  db.then(function(data) {
-    angular.extend($scope, data);
-    setMode('list')
-  });
-
-
-
   // Modes
 
 
@@ -108,6 +96,18 @@ PB.controller('rootCtrl', ['$scope','$window','db','favs',
    */
 
   $scope.favs = favs;
+
+
+
+  // load data
+
+  $scope.mode = 'loading'
+  setMode('loading')
+
+  db.then(function(data) {
+    angular.extend($scope, data);
+    setMode('list')
+  });
 
 
 }]);
