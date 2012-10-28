@@ -127,23 +127,10 @@ PB.controller('rootCtrl', ['$scope','db','favs',
 
 
 
-PB.factory('db', ['$http', '$q', function($http, $q) {
-  var deferred = $q.defer()
-  var data = localStorage.getItem('pickbook-data')
-
-
-  if (data) {
-    data = JSON.parse(data)
-    deferred.resolve(data)
-  }
-  else {
-    $http.get('/everything.json', {cache: true}).then(function(resp) {
-      localStorage.setItem('pickbook-data', JSON.stringify(resp.data))
-      deferred.resolve(resp.data)
-    });
-  }
-
-  return deferred.promise;
+PB.factory('db', ['$http', function($http) {
+  return $http.get('/everything.json', {cache: true}).then(function(resp) {
+    return resp.data
+  });
 }]);
 
 

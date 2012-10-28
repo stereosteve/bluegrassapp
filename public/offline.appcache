@@ -1,10 +1,9 @@
 CACHE MANIFEST
-# version 1351433994
+# version 1351434985
 
 CACHE:
 
 /vendor/angular.js
-/vendor/underscore.js
 /compiled/pickbook.js
 /style.css
 
