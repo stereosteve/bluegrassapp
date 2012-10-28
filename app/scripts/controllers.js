@@ -3,21 +3,9 @@ var PB = angular.module('pickbook', [])
 
 
 
-PB.controller('rootCtrl', ['$scope','db','favs',
-                   function($scope , db , favs) {
+PB.controller('rootCtrl', ['$scope','$window','db','favs',
+                   function($scope , $window , db , favs) {
 
-  // rootView
-
-  $scope.rootView = 'songs/index'
-
-  var goto = $scope.goto = function(view) {
-    $scope.rootView = view
-  }
-
-  $scope.$watch('rootView', function(view) {
-    if (!view) return;
-    window.scrollTo(0,1)
-  })
 
 
 
@@ -27,7 +15,7 @@ PB.controller('rootCtrl', ['$scope','db','favs',
 
   db.then(function(data) {
     angular.extend($scope, data);
-    $scope.mode = 'list'
+    setMode('list')
   });
 
 
@@ -37,9 +25,19 @@ PB.controller('rootCtrl', ['$scope','db','favs',
 
   $scope.letter = 'a'
 
+  var lastMode
 
-  $scope.setMode = function(mode) {
+  var setMode = $scope.setMode = function(mode) {
     $scope.mode = mode
+    lastMode = mode
+    if (mode === 'songDetail')
+      $scope.modeView = 'songDetail'
+    else
+      $scope.modeView = 'songList'
+    $window.scrollTo(0, 1);
+  }
+  $scope.lastMode = function() {
+    setMode(lastMode)
   }
 
 
@@ -73,11 +71,11 @@ PB.controller('rootCtrl', ['$scope','db','favs',
 
   $scope.prevPage = function() {
     $scope.letter = $scope.prevLetter;
-    window.scrollTo(0, 1);
+    $window.scrollTo(0, 1);
   };
   $scope.nextPage = function() {
     $scope.letter = $scope.nextLetter;
-    window.scrollTo(0, 1);
+    $window.scrollTo(0, 1);
   };
 
 
@@ -91,7 +89,7 @@ PB.controller('rootCtrl', ['$scope','db','favs',
 
   $scope.showSong = function(song) {
     $scope.song = song
-    goto('songs/show')
+    setMode('songDetail')
   }
 
   $scope.toggleWrap = function() {
