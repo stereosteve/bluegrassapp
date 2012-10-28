@@ -1,11 +1,12 @@
 CACHE MANIFEST
-# version 1351453343
+# version 1351454589
 
 CACHE:
 
 /vendor/angular.js
-/compiled/pickbook.js
+/app.js
 /style.css
+/database.json
 
 /font-awesome/css/font-awesome.css
 /font-awesome/font/fontawesome-webfont.eot
@@ -13,8 +14,6 @@ CACHE:
 /font-awesome/font/fontawesome-webfont.ttf
 /font-awesome/font/fontawesome-webfont.woff
 
-/img/logo.png
-/everything.json
 
 /vendor/add2home.js
 /vendor/add2home.css
