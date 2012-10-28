@@ -58,10 +58,18 @@ PB.controller('rootCtrl', ['$scope','$window','db','favs',
   });
 
   $scope.prevPage = function() {
+    if ($scope.letter == 'a') {
+      $scope.letter = 'z'
+      return
+    }
     $scope.letter = $scope.prevLetter;
     $window.scrollTo(0, 1);
   };
   $scope.nextPage = function() {
+    if ($scope.letter == 'z') {
+      $scope.letter = 'a'
+      return
+    }
     $scope.letter = $scope.nextLetter;
     $window.scrollTo(0, 1);
   };
