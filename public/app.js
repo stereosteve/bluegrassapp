@@ -44,9 +44,9 @@ PB.controller('rootCtrl', ['$scope','$window','db','favs',
 
   $scope.updateSearch = function(term) {
     if (term)
-      searchTerm = $scope.searchTerm = term.toLowerCase();
+      $scope.searchTerm = term.toLowerCase();
     else
-      searchTerm = $scope.searchTerm = undefined
+      $scope.searchTerm = undefined
   }
 
 

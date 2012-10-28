@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="pickbook" <%- manifestTag %>>
+<html lang="en" ng-app="pickbook" manifest="/offline.appcache">
 <head>
 
   <meta charset="utf-8">
@@ -49,7 +49,7 @@
     <div ng-include="modeView"></div>
 
 
-    <%- startview('songList') %>
+    <script type="text/ng-template" id="songList">
 
       <div class="search" ng-show="mode == 'search'">
         <input ng-change="updateSearch(searchTerm)" ng-model="searchTerm" placeholder="Search"></div>
@@ -71,12 +71,12 @@
         </li>
       </ul>
 
-    <%- endview %>
+    </script>
 
 
 
 
-    <%- startview('songDetail') %>
+    <script type="text/ng-template" id="songDetail">
 
       <div class="cell" ng-show="mode == 'songDetail'">
         <h3>{{song.name}}</h3>
@@ -103,7 +103,7 @@
 
       </div>
 
-    <%- endview %>
+    </script>
 
 
 
@@ -113,7 +113,7 @@
 
   <script src="vendor/angular.js"></script>
   <script src="vendor/add2home.js"></script>
-  <script src="compiled/pickbook.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
 

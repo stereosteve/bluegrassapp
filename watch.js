@@ -20,5 +20,6 @@ function makeWatcher(path, cmd, args) {
   return watcher
 }
 
-makeWatcher('app', 'make', ['build'])
 makeWatcher('public/style.css', 'make', ['bump'])
+makeWatcher('public/index.html', 'make', ['bump'])
+makeWatcher('public/database.json', 'make', ['bump'])
