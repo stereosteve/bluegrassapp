@@ -152,6 +152,10 @@ PB.factory('favs', function() {
 
   return {
 
+    list: function() {
+      return _favs;
+    },
+
     contains: function(songId) {
       return _favs.indexOf(songId) > -1;
     },
