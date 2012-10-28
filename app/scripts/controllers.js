@@ -6,6 +6,7 @@ var PB = angular.module('pickbook', [])
 PB.controller('rootCtrl', ['$scope','db','favs',
                    function($scope , db , favs) {
 
+  // rootView
 
   $scope.rootView = 'songs/index'
 
@@ -20,21 +21,20 @@ PB.controller('rootCtrl', ['$scope','db','favs',
 
 
 
-
-  /**
-   * Songs
-   */
-
   // load data
+
+  $scope.mode = 'loading'
+
   db.then(function(data) {
     angular.extend($scope, data);
+    $scope.mode = 'list'
   });
 
 
 
   // Modes
 
-  $scope.mode = 'list'
+
   $scope.letter = 'a'
 
 

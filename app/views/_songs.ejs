@@ -1,5 +1,10 @@
 <%- startview('songs/index') %>
 
+  <div class="alert" ng-show="mode == 'loading'">
+    <strong>Loading</strong><br>
+    If this is your first time, this can take several moments.
+  </div>
+
   <div class="search" ng-show="mode == 'search'">
     <input ng-change="updateSearch(searchTerm)" ng-model="searchTerm" placeholder="Search"></div>
   </div>
