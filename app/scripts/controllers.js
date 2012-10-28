@@ -42,30 +42,29 @@ PB.controller('rootCtrl', ['$scope','db','favs',
 
   // Search
 
-  $scope.songSearch = function(obj, i) {
-    if (!$scope.searchTerm) return true;
-    if ($scope.searchTerm.length < 3) return false;
-    return obj.name.toLowerCase().indexOf($scope.searchTerm) > -1;
-  };
+  $scope.letter = 'a'
+
+
+  $scope.rootFilter = function(obj, i) {
+    if ($scope.onlyFavs) {
+      return favs.contains(obj.id)
+    }
+    else if ($scope.searchTerm && $scope.searchTerm.length > 3) {
+      return obj.name.toLowerCase().indexOf($scope.searchTerm) > -1;
+    }
+    else {
+      return obj.name.charAt(0).toLowerCase() == $scope.letter;
+    }
+  }
 
   $scope.updateSearch = function(term) {
     if (term)
-      $scope.searchTerm = term.toLowerCase();
+      searchTerm = $scope.searchTerm = term.toLowerCase();
     else
-      delete $scope.searchTerm
+      searchTerm = $scope.searchTerm = undefined
   }
 
 
-
-
-  // First Letter
-
-  $scope.letter = 'a';
-
-  $scope.firstLetter = function(obj) {
-    if ($scope.searchTerm) return true;
-    return obj.name.charAt(0).toLowerCase() == $scope.letter;
-  };
 
   $scope.$watch('letter', function(letter) {
     if (!letter) return;
@@ -81,6 +80,9 @@ PB.controller('rootCtrl', ['$scope','db','favs',
     $scope.letter = $scope.nextLetter;
     window.scrollTo(0, 1);
   };
+  $scope.toggleFavs = function() {
+    $scope.onlyFavs = !$scope.onlyFavs
+  }
 
 
 
@@ -106,9 +108,6 @@ PB.controller('rootCtrl', ['$scope','db','favs',
 
   $scope.favs = favs;
 
-  $scope.filterFavs = function(obj) {
-    return favs.contains(obj.id)
-  }
 
 }]);
 

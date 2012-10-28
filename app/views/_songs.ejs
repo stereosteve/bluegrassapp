@@ -11,7 +11,7 @@
 
 
   <ul class="songs">
-    <li ng-repeat="song in songs | orderBy: name | filter: songSearch | filter: firstLetter | limitTo: 500">
+    <li ng-repeat="song in songs | orderBy: name | filter: rootFilter">
       <a ng-click="showSong(song)"> <strong>{{song.name}}</strong> <br /> {{song.artist}} &nbsp;</a>
     </li>
   </ul>
