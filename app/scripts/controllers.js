@@ -49,7 +49,8 @@ PB.controller('rootCtrl', ['$scope','db','favs',
     if ($scope.onlyFavs) {
       return favs.contains(obj.id)
     }
-    else if ($scope.searchTerm && $scope.searchTerm.length > 3) {
+    else if ($scope.searchTerm) {
+      if ($scope.searchTerm.length < 3) return false;
       return obj.name.toLowerCase().indexOf($scope.searchTerm) > -1;
     }
     else {

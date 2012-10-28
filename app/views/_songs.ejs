@@ -4,9 +4,14 @@
     <input ng-change="updateSearch(searchTerm)" ng-model="searchTerm" placeholder="Search"></div>
   </div>
 
-  <div ng-show="searchTerm.length > 0 && searchTerm.length < 3">
+  <div class="alert" ng-show="searchTerm.length > 0 && searchTerm.length < 3">
     <strong>Keep typing</strong><br>
-    You must type 3 letters to see results
+    Type at least 3 letters.
+  </div>
+
+  <div class="alert" ng-show="onlyFavs && favs.list().length == 0">
+    <strong>You have no favorites.</strong><br>
+    You can add a favorite by clicking the "star" button at the bottom of any song page.
   </div>
 
 

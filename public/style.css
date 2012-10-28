@@ -3,7 +3,7 @@
 *  Golden Grid System (1.01)	<http://goldengridsystem.com/>
 *  by Joni Korpi 				<http://jonikorpi.com/>
 *  licensed under MIT			<http://opensource.org/licenses/mit-license.php>
-*	
+*
 */
 /*
 *
@@ -259,4 +259,18 @@ hr {
   padding: 10px;
   color: black;
   text-decoration: none;
+}
+
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  color: black;
+  background: #f7f7f7;
+  border-radius: 3px;
+  padding: 6px;
+}
+
+.alert {
+  padding: 10px;
+  background: #FCF8E3;
 }
