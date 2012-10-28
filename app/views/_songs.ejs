@@ -1,8 +1,7 @@
 <%- startview('songs/index') %>
-  <div ng-include="'navbar.html'"></div>
 
   <div class="search">
-    <input ng-model="searchTerm" placeholder="Search"></div>
+    <input ng-change="updateSearch(searchTerm)" ng-model="searchTerm" placeholder="Search"></div>
   </div>
 
   <div ng-show="searchTerm.length > 0 && searchTerm.length < 3">
@@ -13,7 +12,7 @@
 
   <ul class="songs">
     <li ng-repeat="song in songs | orderBy: name | filter: songSearch | filter: firstLetter | limitTo: 500">
-      <a href="#/songs/{{song.id}}"> <strong>{{song.name}}</strong> <br /> {{song.artist}} &nbsp;</a>
+      <a ng-click="showSong(song)"> <strong>{{song.name}}</strong> <br /> {{song.artist}} &nbsp;</a>
     </li>
   </ul>
 
@@ -23,13 +22,12 @@
 
 
 <%- startview('songs/show') %>
-  <div ng-include="'navbar.html'"></div>
 
   <div class="cell">
     <h3>{{song.name}}</h3>
     <h4>{{song.artist}}</h4>
     <hr />
-    <article ng-bind-html-unsafe="htmlLyrics"></article>
+    <article ng-bind-html-unsafe="simpleFormat(song.lyrics)"></article>
     <hr />
     <a ng-hide="favs.contains(song.id)" class="btn btn-primary" ng-click="favs.add(song.id)"><i class="icon-star icon-white"></i> Star</a>
     <a ng-show="favs.contains(song.id)" class="btn" ng-click="favs.remove(song.id)"><i class="icon-star-empty"></i> Unstar</a>

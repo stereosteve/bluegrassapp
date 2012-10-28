@@ -11,7 +11,7 @@ if (process.env.APPCACHE || true) manifestTag = 'manifest="/offline.appcache"';
 var ctx = {
   manifestTag: manifestTag,
   startview: function(name) {
-    return '<script type="text/ng-template" id="' + name + '.html">';
+    return '<script type="text/ng-template" id="' + name + '">';
   },
   endview: '</script>',
   version: info.version,

@@ -10,7 +10,7 @@ clean:
 
 js: bump
 	mkdir -p public/compiled
-	cat app/scripts/routes.js app/scripts/services.js app/scripts/controllers.js > public/compiled/pickbook.js
+	cat app/scripts/controllers.js > public/compiled/pickbook.js
 
 ejs: bump
 	node ejs2html.js
@@ -21,6 +21,6 @@ ejs: bump
 deploy: build
 	rm -rf ../gh-pages-pickbook/*
 	cp -r public/* ../gh-pages-pickbook/
-	cd ../gh-pages-pickbook && git add -A && git commit -m "deploy" && git push origin gh-pages
+	cd ../gh-pages-pickbook && git add -A && git commit -m "deploy" && git push origin gh-pages -f
 
 

@@ -16,16 +16,18 @@
   <link rel="stylesheet" href="vendor/add2home.css"/>
 
 </head>
-<body pb-body>
+<body>
 
-  <div ng-view></div>
+  <div ng-controller="rootCtrl">
 
-  <% include _welcome %>
+    <div ng-include="'navbar'"></div>
+    <div ng-include="rootView"></div>
+
+  </div>
+
   <% include _navbars %>
   <% include _songs %>
   <% include _favs %>
-  <% include _about %>
-  <% include _settings %>
 
 
   <script src="vendor/angular.js"></script>

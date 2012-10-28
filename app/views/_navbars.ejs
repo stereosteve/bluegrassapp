@@ -1,22 +1,28 @@
 <%- startview('navbar') %>
 
   <div id="topbar">
-    <div class="right" ng-show="showArrows">
+
+    <div class="right" ng-show="rootView == 'songs/index'">
       <a ng-click="prevPage()"><i class="icon-chevron-left"></i></a>
       <a ng-click="nextPage()"><i class="icon-chevron-right"></i></a>
     </div>
-    <a onclick="history.go(-1)"><i class="icon-arrow-left"></i></a>
+
+    <div class="right" ng-show="rootView == 'songs/show'">
+      <a ng-click="goto('songs/index')"><i class="icon-remove"></i></a>
+    </div>
+
     <a ng-click="toggleMenu()"><i class="icon-reorder"></i></a>
   </div>
 
   <div style="margin-top: 50px;"></div>
 
+
+
+
   <div id="leftmenu" ng-show="showMenu">
     <div class="banner">
-      <a href="#/home">Home</a>
-      <a href="#/songs">Songs</a>
-      <a href="#/favs">Favorites</a>
-      <a href="#/about">About</a>
+      <a ng-click="goto('songs/index')">Songs</a>
+      <a ng-click="goto('favs')">Favorites</a>
     </div>
   </div>
 
