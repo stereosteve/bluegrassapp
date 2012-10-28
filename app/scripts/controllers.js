@@ -28,8 +28,8 @@ PB.controller('rootCtrl', ['$scope','$window','db','favs',
   var lastMode
 
   var setMode = $scope.setMode = function(mode) {
+    lastMode = $scope.mode
     $scope.mode = mode
-    lastMode = mode
     if (mode === 'songDetail')
       $scope.modeView = 'songDetail'
     else
