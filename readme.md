@@ -1,13 +1,29 @@
-# pickbook
+A mobile web app for bluegrass lyrics.
+
+* Browse, search and star over 1700 bluegrass songs from [BluegrassLyrics.com](http://www.bluegrasslyrics.com/).
+* Uses [appcache](http://appcachefacts.info/) for offline functionality.
+* Uses open web standards to avoid copyright laws and app store censorship.
+
 
 ![pickbook](https://raw.github.com/stereosteve/pickbook/master/public/help/pickbook_screenshot.png)
 
-Mobile app for bluegrass lyrics.
+
+
+
 
 ## Development
 
+To run the development server, install [Node.js](http://nodejs.org/) and run:
+
 ```
 npm install
-npm run watch
 npm start
 ```
+
+Run watch script to bump the appcache version number when assets change:
+
+```
+npm run watch
+```
+
+
