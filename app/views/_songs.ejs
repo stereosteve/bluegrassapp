@@ -1,22 +1,22 @@
 <%- startview('songs/index') %>
 
-  <div class="search">
+  <div class="search" ng-show="mode == 'search'">
     <input ng-change="updateSearch(searchTerm)" ng-model="searchTerm" placeholder="Search"></div>
   </div>
 
-  <div class="alert" ng-show="searchTerm.length > 0 && searchTerm.length < 3">
+  <div class="alert" ng-show="mode == 'search' && (!searchTerm || searchTerm.length < 3)">
     <strong>Keep typing</strong><br>
-    Type at least 3 letters.
+    Type at least 3 letters to search.
   </div>
 
-  <div class="alert" ng-show="onlyFavs && favs.list().length == 0">
+  <div class="alert" ng-show="mode == 'favs' && favs.list().length == 0">
     <strong>You have no favorites.</strong><br>
     You can add a favorite by clicking the "star" button at the bottom of any song page.
   </div>
 
 
   <ul class="songs">
-    <li ng-repeat="song in songs | orderBy: name | filter: rootFilter">
+    <li ng-repeat="song in songs | orderBy: name | filter: modeFilter">
       <a ng-click="showSong(song)"> <strong>{{song.name}}</strong> <br /> {{song.artist}} &nbsp;</a>
     </li>
   </ul>

@@ -2,10 +2,16 @@
 
   <div id="topbar">
 
-    <div class="right" ng-show="rootView == 'songs/index'">
-      <a ng-click="toggleFavs()"><i class="icon-star"></i></a>
-      <a ng-click="prevPage()"><i class="icon-chevron-left"></i></a>
-      <a ng-click="nextPage()"><i class="icon-chevron-right"></i></a>
+    <div ng-show="rootView == 'songs/index'">
+      <div class="right" ng-show="mode == 'list'">
+        <a ng-click="prevPage()"><i class="icon-chevron-left"></i></a>
+        <a ng-click="nextPage()"><i class="icon-chevron-right"></i></a>
+      </div>
+      <div>
+        <a ng-click="setMode('list')"><i class="icon-list-ul"></i></a>
+        <a ng-click="setMode('favs')"><i class="icon-star"></i></a>
+        <a ng-click="setMode('search')"><i class="icon-search"></i></a>
+      </div>
     </div>
 
     <div class="right" ng-show="rootView == 'songs/show'">

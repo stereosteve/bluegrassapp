@@ -15,16 +15,8 @@ PB.controller('rootCtrl', ['$scope','db','favs',
 
   $scope.$watch('rootView', function(view) {
     if (!view) return;
-    $scope.showMenu = false;
     window.scrollTo(0,1)
   })
-
-
-
-  $scope.toggleMenu = function() {
-    $scope.showMenu = !$scope.showMenu
-  };
-
 
 
 
@@ -40,17 +32,23 @@ PB.controller('rootCtrl', ['$scope','db','favs',
 
 
 
-  // Search
+  // Modes
 
+  $scope.mode = 'list'
   $scope.letter = 'a'
 
 
-  $scope.rootFilter = function(obj, i) {
-    if ($scope.onlyFavs) {
+  $scope.setMode = function(mode) {
+    $scope.mode = mode
+  }
+
+
+  $scope.modeFilter = function(obj, i) {
+    if ($scope.mode === 'favs') {
       return favs.contains(obj.id)
     }
-    else if ($scope.searchTerm) {
-      if ($scope.searchTerm.length < 3) return false;
+    else if ($scope.mode === 'search') {
+      if (!$scope.searchTerm || $scope.searchTerm.length < 3) return false;
       return obj.name.toLowerCase().indexOf($scope.searchTerm) > -1;
     }
     else {
@@ -83,13 +81,7 @@ PB.controller('rootCtrl', ['$scope','db','favs',
   };
 
 
-  $scope.toggleFavs = function() {
-    $scope.onlyFavs = !$scope.onlyFavs
-  }
 
-  $scope.toggleWrap = function() {
-    $scope.noWrap = !$scope.noWrap
-  }
 
 
 
@@ -100,6 +92,10 @@ PB.controller('rootCtrl', ['$scope','db','favs',
   $scope.showSong = function(song) {
     $scope.song = song
     goto('songs/show')
+  }
+
+  $scope.toggleWrap = function() {
+    $scope.noWrap = !$scope.noWrap
   }
 
   $scope.simpleFormat = function(text) {
@@ -155,10 +151,6 @@ PB.factory('favs', function() {
   }
 
   return {
-
-    list: function() {
-      return _favs;
-    },
 
     contains: function(songId) {
       return _favs.indexOf(songId) > -1;
