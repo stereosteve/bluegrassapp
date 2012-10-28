@@ -32,10 +32,25 @@
     <h3>{{song.name}}</h3>
     <h4>{{song.artist}}</h4>
     <hr />
-    <article ng-bind-html-unsafe="simpleFormat(song.lyrics)"></article>
+    <article ng-class="{noWrap: noWrap}" ng-bind-html-unsafe="simpleFormat(song.lyrics)"></article>
     <hr />
-    <a ng-hide="favs.contains(song.id)" class="btn btn-primary" ng-click="favs.add(song.id)"><i class="icon-star icon-white"></i> Star</a>
-    <a ng-show="favs.contains(song.id)" class="btn" ng-click="favs.remove(song.id)"><i class="icon-star-empty"></i> Unstar</a>
+
+    <a ng-hide="favs.contains(song.id)"
+      class="btn btn-primary"
+      ng-click="favs.add(song.id)">
+          <i class="icon-star icon-white"></i> Star
+    </a>
+
+    <a ng-show="favs.contains(song.id)"
+      class="btn"
+      ng-click="favs.remove(song.id)">
+          <i class="icon-star-empty"></i> Unstar
+    </a>
+
+    <a class="btn" ng-click="toggleWrap()">
+      <i class="icon-align-left"></i> Toggle Word Wrap
+    </a>
+
   </div>
 
 <%- endview -%>

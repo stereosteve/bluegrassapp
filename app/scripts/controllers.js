@@ -81,8 +81,14 @@ PB.controller('rootCtrl', ['$scope','db','favs',
     $scope.letter = $scope.nextLetter;
     window.scrollTo(0, 1);
   };
+
+
   $scope.toggleFavs = function() {
     $scope.onlyFavs = !$scope.onlyFavs
+  }
+
+  $scope.toggleWrap = function() {
+    $scope.noWrap = !$scope.noWrap
   }
 
 

@@ -274,3 +274,7 @@ hr {
   padding: 10px;
   background: #FCF8E3;
 }
+
+article.noWrap {
+  min-width: 600px;
+}

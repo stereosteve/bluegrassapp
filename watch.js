@@ -16,8 +16,9 @@ function makeWatcher(path, cmd, args) {
   watcher.on('error', function(err) {
     console.error("ERROR", err)
   })
-  exec(cmd, args);
+  // exec(cmd, args);
   return watcher
 }
 
 makeWatcher('app', 'make', ['build'])
+makeWatcher('public/style.css', 'make', ['bump'])
