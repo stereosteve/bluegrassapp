@@ -1,119 +1,105 @@
-<!doctype html>
-<html lang="en" ng-app="pickbook" manifest="/offline.appcache">
-<head>
+<!DOCTYPE html>
+<html ng-app="pickbook">
+  <head>
+    <meta charset="utf-8">
+    <title>Pick Book</title>
 
-  <meta charset="utf-8">
-  <title>pickbook</title>
+    <!-- Sets initial viewport load and disables zooming  -->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
 
-  <meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  <link rel="apple-touch-icon" href="img/iphone_icon.png" />
-  <link rel="apple-touch-startup-image" href="img/iphone_splash.png" />
+    <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-  <link rel="stylesheet" href="style.css"/>
-  <link rel="stylesheet" href="font-awesome/css/font-awesome.css"/>
-  <link rel="stylesheet" href="vendor/add2home.css"/>
+    <!-- Set Apple icons for when prototype is saved to home screen -->
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="touch-icons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="touch-icons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="touch-icons/apple-touch-icon-57x57.png">
 
-</head>
-<body>
+    <!-- Include the compiled Ratchet CSS -->
+    <link rel="stylesheet" href="ratchet.css">
+    <link rel="stylesheet" href="style.css">
 
-  <div ng-controller="rootCtrl">
+    <!-- Include the compiled Ratchet JS -->
+    <script src="ratchet.js"></script>
 
+  </head>
+  <body  ng-controller="rootCtrl">
 
-    <div id="topbar">
-      <div class="right" ng-show="mode == 'list'">
-        <a ng-click="prevPage()"><i class="icon-chevron-left"></i></a>
-        <a ng-click="nextPage()"><i class="icon-chevron-right"></i></a>
-      </div>
-      <div class="right" ng-show="mode == 'songDetail'">
-        <a ng-click="lastMode()"><i class="icon-remove"></i></a>
-      </div>
-      <div>
-        <a ng-click="setMode('list')"><i class="icon-list-ul"></i></a>
-        <a ng-click="setMode('favs')"><i class="icon-star"></i></a>
-        <a ng-click="setMode('search')"><i class="icon-search"></i></a>
-      </div>
-    </div>
-    <div style="margin-top: 50px;"></div>
+  <!-- Make sure all your bars are the first things in your <body> -->
+  <header class="bar-title" ng-show="mode == 'list'">
+    <a class="button-prev uppercase" ng-click="prevPage()">{{prevLetter}}</a>
+    <h1 class="title">Songs</h1>
+    <a class="button-next uppercase" ng-click="nextPage()">{{nextLetter}}</a>
+  </header>
 
+  <header class="bar-title" ng-show="mode == 'songDetail'">
+    <a class="button-prev" ng-click="lastMode()">Songs</a>
+    <h1 class="title">{{song.name}}</h1>
+  </header>
 
-
-
-    <div class="alert" ng-show="mode == 'loading'">
-      <strong>Loading</strong><br>
-      If this is your first time, this can take several moments.
-    </div>
-
-
+  <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+  <div class="content">
     <div ng-include="modeView"></div>
-
-
-    <script type="text/ng-template" id="songList">
-
-      <div class="search" ng-show="mode == 'search'">
-        <input ng-change="updateSearch(searchTerm)" ng-model="searchTerm" placeholder="Search"></div>
-      </div>
-
-      <div class="alert" ng-show="mode == 'search' && (!searchTerm || searchTerm.length < 3)">
-        <strong>Keep typing</strong><br>
-        Type at least 3 letters to search.
-      </div>
-
-      <div class="alert" ng-show="mode == 'favs' && favs.list().length == 0">
-        <strong>You have no favorites.</strong><br>
-        You can add a favorite by clicking the "star" button at the bottom of any song page.
-      </div>
-
-      <ul class="songs">
-        <li ng-repeat="song in songs | orderBy: name | filter: modeFilter">
-          <a ng-click="showSong(song)"> <strong>{{song.name}}</strong> <br /> {{song.artist}} &nbsp;</a>
-        </li>
-      </ul>
-
-    </script>
-
-
-
-
-    <script type="text/ng-template" id="songDetail">
-
-      <div class="cell" ng-show="mode == 'songDetail'">
-        <h3>{{song.name}}</h3>
-        <h4>{{song.artist}}</h4>
-        <hr />
-        <article ng-class="{noWrap: noWrap}" ng-bind-html-unsafe="simpleFormat(song.lyrics)"></article>
-        <hr />
-
-        <a ng-hide="favs.contains(song.id)"
-          class="btn btn-primary"
-          ng-click="favs.add(song.id)">
-              <i class="icon-star icon-white"></i> Star
-        </a>
-
-        <a ng-show="favs.contains(song.id)"
-          class="btn"
-          ng-click="favs.remove(song.id)">
-              <i class="icon-star-empty"></i> Unstar
-        </a>
-
-        <a class="btn" ng-click="toggleWrap()">
-          <i class="icon-align-left"></i> Toggle Word Wrap
-        </a>
-
-      </div>
-
-    </script>
-
-
-
-
   </div>
 
 
-  <script src="vendor/angular.js"></script>
-  <script src="vendor/add2home.js"></script>
-  <script src="app.js"></script>
-</body>
-</html>
 
+  <script type="text/ng-template" id="songList">
+
+    <div class="search" ng-show="mode == 'search'">
+      <input ng-change="updateSearch(searchTerm)" ng-model="searchTerm" placeholder="Search"></div>
+    </div>
+
+    <div class="alert" ng-show="mode == 'search' && (!searchTerm || searchTerm.length < 3)">
+      <strong>Keep typing</strong><br>
+      Type at least 3 letters to search.
+    </div>
+
+    <div class="alert" ng-show="mode == 'favs' && favs.list().length == 0">
+      <strong>You have no favorites.</strong><br>
+      You can add a favorite by clicking the "star" button at the bottom of any song page.
+    </div>
+
+    <ul class="songs">
+      <li ng-repeat="song in songs | orderBy: name | filter: modeFilter">
+        <a ng-click="showSong(song)"> <strong>{{song.name}}</strong> <br /> {{song.artist}} &nbsp;</a>
+      </li>
+    </ul>
+
+  </script>
+
+
+
+
+  <script type="text/ng-template" id="songDetail">
+
+    <div class="cell" ng-show="mode == 'songDetail'">
+      <h3>{{song.name}}</h3>
+      <h4>{{song.artist}}</h4>
+      <hr />
+      <article ng-bind-html-unsafe="simpleFormat(song.lyrics)"></article>
+      <hr />
+
+      <a ng-hide="favs.contains(song.id)"
+        class="btn btn-primary"
+        ng-click="favs.add(song.id)">
+            <i class="icon-star icon-white"></i> Star
+      </a>
+
+      <a ng-show="favs.contains(song.id)"
+        class="btn"
+        ng-click="favs.remove(song.id)">
+            <i class="icon-star-empty"></i> Unstar
+      </a>
+
+    </div>
+
+  </script>
+
+
+  <script src="vendor/angular.js"></script>
+  <script src="app.js"></script>
+
+  </body>
+</html>

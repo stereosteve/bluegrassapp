@@ -55,6 +55,8 @@ PB.controller('rootCtrl', ['$scope','$window','db','favs',
     if (!letter) return;
     $scope.prevLetter = String.fromCharCode($scope.letter.charCodeAt(0) - 1);
     $scope.nextLetter = String.fromCharCode($scope.letter.charCodeAt(0) + 1);
+    if ($scope.prevLetter < 'a') $scope.prevLetter = 'z'
+    if ($scope.nextLetter > 'z') $scope.nextLetter = 'a'
   });
 
   $scope.prevPage = function() {
