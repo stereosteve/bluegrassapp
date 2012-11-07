@@ -4,39 +4,41 @@
     <meta charset="utf-8">
     <title>Pick Book</title>
 
-    <!-- Sets initial viewport load and disables zooming  -->
+    <!-- zooming  -->
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+    <!-- apple toolbars -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <!-- Set Apple icons for when prototype is saved to home screen -->
+    <!-- apple icons -->
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="touch-icons/apple-touch-icon-114x114.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="touch-icons/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="touch-icons/apple-touch-icon-57x57.png">
 
-    <!-- Include the compiled Ratchet CSS -->
+    <!-- CSS -->
     <link rel="stylesheet" href="ratchet.css">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.css"/>
     <link rel="stylesheet" href="style.css">
-
-    <!-- Include the compiled Ratchet JS -->
-    <script src="ratchet.js"></script>
+    
 
   </head>
   <body  ng-controller="rootCtrl">
 
   <!-- Make sure all your bars are the first things in your <body> -->
-  <header class="bar-title" ng-show="mode == 'list'">
-    <a class="button-prev uppercase" ng-click="prevPage()">{{prevLetter}}</a>
-    <h1 class="title">Songs</h1>
-    <a class="button-next uppercase" ng-click="nextPage()">{{nextLetter}}</a>
+  <header class="bar-title">
+    <a class="button-prev" ng-click="lastMode()"><i class="icon-music"></i></a>
+    <a class="button" ng-click="setMode('list')"><i class="icon-list-ul"></i></a>
+    <a class="button" ng-click="setMode('favs')"><i class="icon-star"></i></a>
+    <a class="button" ng-click="setMode('search')"><i class="icon-search"></i></a>
+    <div></div>
   </header>
 
-  <header class="bar-title" ng-show="mode == 'songDetail'">
-    <a class="button-prev" ng-click="lastMode()">Songs</a>
-    <h1 class="title">{{song.name}}</h1>
-  </header>
+  <div ng-show="mode == 'search'">
+    <div class="bar-standard bar-header-secondary">
+      <input type="search" ng-change="updateSearch(searchTerm)" ng-model="searchTerm" placeholder="Search"></div>
+    </div>
+  </div>
 
   <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
   <div class="content">
@@ -47,10 +49,7 @@
 
   <script type="text/ng-template" id="songList">
 
-    <div class="search" ng-show="mode == 'search'">
-      <input ng-change="updateSearch(searchTerm)" ng-model="searchTerm" placeholder="Search"></div>
-    </div>
-
+    <div style="padding-top: 40px" ng-show="mode == 'search'"></div>
     <div class="alert" ng-show="mode == 'search' && (!searchTerm || searchTerm.length < 3)">
       <strong>Keep typing</strong><br>
       Type at least 3 letters to search.
