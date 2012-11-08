@@ -27,10 +27,10 @@
 
   <!-- Make sure all your bars are the first things in your <body> -->
   <header class="bar-title">
-    <a class="button-prev" ng-click="lastMode()"><i class="icon-music"></i></a>
-    <a class="button" ng-click="setMode('list')"><i class="icon-list-ul"></i></a>
-    <a class="button" ng-click="setMode('favs')"><i class="icon-star"></i></a>
-    <a class="button" ng-click="setMode('search')"><i class="icon-search"></i></a>
+    <a class="button-prev" ng-tap="lastMode()"><i class="icon-music"></i></a>
+    <a class="button" ng-tap="setMode('list')"><i class="icon-list-ul"></i></a>
+    <a class="button" ng-tap="setMode('favs')"><i class="icon-star"></i></a>
+    <a class="button" ng-tap="setMode('search')"><i class="icon-search"></i></a>
     <div></div>
   </header>
 
@@ -62,7 +62,7 @@
 
     <ul class="songs">
       <li ng-repeat="song in songs | orderBy: name | filter: modeFilter">
-        <a ng-click="showSong(song)"> <strong>{{song.name}}</strong> <br /> {{song.artist}} &nbsp;</a>
+        <a ng-tap="showSong(song)"> <strong>{{song.name}}</strong> <br /> {{song.artist}} &nbsp;</a>
       </li>
     </ul>
 
@@ -82,13 +82,13 @@
 
       <a ng-hide="favs.contains(song.id)"
         class="btn btn-primary"
-        ng-click="favs.add(song.id)">
+        ng-tap="favs.add(song.id)">
             <i class="icon-star icon-white"></i> Star
       </a>
 
       <a ng-show="favs.contains(song.id)"
         class="btn"
-        ng-click="favs.remove(song.id)">
+        ng-tap="favs.remove(song.id)">
             <i class="icon-star-empty"></i> Unstar
       </a>
 
