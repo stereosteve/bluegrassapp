@@ -89,3 +89,38 @@ select.alphabet {
 .menu-spacer {
   padding-top: 44px;
 }
+
+
+/* Override ratchet styles
+ *
+ * http://bl.ocks.org/4040799
+ */
+
+.bar-title {
+  background-color: #7e1c1d;
+  background-image: -webkit-linear-gradient(top, #7e1c1d 0, #4B100C 100%);
+  background-image: linear-gradient(to bottom, #7e1c1d 0, #4B100C 100%);
+  border-bottom: 1px solid #000000;
+}
+
+.bar-title [class*="button"] {
+  background-color: #7e1c1d;
+  background-image: -webkit-linear-gradient(top, #7e1c1d 0, #6D1614 100%);
+  background-image: linear-gradient(to bottom, #7e1c1d 0, #6D1614 100%);
+  border: 1px solid #000000;
+}
+
+.bar-title .segmented-controller {
+  background-color: #7e1c1d;
+  background-image: -webkit-linear-gradient(top, #7e1c1d 0, #6D1614 100%);
+  background-image: linear-gradient(to bottom, #7e1c1d 0, #6D1614 100%);
+  border: 1px solid #000000;
+}
+
+.bar-title .segmented-controller li {
+  border-left: 1px solid #000000;
+}
+
+.bar-title .segmented-controller li.active {
+  background-color: #490C0A;
+}
