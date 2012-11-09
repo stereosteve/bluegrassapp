@@ -26,13 +26,25 @@
   <body  ng-controller="rootCtrl">
 
   <!-- Make sure all your bars are the first things in your <body> -->
-  <header class="bar-title">
-    <a class="button-prev" ng-tap="lastMode()"><i class="icon-music"></i></a>
-    <a class="button" ng-tap="setMode('list')"><i class="icon-list-ul"></i></a>
-    <a class="button" ng-tap="setMode('favs')"><i class="icon-star"></i></a>
-    <a class="button" ng-tap="setMode('search')"><i class="icon-search"></i></a>
-    <div></div>
-  </header>
+  <div ng-show="mode != 'songDetail'">
+    <header class="bar-title">
+      <ul class="segmented-controller">
+        <li><a ng-click="setMode('list')"><i class="icon-list-ul"></i> Index</a></li>
+        <li><a ng-click="setMode('search')"><i class="icon-search"></i> Search</a></li>
+        <li><a ng-click="setMode('favs')"><i class="icon-star"></i> Favorites</a></li>
+      </ul>
+    </header>
+  </div>
+
+  <div ng-show="mode == 'songDetail'">
+    <header class="bar-title">
+      <a class="button-prev" ng-click="lastMode()">Back</a>
+    </header>
+  </div>
+
+  <div ng-show="mode == 'list'">
+    <select class="bar-standard bar-header-secondary alphabet" ng-model="letter" ng-options="letter for letter in alphabet"></select>
+  </div>
 
   <div ng-show="mode == 'search'">
     <div class="bar-standard bar-header-secondary">
@@ -41,15 +53,17 @@
   </div>
 
   <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
-  <div class="content">
-    <div ng-include="modeView"></div>
+  <div class="content" ng-include="modeView">
   </div>
 
+  <select id="alphabet" style="display:none" ng-model="letter" ng-options="letter for letter in alphabet"></select>
 
 
   <script type="text/ng-template" id="songList">
 
-    <div style="padding-top: 40px" ng-show="mode == 'search'"></div>
+    <div style="padding-top: 40px"></div>
+    <div style="padding-top: 40px" ng-show="mode == 'search' || mode == 'list'"></div>
+
     <div class="alert" ng-show="mode == 'search' && (!searchTerm || searchTerm.length < 3)">
       <strong>Keep typing</strong><br>
       Type at least 3 letters to search.
@@ -62,7 +76,7 @@
 
     <ul class="songs">
       <li ng-repeat="song in songs | orderBy: name | filter: modeFilter">
-        <a ng-tap="showSong(song)"> <strong>{{song.name}}</strong> <br /> {{song.artist}} &nbsp;</a>
+        <a ng-click="showSong(song)"> <strong>{{song.name}}</strong> <br /> {{song.artist}} &nbsp;</a>
       </li>
     </ul>
 
@@ -72,6 +86,7 @@
 
 
   <script type="text/ng-template" id="songDetail">
+    <div style="padding-top: 40px"></div>
 
     <div class="cell" ng-show="mode == 'songDetail'">
       <h3>{{song.name}}</h3>
@@ -81,15 +96,15 @@
       <hr />
 
       <a ng-hide="favs.contains(song.id)"
-        class="btn btn-primary"
-        ng-tap="favs.add(song.id)">
-            <i class="icon-star icon-white"></i> Star
+        class="button-main"
+        ng-click="favs.add(song.id)">
+            <i class="icon-star icon-white"></i> Add to favorites
       </a>
 
       <a ng-show="favs.contains(song.id)"
-        class="btn"
-        ng-tap="favs.remove(song.id)">
-            <i class="icon-star-empty"></i> Unstar
+        class="button-negative"
+        ng-click="favs.remove(song.id)">
+            <i class="icon-star-empty"></i> Remove from favorites
       </a>
 
     </div>

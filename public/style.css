@@ -77,3 +77,11 @@ article p {
 .uppercase {
   text-transform: uppercase;
 }
+
+
+select.alphabet {
+  top: 44px;
+  border-radius: 0;
+  padding-left: 47%;
+  font-weight: bold;
+}
