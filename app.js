@@ -112,7 +112,7 @@ PB.controller('rootCtrl', ['$scope','db','favs',
 
 
 PB.factory('db', ['$http', function($http) {
-  return $http.get('/database.json', {cache: true}).then(function(resp) {
+  return $http.get('database.json', {cache: true}).then(function(resp) {
     return resp.data
   });
 }]);
