@@ -18,6 +18,9 @@ PB.controller('rootCtrl', ['$scope','db','favs',
   for (var i=0, len=letters.length; i < len; i++) {
     $scope.alphabet.push(letters[i])
   }
+  $scope.$watch('letter', function() {
+    content.scrollTop = 0;
+  })
 
   var lastMode
 

@@ -85,3 +85,7 @@ select.alphabet {
   padding-left: 47%;
   font-weight: bold;
 }
+
+.menu-spacer {
+  padding-top: 44px;
+}
