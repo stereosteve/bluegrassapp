@@ -1,11 +1,11 @@
 CACHE MANIFEST
-# version 1352477274
+# version 1352477402
 
 CACHE:
 
 /vendor/angular.js
 /app.js
-/vendor/ratchet.css
+/ratchet.css
 /style.css
 /database.json
 
