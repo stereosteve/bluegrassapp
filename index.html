@@ -1,176 +1,119 @@
-<!doctype html>
-<html lang="en" ng-app="pickbook" manifest="/offline.appcache">
-<head>
+<!DOCTYPE html>
+<html ng-app="pickbook">
+  <head>
+    <meta charset="utf-8">
+    <title>Pick Book</title>
 
-  <meta charset="utf-8">
-  <title>pickbook</title>
+    <!-- zooming  -->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
 
-  <meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  <link rel="apple-touch-icon" href="img/iphone_icon.png" />
-  <link rel="apple-touch-startup-image" href="img/iphone_splash.png" />
+    <!-- apple toolbars -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-  <link rel="stylesheet" href="compiled/pickbook.css"/>
-  <link rel="stylesheet" href="vendor/add2home.css"/>
+    <!-- apple icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="touch-icons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="touch-icons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="touch-icons/apple-touch-icon-57x57.png">
 
-</head>
-<body class="viewport">
+    <!-- CSS -->
+    <link rel="stylesheet" href="ratchet.css">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="style.css">
+    
 
+  </head>
+  <body  ng-controller="rootCtrl">
 
-  <div ng-view ng-hide="modalView"></div>
-  <div ng-include="'bottombar.html'"></div>
-
-
-
-  <script type="text/ng-template" id="bottombar.html">
-  <div style="margin-top: 40px;"></div>
-  <div class="navbar navbar-inverse navbar-fixed-bottom" ng-hide="noChrome_ignored">
-    <div class="navbar-inner">
-      <ul class="nav">
-        <li><a onclick="history.go(-1)"><i class="icon-step-backward icon-white"></i></a></li>
-        <li><a href="#"><i class="icon-home icon-white"></i></a></li>
-        <li><a href="#/songs"><i class="icon-list icon-white"></i></a></li>
-        <li><a href="#/favs"><i class="icon-star icon-white"></i></a></li>
-        <li><a href="#/settings"><i class="icon-wrench icon-white"></i></a></li>
-        <li><a href="#/about"><i class="icon-info-sign icon-white"></i></a></li>
+  <!-- Make sure all your bars are the first things in your <body> -->
+  <div ng-show="mode != 'songDetail'">
+    <header class="bar-title">
+      <ul class="segmented-controller">
+        <li><a ng-click="setMode('list')"><i class="icon-list-ul"></i> Index</a></li>
+        <li><a ng-click="setMode('search')"><i class="icon-search"></i> Search</a></li>
+        <li><a ng-click="setMode('favs')"><i class="icon-star"></i> Favorites</a></li>
       </ul>
-    </div>
-  </div>
-</script>
-
-  <script type="text/ng-template" id="home.html">
-<div class="home">
-
-  <div class="banner">
-    <div class="container">
-      <img src="img/logo.png">
-    </div>
+    </header>
   </div>
 
-
-  <!--desktop-->
-  <div class="visible-desktop visible-tablet">
-
-    <div class="container">
-      <div class="cell pull-left">
-        <img src="img/preview.png">
-      </div>
-      <div class="cell">
-        <h4>1,700 bluegrass songs in the palm of your hand.</h4>
-      </div>
-    </div>
-
+  <div ng-show="mode == 'songDetail'">
+    <header class="bar-title">
+      <a class="button-prev" ng-click="lastMode()">Back</a>
+    </header>
   </div>
 
+  <div ng-show="mode == 'list'">
+    <select class="bar-standard bar-header-secondary alphabet" ng-model="letter" ng-options="letter for letter in alphabet"></select>
+  </div>
 
-  <!--mobile-->
-  <div class="visible-phone">
-    <div class="cell">
-      <h4>(phone only splash screen)</h4>
+  <div ng-show="mode == 'search'">
+    <div class="bar-standard bar-header-secondary">
+      <input type="search" ng-change="updateSearch(searchTerm)" ng-model="searchTerm" placeholder="Search"></div>
     </div>
   </div>
 
+  <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+  <div class="content" ng-include="modeView">
+  </div>
 
-</div>
-
-</script>
-
-
-
+  <select id="alphabet" style="display:none" ng-model="letter" ng-options="letter for letter in alphabet"></select>
 
 
+  <script type="text/ng-template" id="songList">
 
-  <script type="text/ng-template" id="songs/index.html">
+    <div style="padding-top: 40px"></div>
+    <div style="padding-top: 40px" ng-show="mode == 'search' || mode == 'list'"></div>
 
-  <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner" style="padding: 0 10px;">
-      <div class="btn-group pull-right">
-        <button class="btn btn-inverse" ng-show="letter != 'a'" ng-click="prevPage()">{{prevLetter | uppercase}}</button>
-        <button class="btn btn-inverse disabled">{{letter | uppercase}}</button>
-        <button class="btn btn-inverse" ng-show="letter != 'z'" ng-click="nextPage()">{{nextLetter | uppercase}}</button>
-      </div>
-      <form class="navbar-search">
-        <input type="text" class="input-small search-query" ng-model="searchTerm" placeholder="Search">
-      </form>
+    <div class="alert" ng-show="mode == 'search' && (!searchTerm || searchTerm.length < 3)">
+      <strong>Keep typing</strong><br>
+      Type at least 3 letters to search.
     </div>
-  </div>
-  <div style="margin-top: 40px;"></div>
 
+    <div class="alert" ng-show="mode == 'favs' && favs.list().length == 0">
+      <strong>You have no favorites.</strong><br>
+      You can add a favorite by clicking the "star" button at the bottom of any song page.
+    </div>
 
-  <div class="alert" ng-show="searchTerm && searchTerm.length < 3">
-    <strong>Please type at least 3 letters to search</strong><br />
-  </div>
+    <ul class="songs">
+      <li ng-repeat="song in songs | orderBy: name | filter: modeFilter">
+        <a ng-click="showSong(song)"> <strong>{{song.name}}</strong> <br /> {{song.artist}} &nbsp;</a>
+      </li>
+    </ul>
 
-  <ul class="nav nav-tabs nav-stacked">
-    <li ng-repeat="song in songs | orderBy: name | filter: songSearch | filter: firstLetter | limitTo: 500">
-    <a href="#/songs/{{song.id}}"> <strong>{{song.name}}</strong> <br /> {{song.artist}} &nbsp;</a>
-    </li>
-  </ul>
-
-</script>
-
-<script type="text/ng-template" id="songs/show.html">
-
-  <div class="cell">
-    <h5>{{song.name}}</h5>
-    <h6><a href="#/artists/{{song.artistId}}">{{song.artist}}</a></h6>
-    <div ng-bind-html-unsafe="htmlLyrics"></div>
-    <hr />
-    <a ng-hide="favs.contains(song.id)" class="btn btn-primary" ng-click="favs.add(song.id)"><i class="icon-star icon-white"></i> Star</a>
-    <a ng-show="favs.contains(song.id)" class="btn" ng-click="favs.remove(song.id)"><i class="icon-star-empty"></i> Unstar</a>
-  </div>
-
-</script>
-
-  <script type="text/ng-template" id="favs.html">
-<div class="favs">
-
-  <ul class="nav nav-tabs nav-stacked">
-    <li ng-repeat="song in favSongs">
-    <a href="#/songs/{{song.id}}"> <strong>{{song.name}}</strong> <br /> {{song.artist}} </a>
-    </li>
-  </ul>
-
-</div>
-</script>
+  </script>
 
 
 
 
-  <script type="text/ng-template" id="about.html">
-<div class="about cell">
-  <h1>About</h1>
-  <ul>
-    <li><strong>John Kael</strong> - maintainer of BluegrassLyrics.com</li>
-    <li><strong>Steve Perkins</strong> - developer of mobile site</li>
-  </ul>
+  <script type="text/ng-template" id="songDetail">
+    <div style="padding-top: 40px"></div>
 
-  <h4>Debug Info</h4>
-  <pre>
-  rendered: Thu Sep 13 2012 19:20:53 GMT-0400 (EDT)
-  </pre>
+    <div class="cell" ng-show="mode == 'songDetail'">
+      <h3>{{song.name}}</h3>
+      <h4>{{song.artist}}</h4>
+      <hr />
+      <article ng-bind-html-unsafe="simpleFormat(song.lyrics)"></article>
+      <hr />
 
-</div>
-</script>
+      <a ng-hide="favs.contains(song.id)"
+        class="button-main"
+        ng-click="favs.add(song.id)">
+            <i class="icon-star icon-white"></i> Add to favorites
+      </a>
 
-  <script type="text/ng-template" id="settings.html">
-<div class="settings cell">
-  <h1>Settings</h1>
-  <ul>
-    <li>Font face: serif / sans-serif</li>
-    <li>Font size</li>
-    <li>Invert colors: light / dark</li>
-  </ul>
-</div>
-</script>
+      <a ng-show="favs.contains(song.id)"
+        class="button-negative"
+        ng-click="favs.remove(song.id)">
+            <i class="icon-star-empty"></i> Remove from favorites
+      </a>
 
+    </div>
+
+  </script>
 
 
   <script src="vendor/angular.js"></script>
-  <script src="vendor/underscore.js"></script>
-  <script src="vendor/add2home.js"></script>
-  <script src="compiled/pickbook.js"></script>
-</body>
-</html>
+  <script src="app.js"></script>
 
+  </body>
+</html>

@@ -1,0 +1,87 @@
+
+hr {
+  border: 0;
+  height: 10px;
+}
+
+.right {
+  float: right;
+}
+
+.search {
+  background: #ccc;
+  padding: 10px;
+  margin-top: -8px;
+}
+.search input {
+}
+
+.cell {
+  padding: 10px;
+}
+
+
+.banner {
+  background: #580f0f;
+  background: #3D3E42;
+  color: white;
+}
+.banner img {
+}
+.banner a, .banner a:visited {
+  color: white;
+  text-decoration: none;
+  display: block;
+  padding: 15px;
+  border-top: 1px solid rgba(0,0,0,0.4);
+}
+
+.songs {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.songs li {
+  border-bottom: 1px solid #ccc;
+}
+.songs li a {
+  display: block;
+  padding: 10px;
+  color: black;
+  text-decoration: none;
+}
+
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  color: black;
+  background: #f7f7f7;
+  border-radius: 3px;
+  padding: 6px;
+}
+
+.alert {
+  padding: 10px;
+  background: #FCF8E3;
+}
+
+article {
+  white-space: nowrap;
+  overflow-x: auto;
+}
+article p {
+  line-height: 1.5;
+  margin-bottom: 2em;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+
+select.alphabet {
+  top: 44px;
+  border-radius: 0;
+  padding-left: 47%;
+  font-weight: bold;
+}
