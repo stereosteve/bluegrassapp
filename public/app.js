@@ -3,15 +3,21 @@ var PB = angular.module('pickbook', [])
 
 
 
-PB.controller('rootCtrl', ['$scope','$window','db','favs',
-                   function($scope , $window , db , favs) {
+PB.controller('rootCtrl', ['$scope','db','favs',
+                   function($scope , db , favs) {
 
 
 
   // Modes
 
+  var content = document.querySelector('.content')
 
-  $scope.letter = 'a'
+  $scope.letter = 'A'
+  var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  $scope.alphabet = []
+  for (var i=0, len=letters.length; i < len; i++) {
+    $scope.alphabet.push(letters[i])
+  }
 
   var lastMode
 
@@ -22,7 +28,7 @@ PB.controller('rootCtrl', ['$scope','$window','db','favs',
       $scope.modeView = 'songDetail'
     else
       $scope.modeView = 'songList'
-    $window.scrollTo(0, 1);
+    content.scrollTop = 0;
   }
   $scope.lastMode = function() {
     setMode(lastMode)
@@ -38,7 +44,7 @@ PB.controller('rootCtrl', ['$scope','$window','db','favs',
       return obj.name.toLowerCase().indexOf($scope.searchTerm) > -1;
     }
     else {
-      return obj.name.charAt(0).toLowerCase() == $scope.letter;
+      return obj.name.charAt(0).toUpperCase() == $scope.letter;
     }
   }
 
@@ -51,45 +57,12 @@ PB.controller('rootCtrl', ['$scope','$window','db','favs',
 
 
 
-  $scope.$watch('letter', function(letter) {
-    if (!letter) return;
-    $scope.prevLetter = String.fromCharCode($scope.letter.charCodeAt(0) - 1);
-    $scope.nextLetter = String.fromCharCode($scope.letter.charCodeAt(0) + 1);
-  });
-
-  $scope.prevPage = function() {
-    if ($scope.letter == 'a') {
-      $scope.letter = 'z'
-      return
-    }
-    $scope.letter = $scope.prevLetter;
-    $window.scrollTo(0, 1);
-  };
-  $scope.nextPage = function() {
-    if ($scope.letter == 'z') {
-      $scope.letter = 'a'
-      return
-    }
-    $scope.letter = $scope.nextLetter;
-    $window.scrollTo(0, 1);
-  };
-
-
-
-
-
-
-
 
   // Song Detail
 
   $scope.showSong = function(song) {
     $scope.song = song
     setMode('songDetail')
-  }
-
-  $scope.toggleWrap = function() {
-    $scope.noWrap = !$scope.noWrap
   }
 
   $scope.simpleFormat = function(text) {
@@ -182,4 +155,26 @@ PB.factory('favs', function() {
   }
 
 
+});
+
+
+PB.directive('ngTap', function() {
+  return function(scope, element, attrs) {
+    var tapping;
+    tapping = false;
+    element.bind('touchstart', function(e) {
+      element.addClass('active');
+      tapping = true;
+    });
+    element.bind('touchmove', function(e) {
+      element.removeClass('active');
+      tapping = false;
+    });
+    element.bind('touchend', function(e) {
+      element.removeClass('active');
+      if (tapping) {
+        scope.$apply(attrs.ngTap, element);
+      }
+    });
+  };
 });
