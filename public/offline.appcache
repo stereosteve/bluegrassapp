@@ -1,25 +1,18 @@
 CACHE MANIFEST
-# version 1352485765
+# version 1352486773
 
 CACHE:
 
-/vendor/angular.js
-/vendor/ratchet.css
-/app.js
-/style.css
-/database.json
+vendor/angular.js
+vendor/ratchet.css
+app.js
+style.css
+database.json
 
-/font-awesome/css/font-awesome.css
-/font-awesome/font/fontawesome-webfont.eot
-/font-awesome/font/fontawesome-webfont.svg
-/font-awesome/font/fontawesome-webfont.ttf
-/font-awesome/font/fontawesome-webfont.woff
-
-
-/vendor/add2home.js
-/vendor/add2home.css
+font-awesome/css/font-awesome.css
+font-awesome/font/fontawesome-webfont.eot
+font-awesome/font/fontawesome-webfont.svg
+font-awesome/font/fontawesome-webfont.ttf
+font-awesome/font/fontawesome-webfont.woff
 
 
-
-
-NETWORK:

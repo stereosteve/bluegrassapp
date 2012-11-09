@@ -8,7 +8,7 @@ hint:
 	jshint public/app.js
 
 
-deploy: hint
+deploy: bump hint
 	rm -rf ../gh-pages-pickbook/*
 	cp -r public/* ../gh-pages-pickbook/
 	cd ../gh-pages-pickbook && git add -A && git commit -m "deploy" && git push origin gh-pages -f
