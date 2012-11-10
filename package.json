@@ -1,8 +1,11 @@
 {
   "name": "bluegrassmobile",
-  "version": "0.0.1-4",
+  "version": "0.0.1-5",
   "author": "Steve Perkins",
   "subdomain": "bluegrassmobile",
+  "domains": [
+    "mobile.bluegrasslyrics.com"
+  ],
   "license": "BSD",
   "dependencies": {
     "express": "~3.0.2",
@@ -11,12 +14,7 @@
   "engines": {
     "node": "0.8.x"
   },
-  "devDependencies": {
-    "underscore": "~1.4.2",
-    "chokidar": "~0.4.0"
-  },
   "scripts": {
-    "start": "node server.js",
-    "watch": "node watch.js"
+    "start": "node server.js"
   }
 }
