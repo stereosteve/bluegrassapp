@@ -22,100 +22,118 @@
     <link rel="stylesheet" href="ratchet.css">
     <link rel="stylesheet" href="font-awesome/css/font-awesome.css"/>
     <link rel="stylesheet" href="style.css">
-    
+
 
   </head>
   <body  ng-controller="rootCtrl">
 
-  <!-- Make sure all your bars are the first things in your <body> -->
-  <div ng-show="mode != 'songDetail'">
-    <header class="bar-title">
-      <ul class="segmented-controller">
-        <li ng-class="{active: mode == 'list'}"><a ng-click="setMode('list')"><i class="icon-list-ul"></i> Index</a></li>
-        <li ng-class="{active: mode == 'search'}"><a ng-click="setMode('search')"><i class="icon-search"></i> Search</a></li>
-        <li ng-class="{active: mode == 'favs'}"><a ng-click="setMode('favs')"><i class="icon-star"></i> Favorites</a></li>
+    <!-- red bar - list -->
+    <div ng-show="mode != 'songDetail'">
+      <header class="bar-title">
+        <ul class="segmented-controller">
+          <li ng-class="{active: mode == 'list'}"><a ng-click="setMode('list')"><i class="icon-list-ul"></i> Index</a></li>
+          <li ng-class="{active: mode == 'search'}"><a ng-click="setMode('search')"><i class="icon-search"></i> Search</a></li>
+          <li ng-class="{active: mode == 'favs'}"><a ng-click="setMode('favs')"><i class="icon-star"></i> Favorites</a></li>
+        </ul>
+      </header>
+    </div>
+
+    <!-- red bar - song -->
+    <div ng-show="mode == 'songDetail'">
+      <header class="bar-title">
+        <a class="button" ng-click="lastMode()">Back</a>
+        <h1 class="title"><i class="icon-music"></i></h1>
+        <a class="button" ng-click="showMore = !showMore">More</a>
+      </header>
+      <div ng-show="showMore">
+        <div class="bar-standard bar-header-secondary">
+
+          <a ng-hide="favs.contains(song.id)"
+            class="button"
+            ng-click="favs.add(song.id)">
+                <i class="icon-star icon-white"></i> Add to favorites
+          </a>
+
+          <a ng-show="favs.contains(song.id)"
+            class="button"
+            ng-click="favs.remove(song.id)">
+                <i class="icon-star-empty"></i> Remove from favorites
+          </a>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- alphabet selector -->
+    <div ng-show="mode == 'list'">
+      <select class="bar-standard bar-header-secondary alphabet" ng-model="letter" ng-options="letter for letter in alphabet"></select>
+    </div>
+
+    <!-- search bar -->
+    <div ng-show="mode == 'search'">
+      <div class="bar-standard bar-header-secondary">
+        <input type="search" ng-change="updateSearch(searchTerm)" ng-model="searchTerm" placeholder="Search"></div>
+      </div>
+    </div>
+
+
+    <!-- content -->
+    <div class="content" ng-include="modeView"></div>
+
+
+
+    <!-- list view -->
+    <script type="text/ng-template" id="songList">
+
+      <div class="menu-spacer"></div>
+      <div class="menu-spacer" ng-show="mode == 'search' || mode == 'list'"></div>
+
+      <div class="alert" ng-show="mode == 'search' && (!searchTerm || searchTerm.length < 3)">
+        <strong>Keep typing</strong><br>
+        Type at least 3 letters to search.
+      </div>
+
+      <div class="alert" ng-show="mode == 'favs' && favs.list().length == 0">
+        <strong>You have no favorites.</strong><br>
+        You can add a favorite by clicking the "favorite" button at the bottom of any song page.
+      </div>
+
+      <ul class="songs">
+        <li ng-repeat="song in songs | orderBy: name | filter: modeFilter">
+          <a ng-click="showSong(song)"> <strong>{{song.name}}</strong> <br /> {{song.artist}} &nbsp;</a>
+        </li>
       </ul>
-    </header>
-  </div>
 
-  <div ng-show="mode == 'songDetail'">
-    <header class="bar-title">
-      <a class="button" ng-click="lastMode()">Back</a>
-    </header>
-  </div>
-
-  <div ng-show="mode == 'list'">
-    <select class="bar-standard bar-header-secondary alphabet" ng-model="letter" ng-options="letter for letter in alphabet"></select>
-  </div>
-
-  <div ng-show="mode == 'search'">
-    <div class="bar-standard bar-header-secondary">
-      <input type="search" ng-change="updateSearch(searchTerm)" ng-model="searchTerm" placeholder="Search"></div>
-    </div>
-  </div>
-
-  <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
-  <div class="content" ng-include="modeView">
-  </div>
-
-  <select id="alphabet" style="display:none" ng-model="letter" ng-options="letter for letter in alphabet"></select>
-
-
-  <script type="text/ng-template" id="songList">
-
-    <div class="menu-spacer"></div>
-    <div class="menu-spacer" ng-show="mode == 'search' || mode == 'list'"></div>
-
-    <div class="alert" ng-show="mode == 'search' && (!searchTerm || searchTerm.length < 3)">
-      <strong>Keep typing</strong><br>
-      Type at least 3 letters to search.
-    </div>
-
-    <div class="alert" ng-show="mode == 'favs' && favs.list().length == 0">
-      <strong>You have no favorites.</strong><br>
-      You can add a favorite by clicking the "favorite" button at the bottom of any song page.
-    </div>
-
-    <ul class="songs">
-      <li ng-repeat="song in songs | orderBy: name | filter: modeFilter">
-        <a ng-click="showSong(song)"> <strong>{{song.name}}</strong> <br /> {{song.artist}} &nbsp;</a>
-      </li>
-    </ul>
-
-  </script>
+    </script>
 
 
 
 
-  <script type="text/ng-template" id="songDetail">
-    <div class="menu-spacer"></div>
+    <!-- song view -->
+    <script type="text/ng-template" id="songDetail">
+      <div class="menu-spacer"></div>
 
-    <div class="cell" ng-show="mode == 'songDetail'">
-      <h3>{{song.name}}</h3>
-      <h4>{{song.artist}}</h4>
-      <hr />
-      <article ng-bind-html-unsafe="simpleFormat(song.lyrics)"></article>
-      <hr />
+      <div class="cell" ng-show="mode == 'songDetail'">
+        <h3>{{song.name}}</h3>
+        <h4>{{song.artist}}</h4>
+        <hr />
+        <article ng-bind-html-unsafe="simpleFormat(song.lyrics)"></article>
+        <hr />
+      </div>
 
-      <a ng-hide="favs.contains(song.id)"
-        class="button-main"
-        ng-click="favs.add(song.id)">
-            <i class="icon-star icon-white"></i> Add to favorites
-      </a>
-
-      <a ng-show="favs.contains(song.id)"
-        class="button-negative"
-        ng-click="favs.remove(song.id)">
-            <i class="icon-star-empty"></i> Remove from favorites
-      </a>
-
-    </div>
-
-  </script>
+    </script>
 
 
-  <script src="vendor/angular.js"></script>
-  <script src="app.js"></script>
+
+
+
+
+    <script src="vendor/angular.js"></script>
+    <script src="app.js"></script>
+
+    <script>
+      if (!window.location.search) window.location.search = '?t=' + new Date().valueOf()
+    </script>
 
   </body>
 </html>

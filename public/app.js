@@ -31,7 +31,8 @@ PB.controller('rootCtrl', ['$scope','db','favs',
       $scope.modeView = 'songDetail'
     else
       $scope.modeView = 'songList'
-    content.scrollTop = 0;
+    window.scrollTo(0,1)
+    content.scrollTop = 0
   }
   $scope.lastMode = function() {
     setMode(lastMode)
@@ -64,6 +65,7 @@ PB.controller('rootCtrl', ['$scope','db','favs',
   // Song Detail
 
   $scope.showSong = function(song) {
+    $scope.showMore = false
     $scope.song = song
     setMode('songDetail')
   }
