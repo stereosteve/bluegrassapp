@@ -4,7 +4,8 @@
   padding: 20px;
 }
 .hero h1 {
-  font: 100 48px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: 100 48px Georgia;
+  font-style: italic;
 }
 .strong {
   font-weight: bold;

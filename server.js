@@ -21,7 +21,7 @@ app.configure(function(){
 
 app.configure('development', function(){
   app.locals.manifest = ''
-  app.locals.manifest = 'manifest="/offline.appcache"'
+  //app.locals.manifest = 'manifest="/offline.appcache"'
   app.use(express.errorHandler());
 });
 app.configure('production', function() {
