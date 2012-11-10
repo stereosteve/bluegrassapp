@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="pickbook">
+<html ng-app="pickbook" manifest="offline.appcache">
   <head>
     <meta charset="utf-8">
     <title>Bluegrass</title>
@@ -12,13 +12,13 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
     <!-- apple icons -->
-    <link rel="apple-touch-icon" href="img/iphone_icon.png" />
-    <link rel="apple-touch-startup-image" href="img/iphone_splash.png" />
+    <link rel="apple-touch-icon" href="/img/iphone_icon.png" />
+    <link rel="apple-touch-startup-image" href="/img/iphone_splash.png" />
 
     <!-- CSS -->
-    <link rel="stylesheet" href="vendor/ratchet.css">
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.css"/>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/vendor/ratchet.css">
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="/style.css">
    
 
   </head>
@@ -39,11 +39,20 @@
   <div ng-show="mode == 'songDetail'">
     <header class="bar-title">
       <a class="button" ng-click="lastMode()">Back</a>
-      <a class="button" ng-click="showMore = !showMore">yo mom</a>
+      <a class="button" ng-click="showMore = !showMore">More</a>
     </header>
     <div ng-show="showMore">
       <div class="bar-standard bar-header-secondary">
-        hey partner four
+        <a ng-hide="favs.contains(song.id)"
+          class="button-block"
+          ng-click="favs.add(song.id)">
+              <i class="icon-star icon-white"></i> Add to favorites
+        </a>
+        <a ng-show="favs.contains(song.id)"
+          class="button-negative button-block"
+          ng-click="favs.remove(song.id)">
+              <i class="icon-star-empty"></i> Remove from favorites
+        </a>
       </div>
     </div>
   </div>
@@ -102,19 +111,6 @@
       <hr />
       <article ng-bind-html-unsafe="simpleFormat(song.lyrics)"></article>
       <hr />
-
-      <a ng-hide="favs.contains(song.id)"
-        class="button-main"
-        ng-click="favs.add(song.id)">
-            <i class="icon-star icon-white"></i> Add to favorites
-      </a>
-
-      <a ng-show="favs.contains(song.id)"
-        class="button-negative"
-        ng-click="favs.remove(song.id)">
-            <i class="icon-star-empty"></i> Remove from favorites
-      </a>
-
     </div>
 
   </script>
@@ -123,8 +119,8 @@
 
 
   <!-- js -->
-  <script src="vendor/angular.js"></script>
-  <script src="app.js"></script>
+  <script src="/vendor/angular.js"></script>
+  <script src="/app.js"></script>
 
 
   </body>
