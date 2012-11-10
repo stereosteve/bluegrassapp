@@ -4,37 +4,11 @@ hr {
   height: 10px;
 }
 
-.right {
-  float: right;
-}
-
-.search {
-  background: #ccc;
-  padding: 10px;
-  margin-top: -8px;
-}
-.search input {
-}
-
 .cell {
   padding: 10px;
 }
 
 
-.banner {
-  background: #580f0f;
-  background: #3D3E42;
-  color: white;
-}
-.banner img {
-}
-.banner a, .banner a:visited {
-  color: white;
-  text-decoration: none;
-  display: block;
-  padding: 15px;
-  border-top: 1px solid rgba(0,0,0,0.4);
-}
 
 .songs {
   list-style-type: none;
@@ -49,15 +23,6 @@ hr {
   padding: 10px;
   color: black;
   text-decoration: none;
-}
-
-.btn {
-  display: inline-block;
-  text-decoration: none;
-  color: black;
-  background: #f7f7f7;
-  border-radius: 3px;
-  padding: 6px;
 }
 
 .alert {
