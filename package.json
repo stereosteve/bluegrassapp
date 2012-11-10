@@ -1,6 +1,6 @@
 {
   "name": "pickbook",
-  "version": "0.0.2-2",
+  "version": "0.0.1-1",
   "author": "Steve Perkins",
   "license": "BSD",
   "dependencies": {
@@ -12,11 +12,10 @@
   },
   "devDependencies": {
     "underscore": "~1.4.2",
-    "chokidar": "~0.4.0",
-    "http-server": "~0.5.1"
+    "chokidar": "~0.4.0"
   },
   "scripts": {
-    "start": "http-server",
+    "start": "node server.js",
     "watch": "node watch.js"
   }
 }
