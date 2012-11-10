@@ -82,6 +82,22 @@
     <div class="content" ng-include="modeView"></div>
 
 
+    <!-- homescreen -->
+    <script type="text/ng-template" id="home">
+      <div class="menu-spacer"></div>
+      <div class="hero">
+        <h1>Bluegrass Lyrics Mobile</h1>
+        <div class="cell">
+          Version 0.0.1<br>
+          Send feedback to:<br>
+          <a class="strong" href="mailto:stereosteve+bgm@gmail.com">stereosteve+bgm@gmail.com</a>
+        </div>
+      </div>
+      <div class="alert" ng-show="loading">
+        <strong>Download Songs</strong> if this is your first visit, this can take a minute...
+      </div>
+    </script>
+
 
     <!-- list view -->
     <script type="text/ng-template" id="songList">

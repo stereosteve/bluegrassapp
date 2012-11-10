@@ -87,12 +87,12 @@ PB.controller('rootCtrl', ['$scope','db','favs',
 
   // load data
 
-  $scope.mode = 'loading'
-  setMode('loading')
+  $scope.loading = true
+  $scope.modeView = 'home'
 
   db.then(function(data) {
     angular.extend($scope, data);
-    setMode('list')
+    $scope.loading = false
   });
 
 
