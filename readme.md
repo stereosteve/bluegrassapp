@@ -5,10 +5,6 @@ A mobile web app for bluegrass lyrics.
 * Uses open web standards to avoid copyright laws and app store censorship.
 
 
-![pickbook](https://raw.github.com/stereosteve/pickbook/master/public/help/pickbook_screenshot.png)
-
-
-
 
 
 ## Development
