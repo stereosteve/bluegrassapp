@@ -20,8 +20,8 @@ app.configure(function(){
 
 
 app.configure('development', function(){
-  //app.locals.manifest = 'manifest="/offline.appcache"'
   app.locals.manifest = ''
+  app.locals.manifest = 'manifest="/offline.appcache"'
   app.use(express.errorHandler());
 });
 app.configure('production', function() {
@@ -31,6 +31,11 @@ app.configure('production', function() {
 app.get('/', function(req, resp) {
   resp.render('index')
 });
+app.get('/offline.appcache', function(req, resp) {
+  resp.set('Content-Type', 'text/cache-manifest');
+  resp.render('offline')
+});
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Bluegrass mobile server on port " + app.get('port'));

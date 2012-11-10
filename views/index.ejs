@@ -22,7 +22,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="vendor/ratchet.css">
     <link rel="stylesheet" href="font-awesome/css/font-awesome.css"/>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=<%= info.version %>">
 
 
   </head>
@@ -146,10 +146,14 @@
 
 
     <script src="vendor/angular.js"></script>
-    <script src="app.js"></script>
+    <script src="app.js?v=<%= info.version %>"></script>
 
     <script>
-      if (!window.location.search) window.location.search = '?t=' + new Date().valueOf()
+      if (!window.location.search) return window.location.search = '?v=<%= info.version %>'
+      var ver = window.location.search.replace('?v=', '')
+      if (ver !== '<%= info.version %>') {
+        window.location.search = '?v=<%= info.version %>'
+      }
     </script>
 
   </body>

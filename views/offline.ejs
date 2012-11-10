@@ -1,13 +1,15 @@
 CACHE MANIFEST
-# version 1352568472
+# version <%= info.version %>
+# rendered <%= new Date().toString() %>
 
 CACHE:
 
-vendor/angular.js
-vendor/ratchet.css
-app.js
-style.css
-database.json
+/vendor/angular.js
+/vendor/ratchet.css
+
+/app.js?v=<%= info.version %>
+/style.css?v=<%= info.version %>
+/database.json
 
 font-awesome/css/font-awesome.css
 font-awesome/font/fontawesome-webfont.eot
