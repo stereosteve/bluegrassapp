@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="pickbook">
+<html ng-app="pickbook" manifest="/offline.appcache">
   <head>
     <meta charset="utf-8">
     <title>Bluegrass</title>
@@ -16,10 +16,11 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="touch-icons/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="touch-icons/apple-touch-icon-57x57.png">
 
-    <link rel="apple-touch-startup-image" href="img/iphone_splash.png" />
+    <link href="touch-icons/splash-320x460.png" media="(device-width: 320px)" rel="apple-touch-startup-image">
+    <link href="touch-icons/spash-640x920.png" media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="ratchet.css">
+    <link rel="stylesheet" href="vendor/ratchet.css">
     <link rel="stylesheet" href="font-awesome/css/font-awesome.css"/>
     <link rel="stylesheet" href="style.css">
 
