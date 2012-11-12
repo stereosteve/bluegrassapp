@@ -11,7 +11,8 @@
     "express": "~3.0.2",
     "ejs": "~0.8.3",
     "superagent": "~0.9.8",
-    "csv": "~0.2.2"
+    "csv": "~0.2.2",
+    "underscore": "~1.4.2"
   },
   "engines": {
     "node": "0.8.x"
