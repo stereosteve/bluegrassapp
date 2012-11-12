@@ -1,8 +1,8 @@
-h1 index
+extends ../layout
 
-- songs.forEach(function(song) {
-  hr
-  div
-    a(href='/songs/#{song.id}')= song.name
-    p= song.artist
-- })
+block content
+
+  - for song in songs
+    .song
+      a(href='/songs/#{song.id}')= song.name
+      p= song.artist

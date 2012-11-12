@@ -1,13 +1,16 @@
-h1= song.name
-h2= song.artist
+extends ../layout
 
-pre= song.lyrics
+block content
+  h1= song.name
+  h2= song.artist
 
-hr
+  pre= song.lyrics
 
-strong Tags
-ul
-  - for tag in song.tags
-    li= tag
+  hr
+
+  strong Tags
+  ul
+    - for tag in song.tags
+      li= tag
 
 
