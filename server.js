@@ -2,6 +2,7 @@ var express = require('express')
   , http = require('http')
   , path = require('path')
   , info = require('./package.json')
+  , _ = require('underscore')
 
 var app = express();
 
@@ -11,7 +12,7 @@ var app = express();
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
-  app.set('view engine', 'ejs');
+  app.set('view engine', 'jade');
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
@@ -38,12 +39,12 @@ app.get('/', function(req, resp) {
     resp.redirect('/?v=' + info.version)
   }
   else {
-    resp.render('index')
+    resp.render('index.ejs')
   }
 });
 app.get('/offline.appcache', function(req, resp) {
   resp.set('Content-Type', 'text/cache-manifest');
-  resp.render('offline')
+  resp.render('offline.ejs')
 });
 
 
@@ -52,10 +53,12 @@ app.get('/offline.appcache', function(req, resp) {
 //
 var songDb;
 app.get('/songs', function(req, resp) {
-  resp.json(songDb)
+  //resp.json(songDb)
+  resp.render('songs/index', {songs: _.values(songDb)})
 })
 app.get('/songs/:id', function(req, resp) {
-  resp.json(songDb[req.params.id])
+  //resp.json(songDb[req.params.id])
+  resp.render('songs/show', {song: songDb[req.params.id]})
 })
 
 var ingest = require('./ingest')
