@@ -29,7 +29,13 @@ app.configure('production', function() {
 })
 
 app.get('/', function(req, resp) {
-  resp.render('index')
+  var v = req.query.v
+  if (v !== info.version) {
+    resp.redirect('/?v=' + info.version)
+  }
+  else {
+    resp.render('index')
+  }
 });
 app.get('/offline.appcache', function(req, resp) {
   resp.set('Content-Type', 'text/cache-manifest');

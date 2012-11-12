@@ -148,16 +148,5 @@
     <script src="vendor/angular.js"></script>
     <script src="app.js?v=<%= info.version %>"></script>
 
-    <script>
-      if (!window.location.search) {
-        window.location.search = '?v=<%= info.version %>'
-        return
-      }
-      var ver = window.location.search.replace('?v=', '')
-      if (ver !== '<%= info.version %>') {
-        window.location.search = '?v=<%= info.version %>'
-      }
-    </script>
-
   </body>
 </html>
