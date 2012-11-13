@@ -10,7 +10,7 @@
 
 != startPartial('_song')
   a(href="/songs") Songs
-  h1 Single Song hrefe
-  pre {{songs}}
-  pre {{song}}
+  h1 {{song.name}}
+  h2 {{song.artist}}
+  pre {{song.lyrics}}
 != endPartial()

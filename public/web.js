@@ -1,4 +1,5 @@
-document.getElementById('seo').style.display = 'none';
+//document.getElementById('seo').style.display = 'none';
+
 
 var bgWeb = angular.module('bgWeb', [])
 
@@ -17,24 +18,43 @@ bgWeb.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
     templateUrl: '_home'
   })
   .when('/songs', {
-    templateUrl: '_songs',
-    controller: 'songs',
-    resolve: resolve
+    name: '_songs'
   })
   .when('/songs/:id', {
     templateUrl: '_song',
-    controller: 'song',
-    resolve: resolve
+    controller: 'song'
   })
 
 }])
 
-bgWeb.controller('songs', ['$scope','songs', function($scope , songs) {
-  $scope.songs = songs
+bgWeb.run(['$rootScope', function($rootScope) {
+  $rootScope.$on('$routeChangeSuccess', function(scope, current, last) {
+    console.log("RUTE", current)
+  })
 }])
 
-bgWeb.controller('song', ['$scope','songs', function($scope , songs) {
-  $scope.songs = songs
-  $scope.song = songs[2]
+bgWeb.controller('webCtrl', ['$scope','db', function($scope , db) {
+  $scope.doit = function() {
+  }
+  $scope.currentSong = 'yermom'
+  $scope.showSong = function(song) {
+    console.log(song)
+    $scope.currentSong = song
+  }
+  db.then(function(songs) {
+    $scope.songs = songs
+    $scope.song = songs[2]
+  })
 }])
 
+bgWeb.controller('song', ['$scope','db','$routeParams', function($scope , db, $routeParams) {
+  db.then(function(songs) {
+    $scope.song = songs[$routeParams.id]
+  })
+}])
+
+bgWeb.factory('db', ['$http', function($http) {
+  return $http.get('/db.json', {cache: true}).then(function(resp) {
+    return resp.data
+  });
+}]);

@@ -1,16 +1,17 @@
 extends layout
 
 block content
-  h1= song.name
-  h2= song.artist
+  .seo
+    h1= song.name
+    h2= song.artist
 
-  pre= song.lyrics
+    pre= song.lyrics
 
-  hr
+    hr
 
-  strong Tags
-  ul
-    - for tag in song.tags
-      li= tag
+    strong Tags
+    ul
+      - for tag in song.tags
+        li= tag
 
 

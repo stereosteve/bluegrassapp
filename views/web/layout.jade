@@ -4,13 +4,23 @@ html
     title Bluegrass Lyrics
     link(rel="stylesheet", href="/web.css")
 
-  body(ng-app="bgWeb")
+  body(ng-app="bgWeb", ng-controller="webCtrl")
 
     include partials
-    div(ng-view)
 
-    #seo
+
+    .sidebar
+      - for song in songs
+        .song
+          a(href='/songs/#{song.id}')= song.name
+          p= song.artist
+
+    .main
+      div(ng-view)
+
+
       block content
+
 
 
     script(src="/vendor/angular.js")
