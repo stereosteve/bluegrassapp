@@ -30,6 +30,14 @@ app.configure('production', function() {
   app.locals.manifest = 'manifest="/offline.appcache"'
 })
 
+app.locals.startPartial = function(name) {
+  return '<script type="text/ng-template" id="' + name + '">'
+}
+app.locals.endPartial = function() {
+  return '</script>'
+}
+
+
 //
 // Mobile app
 //
@@ -49,16 +57,19 @@ app.get('/offline.appcache', function(req, resp) {
 
 
 //
-// Spreadsheet DB
+// Web App
 //
 var songDb;
+app.get('/db.json', function(req, resp) {
+  resp.json(songDb)
+})
 app.get('/songs', function(req, resp) {
   //resp.json(songDb)
-  resp.render('songs/index', {songs: _.values(songDb)})
+  resp.render('web/index', {songs: _.values(songDb)})
 })
 app.get('/songs/:id', function(req, resp) {
   //resp.json(songDb[req.params.id])
-  resp.render('songs/show', {song: songDb[req.params.id]})
+  resp.render('web/show', {song: songDb[req.params.id]})
 })
 
 var ingest = require('./ingest')

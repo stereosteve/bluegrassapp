@@ -1,0 +1,16 @@
+!= startPartial('_home')
+  h1 Home
+!= endPartial()
+
+!= startPartial('_songs')
+  h1 Songs
+  div(ng-repeat="song in songs")
+    a(href="/songs/{{song.id}}") {{song.name}}
+!= endPartial()
+
+!= startPartial('_song')
+  a(href="/songs") Songs
+  h1 Single Song hrefe
+  pre {{songs}}
+  pre {{song}}
+!= endPartial()

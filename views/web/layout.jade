@@ -1,0 +1,17 @@
+doctype 5
+html
+  head
+    title Bluegrass Lyrics
+    link(rel="stylesheet", href="/web.css")
+
+  body(ng-app="bgWeb")
+
+    include partials
+    div(ng-view)
+
+    #seo
+      block content
+
+
+    script(src="/vendor/angular.js")
+    script(src="/web.js")
