@@ -61,29 +61,29 @@ app.get('/offline.appcache', function(req, resp) {
 //
 var songDb;
 var sortedSongs;
+
 app.get('/db.json', function(req, resp) {
-  resp.json(songDb)
+  resp.json(sortedSongs)
 })
 app.get('/api/song/:id', function(req, resp) {
   resp.json(songDb[req.params.id])
 })
+
 app.get('/songs', function(req, resp) {
-  //resp.json(songDb)
-  resp.render('web/layout', {songs: sortedSongs})
+  resp.render('web/song_index', {songs: sortedSongs})
 })
 app.get('/songs/:id', function(req, resp) {
-  //resp.json(songDb[req.params.id])
-  resp.render('web/show', {songs: sortedSongs, song: songDb[req.params.id]})
+  resp.render('web/song_detail', {songs: sortedSongs, song: songDb[req.params.id]})
 })
 
 var ingest = require('./ingest')
 ingest(function(data) {
   songDb = data
-  sortedSongs = _.chain(songDb)
+  sortedSongs =
+    _.chain(songDb)
       .values()
       .sortBy(function(s) { return s.name })
       .value()
-  console.log(sortedSongs)
 })
 
 

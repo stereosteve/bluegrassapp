@@ -1,6 +1,7 @@
 body {
   margin: 0;
   padding: 0;
+  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 a, a:visited {
@@ -24,6 +25,6 @@ a, a:visited {
   padding: 10px;
 }
 
-.seo {
+.not-seo {
   display: none;
 }

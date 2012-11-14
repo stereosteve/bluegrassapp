@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  #seo
+    h1 Songs
+
+    for song in songs
+      .song
+        a(href="/songs/#{song.id}") #{song.name}
+        div #{song.artist}

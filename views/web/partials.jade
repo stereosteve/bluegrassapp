@@ -3,9 +3,14 @@
 != endPartial()
 
 != startPartial('_songs')
-  h1 Songs
-  div(ng-repeat="song in songs")
+  h1 {{letter}} Songs
+
+  span(ng-repeat="l in alphabet")
+    | <a ng-click="setLetter(l)">{{l}}</a> | 
+
+  li(ng-repeat="song in songs | filter:letterFilter")
     a(href="/songs/{{song.id}}") {{song.name}}
+
 != endPartial()
 
 != startPartial('_song')

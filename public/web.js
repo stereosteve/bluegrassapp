@@ -1,4 +1,4 @@
-//document.getElementById('seo').style.display = 'none';
+document.getElementById('seo').style.display = 'none';
 
 
 var bgWeb = angular.module('bgWeb', [])
@@ -18,7 +18,7 @@ bgWeb.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
     templateUrl: '_home'
   })
   .when('/songs', {
-    name: '_songs'
+    templateUrl: '_songs',
   })
   .when('/songs/:id', {
     templateUrl: '_song',
@@ -34,27 +34,36 @@ bgWeb.run(['$rootScope', function($rootScope) {
 }])
 
 bgWeb.controller('webCtrl', ['$scope','db', function($scope , db) {
-  $scope.doit = function() {
+  $scope.alphabet = []
+  $scope.letter = 'A'
+  for(var i=65; i < 91; i++) {
+    $scope.alphabet.push(String.fromCharCode(i))
   }
-  $scope.currentSong = 'yermom'
-  $scope.showSong = function(song) {
-    console.log(song)
-    $scope.currentSong = song
+
+  $scope.setLetter = function(l) {
+    $scope.letter = l
+  }
+  $scope.letterFilter = function(song) {
+    return song.name.charAt(0).toUpperCase() == $scope.letter;
   }
   db.then(function(songs) {
     $scope.songs = songs
-    $scope.song = songs[2]
   })
 }])
 
 bgWeb.controller('song', ['$scope','db','$routeParams', function($scope , db, $routeParams) {
   db.then(function(songs) {
-    $scope.song = songs[$routeParams.id]
+    $scope.song = songs.table[$routeParams.id]
   })
 }])
 
 bgWeb.factory('db', ['$http', function($http) {
   return $http.get('/db.json', {cache: true}).then(function(resp) {
-    return resp.data
+    var songs = resp.data
+    songs.table = {}
+    angular.forEach(songs, function(song) {
+      songs.table[song.id] = song
+    })
+    return songs
   });
 }]);

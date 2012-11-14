@@ -8,20 +8,10 @@ html
 
     include partials
 
-
-    .sidebar
-      - for song in songs
-        .song
-          a(href='/songs/#{song.id}')= song.name
-          p= song.artist
-
     .main
       div(ng-view)
 
-
-      block content
-
-
+    block content
 
     script(src="/vendor/angular.js")
     script(src="/web.js")
