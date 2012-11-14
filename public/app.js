@@ -74,6 +74,17 @@ PB.controller('rootCtrl', ['$scope','db','favs',
     return '<p>' + $scope.song.lyrics.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br />') + '</p>';
   }
 
+  var fontSize = 14
+  $scope.fontSmaller = function() {
+    fontSize -= 1
+    var el = document.querySelector('article')
+    el.style.fontSize = fontSize.toString() + 'px'
+  }
+  $scope.fontLarger = function() {
+    fontSize += 1
+    var el = document.querySelector('article')
+    el.style.fontSize = fontSize.toString() + 'px'
+  }
 
 
 
