@@ -1,9 +1,10 @@
 {
   "name": "bluegrassmobile",
-  "version": "0.0.1-15",
+  "version": "0.0.1-17",
   "author": "Steve Perkins",
   "subdomain": "bluegrassmobile",
   "domains": [
+    "m.bluegrasslyrics.com",
     "mobile.bluegrasslyrics.com"
   ],
   "license": "BSD",
