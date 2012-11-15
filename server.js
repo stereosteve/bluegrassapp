@@ -42,13 +42,12 @@ app.locals.endPartial = function() {
 // Mobile app
 //
 app.get('/', function(req, resp) {
+  /*
   var v = req.query.v
-  if (v !== info.version) {
-    resp.redirect('/?v=' + info.version)
-  }
-  else {
-    resp.render('index.ejs')
-  }
+  if (v !== info.version) resp.redirect('/?v=' + info.version)
+  else resp.render('index.ejs')
+  */
+  resp.render('index.ejs')
 });
 app.get('/offline.appcache', function(req, resp) {
   resp.set('Content-Type', 'text/cache-manifest');
