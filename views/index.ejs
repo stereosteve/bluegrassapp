@@ -145,7 +145,7 @@
         <h3>{{song.name}}</h3>
         <h4>{{song.artist}}</h4>
         <hr />
-        <article ng-bind-html-unsafe="simpleFormat(song.lyrics)"></article>
+        <article style="font-size: {{fontSize}}px" ng-bind-html-unsafe="simpleFormat(song.lyrics)"></article>
         <hr />
       </div>
 
@@ -158,12 +158,11 @@
 
     <script>
       if (!window.location.search) {
-        window.location.search = '?v=<%= info.version %>'
-        return
+        window.location.search = '?v=<%= info.version %>';
       }
-      var ver = window.location.search.replace('?v=', '')
-      if (ver !== '<%= info.version %>') {
-        window.location.search = '?v=<%= info.version %>'
+      else {
+        var ver = window.location.search.replace('?v=', '')
+        if (ver !== '<%= info.version %>') window.location.search = '?v=<%= info.version %>'
       }
     </script>
 
